@@ -4210,6 +4210,36 @@ SOFTWARE. -->
 </style>
 <style id="oms-point-filters-v238">.omsTrackPointFilters{padding:10px;border:1px solid #344357;border-radius:12px;margin-bottom:12px}.omsTrackPointFilters>b{display:block;margin-bottom:8px}.omsTrackColorToggle{display:flex!important;align-items:center;gap:8px}.omsTrackColorToggle input{width:18px!important;height:18px}.omsTrackQualityLegend{display:flex;flex-wrap:wrap;gap:5px 12px;font-size:11px;margin-top:8px}.omsTrackQualityLegend i{font-size:16px;font-style:normal;font-weight:900}.omsTrackPointFilters .omsTrackNotice{font-size:11px;line-height:1.5;margin:8px 0 0}.omsTrackPointFilters details p{margin:6px 0}.omsTrackPoints button[data-track-grade]{text-align:left}</style>
 <style id="oms-home-thumbnails-pr32">.projectThumbImg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:1;opacity:0}.projectThumb.hasThumb .projectThumbImg{opacity:1}.projectThumb.hasThumb:before,.projectThumb.hasThumb:after,.simpleHome .projectThumb.hasThumb:before,.simpleHome .projectThumb.hasThumb:after{display:none}</style>
+<style id="oms-keyboard-shortcuts">
+.shortcutsModalCard{width:min(680px,94vw);max-height:85vh;display:flex;flex-direction:column;background:#171a28;color:#e2e8f0;border:1px solid #2f364b;border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.6);padding:0;overflow:hidden}
+.shortcutsModalHead{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #272d3f;font-weight:800;font-size:16px}
+.shortcutsModalHead button{border:0;background:transparent;color:#8d97ae;font-size:22px;cursor:pointer;line-height:1}
+.shortcutsModalHead button:hover{color:#fff}
+.shortcutsModalSubtitle{padding:10px 20px 0;font-size:12px;color:#8a94a9;line-height:1.4}
+.shortcutsModalBody{padding:14px 20px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;max-height:calc(85vh - 140px)}
+.shortcutCategoryBlock{display:flex;flex-direction:column;gap:6px}
+.shortcutCategoryTitle{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--accent,#50ced0);margin-top:4px}
+.shortcutRow{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#1d2133;border:1px solid #2a3146;border-radius:9px;gap:12px}
+.shortcutRowLabel{font-size:12.5px;font-weight:600;color:#f1f3f8}
+.shortcutRowRight{display:flex;align-items:center;gap:8px}
+.shortcutKbdWrap{display:flex;align-items:center;gap:4px}
+.shortcutKbd{display:inline-flex;align-items:center;justify-content:center;background:#121522;border:1px solid #36415a;border-radius:6px;padding:2px 7px;font-family:inherit;font-size:11px;font-weight:700;color:#e2e8f0;box-shadow:0 2px 0 #111422;min-width:22px}
+.shortcutEditBtn{background:#242a3e;border:1px solid #37415b;border-radius:6px;color:#9fa8bf;padding:3px 7px;cursor:pointer;font-size:12px;display:inline-flex;align-items:center;justify-content:center;transition:all .15s ease}
+.shortcutEditBtn:hover{background:#2c354e;border-color:var(--accent,#50ced0);color:#fff}
+.shortcutsModalFoot{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid #272d3f;background:#141724}
+.shortcutsResetBtn{border:1px solid #3a445d;background:#1e2436;color:#abb6cb;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer}
+.shortcutsResetBtn:hover{color:#ff6b81;border-color:#ff6b81}
+.shortcutsDoneBtn{border:0;background:var(--accent,#50ced0);color:#0c1520;border-radius:8px;padding:7px 18px;font-size:12px;font-weight:800;cursor:pointer}
+.shortcutsDoneBtn:hover{opacity:.92}
+.shortcutRemapCard{width:min(440px,92vw);background:#181c2b;color:#e2e8f0;border:1px solid #363e54;border-radius:14px;padding:18px;box-shadow:0 25px 60px rgba(0,0,0,.7);display:flex;flex-direction:column;gap:12px}
+.remapPromptText{margin:0;font-size:12px;color:#929db2}
+.remapKeyDisplay{padding:16px;background:#111420;border:1px dashed #3a4561;border-radius:10px;font-size:16px;font-weight:700;color:var(--accent,#50ced0);min-height:54px;display:flex;align-items:center;justify-content:center;gap:6px}
+.remapConflictText{color:#ff6b81;font-size:11.5px;min-height:16px;line-height:1.35}
+.remapActions{display:flex;justify-content:flex-end;gap:10px;margin-top:4px}
+.remapCancelBtn{border:1px solid #38425b;background:#202638;color:#a2adbf;border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer}
+.remapSaveBtn{border:0;background:var(--accent,#50ced0);color:#0c1520;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:800;cursor:pointer}
+.remapSaveBtn:disabled{opacity:.4;cursor:not-allowed}
+</style>
 </head>
 <body>
 <div class="app">
@@ -4331,7 +4361,7 @@ SOFTWARE. -->
     <header class="editorTop">
       <button id="backHome" class="topIcon">←</button>
       <div id="editorTitle" class="editorTitle">Tanpa judul<small>1080 × 1920 • 30 fps</small></div>
-      <div class="topActions"><button id="saveProject" class="topIcon" title="Simpan">⤓</button><button id="settingsBtn" class="topIcon">⚙</button><button id="collapseEditorTop" class="topIcon editorTopCollapseBtn" type="button" title="Sembunyikan bilah atas" aria-label="Sembunyikan bilah atas">−</button><button id="restoreEditorTop" class="topIcon restoreEditorTopBtn" type="button" title="Tampilkan bilah atas" aria-label="Tampilkan bilah atas">＋</button><button id="openExport" class="topIcon" title="Export" aria-label="Export">↗</button></div>
+      <div class="topActions"><button id="saveProject" class="topIcon" title="Simpan">⤓</button><button id="settingsBtn" class="topIcon">⚙</button><button id="shortcutsHelpBtn" class="topIcon" title="Pintasan Keyboard (F1 / ?)" aria-label="Pintasan Keyboard">?</button><button id="collapseEditorTop" class="topIcon editorTopCollapseBtn" type="button" title="Sembunyikan bilah atas" aria-label="Sembunyikan bilah atas">−</button><button id="restoreEditorTop" class="topIcon restoreEditorTopBtn" type="button" title="Tampilkan bilah atas" aria-label="Tampilkan bilah atas">＋</button><button id="openExport" class="topIcon" title="Export" aria-label="Export">↗</button></div>
     </header>
     <main class="editorMain">
       <section class="previewArea">
@@ -4407,6 +4437,37 @@ SOFTWARE. -->
       <div class="settingRow"><label>Latar Belakang</label><input id="newBg" type="color" value="#ffffff"></div>
     </div>
     <button id="createProject" class="createBtn">BUAT PROYEK</button>
+  </div>
+</div>
+
+<div id="shortcutsModal" class="modalShade hidden" role="dialog" aria-modal="true" aria-labelledby="shortcutsModalTitle">
+  <div class="modal shortcutsModalCard">
+    <div class="shortcutsModalHead">
+      <span id="shortcutsModalTitle">Pintasan Keyboard</span>
+      <button id="closeShortcutsModal" type="button" aria-label="Tutup">×</button>
+    </div>
+    <div class="shortcutsModalSubtitle" id="shortcutsModalSubtitle">Sesuaikan kombinasi tombol untuk mempercepat alur kerja pengeditan.</div>
+    <div class="shortcutsModalBody" id="shortcutsList"></div>
+    <div class="shortcutsModalFoot">
+      <button id="resetShortcutsBtn" class="shortcutsResetBtn" type="button">Reset ke Bawaan</button>
+      <button id="doneShortcutsBtn" class="shortcutsDoneBtn" type="button">Selesai</button>
+    </div>
+  </div>
+</div>
+
+<div id="shortcutRemapModal" class="modalShade hidden" role="dialog" aria-modal="true" aria-labelledby="remapActionTitle">
+  <div class="modal shortcutRemapCard">
+    <div class="shortcutsModalHead">
+      <span id="remapActionTitle">Ganti Pintasan</span>
+      <button id="closeRemapModal" type="button" aria-label="Tutup">×</button>
+    </div>
+    <p class="remapPromptText" id="remapPromptText">Tekan kombinasi tombol baru di keyboard Anda...</p>
+    <div class="remapKeyDisplay" id="remapKeyDisplay"><kbd class="shortcutKbd">Tekan tombol...</kbd></div>
+    <div class="remapConflictText hidden" id="remapConflictText"></div>
+    <div class="remapActions">
+      <button id="cancelRemapBtn" class="remapCancelBtn" type="button">Batal</button>
+      <button id="saveRemapBtn" class="remapSaveBtn" type="button" disabled>Simpan</button>
+    </div>
   </div>
 </div>
 
@@ -33706,6 +33767,8 @@ function applyHomeLanguage(){
   const code=$('#homeLanguageCode');if(code)code.textContent=lang.code;
   renderLanguageList();
   if(typeof ui!=='undefined'&&ui?.loadProjectList)ui.loadProjectList();
+  if(window.omsShortcutsInitialized&&typeof renderShortcutsList==='function')renderShortcutsList();
+  const helpBtn=$('#shortcutsHelpBtn');if(helpBtn&&window.omsShortcutsInitialized&&typeof getShortcutTr==='function')helpBtn.title=getShortcutTr('modalTitle')+' (F1 / ?)';
 }
 function setHomeLanguage(id){
   if(!HOME_I18N[id])return;
@@ -33991,7 +34054,668 @@ applyHomeLanguage();
 $('#projectInput').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{const text=await f.text(),isXML=/\.xml$/i.test(f.name)||/^\s*</.test(text),raw=isXML?XMLBridge.parse(text,f.name):JSON.parse(text),payload=!isXML&&['open-motion-v3','open-motion-v4'].includes(raw.format)?{project:raw.project,layers:raw.layers,selected:raw.selected,time:raw.time,mode3d:raw.mode3d,cameraView:raw.cameraView,snap:raw.snap}:raw;if(!payload.project||!Array.isArray(payload.layers))throw Error('schema');model.restore(payload,{timeOverride:0});history.clear();ui.authorizeEditorOpen();ui.showEditor();toast(isXML?'XML dimigrasikan ke scene 3D':'Paket proyek dibuka')}catch(err){console.error(err);toast('File proyek/XML tidak valid')}e.target.value=''};
 $('#settingsBtn').onclick=()=>{if(!model.project)return;omsDiagnostics.log('ui','OPEN_SETTINGS','',{time:model.time});ui.setTimelineInspectorScope?.(false);const d=ui.drawerShell('Project & Environment',`<div class="drawerBody propPanel"><div class="true3dCard"><i>4</i><div><b>Open Motion Scene 4</b><small>WebGL • matriks 4×4 • XML interchange • satu file HTML</small></div></div><div class="propRow"><label>Nama</label><input id="projectNameEdit" value="${esc(model.project.name)}"><span></span></div><div class="colorRow"><input id="bgEdit" type="color" value="${model.project.bg}"><input value="Background" disabled></div><div class="switchRow"><span>Grid Dunia 3D</span><input id="gridEdit" type="checkbox" ${model.project.grid?'checked':''}></div><div class="propRow"><label>Playhead</label><select id="playheadModeSelect"><option value="center">Tetap di Tengah</option><option value="moving">Bergerak (Mode Lama)</option></select><span></span></div><div class="miniNote" id="playheadModeHelp">Tetap di Tengah: playhead diam dan timeline bergerak saat playback/scrub.</div><div class="propRow"><label>Layout 9:16</label><select id="portraitLayoutSelect"><option value="side">Samping (Baru)</option><option value="classic">Horizontal (Klasik)</option></select><span></span></div><div class="miniNote" id="portraitLayoutHelp">Khusus komposisi 9:16 atau lebih tinggi pada mobile. Pilihan ini disimpan di perangkat.</div><div class="propRow"><label>Kualitas Preview</label><select id="previewQualitySelect"><option value="auto">Otomatis</option><option value="1">Penuh — 100%</option><option value="0.75">Tinggi — 75%</option><option value="0.5">Sedang — 50%</option><option value="0.25">Rendah — 25%</option></select><span></span></div><div class="miniNote" id="previewQualityHelp">Kualitas preview hanya memengaruhi editor. Ekspor tetap memakai kualitas penuh. Scrub video memakai WebCodecs bila tersedia dan fallback otomatis jika tidak didukung.</div><div class="switchRow"><span>Ambient Editor</span><input id="editorAmbientToggle" type="checkbox" ${omsEditorAmbient.enabled?'checked':''}></div><div class="miniNote" id="editorAmbientHelp">Aktif secara default dengan intensitas 100%. Cahaya memakai lapisan latar terpisah; sampling mengikuti frame baru dan berkurang saat playback berat. Intensitas 0% menghentikan sampling. Efek hanya pada UI editor, bukan hasil ekspor. Pilihan disimpan di perangkat.</div><div class="propRow"><label>Intensitas Ambient</label><input id="editorAmbientIntensity" type="range" min="0" max="100" step="5" value="${omsEditorAmbient.intensity}"><span id="editorAmbientIntensityValue">${omsEditorAmbient.intensity}%</span></div><div class="miniNote">Mengatur kekuatan warna ambient tanpa mengubah tampilan dasar UI. Piksel putih/abu terang otomatis diberi bobot lebih kecil agar tidak mendominasi ambient.</div><div class="propRow"><label>Diagnostik</label><button id="openDiagnosticsHub" class="preRenderSettingButton" type="button">BUKA</button><span id="diagnosticSettingState">Nonaktif</span></div><div class="miniNote">Diagnostik modular untuk Timeline, Playback, Video, Audio, Render, Export, GPU Fast, Cache, Memory, dan UI. Semua nonaktif secara default; aktifkan hanya kategori yang sedang diuji.</div><div class="propRow"><label>Uji 1080p</label><select id="nativeCapacityTestTarget"><option value="auto">Auto 4→16</option><option value="4">4 layer</option><option value="6">6 layer</option><option value="8">8 layer</option><option value="10">10 layer</option><option value="12">12 layer</option><option value="16">16 layer</option></select><button id="runNativeCapacityBenchmark" class="diamond" type="button" title="Uji kapasitas native 1080p">▶</button></div><div class="miniNote" id="nativeCapacityStatus">${omsNativeCapacity.summary()}</div><div class="miniNote">Adaptive N-Source mempertahankan sebanyak mungkin video pada decoder native. Saat beban melewati kapasitas terukur, Open Motion menurunkan cadence upload texture layer berprioritas rendah secara progresif sebelum memakai fallback WebCodecs.</div><div class="switchRow"><span>Pre-render Timeline</span><input id="timelinePreRenderToggle" type="checkbox" ${timelinePreRender.enabled?'checked':''}></div><div class="propRow"><label>Mode Pre-render</label><select id="timelinePreRenderMode"><option value="normal">Normal — Real-time</option><option value="follow">Real-time Mengejar — Tanpa Celah</option><option value="semi">Semi Kuat — Prioritas Cache</option><option value="complete">Kuat — Tanpa Lewat Frame</option></select><span></span></div><div class="miniNote" id="timelinePreRenderModeHelp">Normal menjaga real-time dan boleh melewatkan cache jika decoder tertinggal. Real-time Mengejar juga menjaga playhead/audio real-time, tetapi pre-render mempertahankan antrean frame berurutan di belakang playhead dan mengejar tanpa sengaja membuat celah. Semi Kuat memberi frame yang hilang waktu singkat untuk masuk cache sehingga playback boleh sedikit melambat. Kuat menunggu setiap frame. Tombol Rekam Pre-render tetap memaksa Mode Kuat selama aktif.</div><div class="propRow"><label>Mode Cache</label><select id="timelinePreRenderStorage"><option value="lossless">Lossless — Hemat RAM</option><option value="classic">Klasik — RAM Besar, CPU Ringan</option><option value="video">Video HW — Hemat RAM & CPU</option></select><span></span></div><div class="miniNote" id="timelinePreRenderStorageHelp">Lossless memakai Hot ImageBitmap + PNG lossless. Klasik menyimpan ImageBitmap mentah dengan CPU paling ringan. Video HW memakai WebCodecs prefer-hardware untuk kompresi preview berkualitas tinggi: RAM jauh lebih hemat tanpa biaya PNG yang berat; ekspor tidak terpengaruh. ⚠️ Kompatibilitas Video HW bergantung pada browser, SoC, dan driver codec; prefer-hardware tidak menjamin encoder hardware benar-benar dipakai. Jika jalur video tidak didukung atau gagal, Open Motion akan fallback ke Cache Klasik.</div><div class="propRow"><label>Cache Preview</label><button id="clearTimelinePreRender" class="preRenderSettingButton" type="button">BERSIHKAN</button><span></span></div><div class="miniNote" id="timelinePreRenderStatus">${timelinePreRender.statsText()}</div><div class="miniNote">Pre-render Timeline nonaktif secara default agar preview live mendapat prioritas penuh. Jika diaktifkan manual, pilihan disimpan di perangkat. Pada mobile/touch, Mode Normal dan Real-time Mengejar tidak menjalankan decoder pre-render kedua selama Play; Semi Kuat, Kuat, dan Rekam tetap tersedia sebagai mode eksplisit. Garis hijau menunjukkan frame yang benar-benar masih tersedia.</div><div class="miniNote">Editor Camera hanya mengubah sudut pandang kerja. PNG dan video selalu dirender melalui Main Camera tanpa grid atau gizmo editor.</div></div>`);ui.drawerMode='settings';timeline.refreshKeyframeInteractionState?.();$('#projectNameEdit').onchange=e=>{history.push();model.project.name=e.target.value;ui.syncProject()};$('#bgEdit').oninput=e=>{timelinePreRender.invalidate('background');model.project.bg=e.target.value;renderer.render()};$('#gridEdit').onchange=e=>{timelinePreRender.invalidate('grid');model.project.grid=e.target.checked;renderer.render()};const ph=$('#playheadModeSelect');ph.value=model.project.playheadMode||'center';const updateHelp=()=>{$('#playheadModeHelp').textContent=ph.value==='center'?'Tetap di Tengah: playhead diam dan timeline bergerak saat playback/scrub.':'Bergerak (Mode Lama): timeline tetap pada posisi scroll dan playhead bergerak mengikuti waktu.'};updateHelp();ph.onchange=e=>{history.push();model.project.playheadMode=e.target.value;const sc=$('#timelineScroll');if(model.project.playheadMode==='moving')sc.scrollLeft=0;timeline.rebuild();renderer.render();updateHelp()};const portraitSel=$('#portraitLayoutSelect');if(portraitSel){portraitSel.value=portraitSideControls?.layoutPreference?.()||'side';portraitSel.onchange=e=>{portraitSideControls?.setLayoutPreference?.(e.target.value);const changed=portraitSideControls?.sync?.({refit:false});requestAnimationFrame(()=>{ui.fit();timeline.rebuild();if(editorSplit?.isDrawerOpen?.())editorSplit.autoForDrawer(0);else editorSplit?.scheduleFit?.({render:true});if(changed)renderer.render()})}}const diagBtn=$('#openDiagnosticsHub');if(diagBtn)diagBtn.onclick=()=>omsDiagnostics.openPanel();omsDiagnostics.updateSettingState();omsNativeCapacity.updateSettingState();const nativeBenchBtn=$('#runNativeCapacityBenchmark'),nativeBenchTarget=$('#nativeCapacityTestTarget');if(nativeBenchBtn)nativeBenchBtn.onclick=()=>omsNativeBenchmark.open(nativeBenchTarget?.value||'auto');const previewSel=$('#previewQualitySelect'),previewHelp=$('#previewQualityHelp');if(previewSel){previewSel.value=omsPreviewQualityPreference();const updatePreviewHelp=()=>{if(previewHelp)previewHelp.textContent=`Kualitas preview editor saat ini ${omsPreviewQualityPercent()}%. Ekspor tetap kualitas penuh. Scrub video memakai WebCodecs bila tersedia dan fallback otomatis jika tidak didukung.`};updatePreviewHelp();previewSel.onchange=e=>{omsSetPreviewQuality(e.target.value);updatePreviewHelp();toast(`Kualitas preview ${omsPreviewQualityPercent()}%`)}}const ambientToggle=$('#editorAmbientToggle'),ambientHelp=$('#editorAmbientHelp');if(ambientToggle){ambientToggle.checked=!!omsEditorAmbient.enabled;ambientToggle.onchange=e=>{const enabled=omsEditorAmbient.setEnabled(e.target.checked);if(ambientHelp)ambientHelp.textContent=enabled?'Aktif • workspace mengikuti warna komposisi dengan sampling ±2 detik dan transisi ±2,4 detik. Hanya UI editor; ekspor tidak terpengaruh.':'Ambient Editor nonaktif. Aktifkan untuk membuat warna workspace mengikuti komposisi dengan sampling berkala dan transisi lambat; efek hanya pada UI editor dan tidak masuk ke hasil ekspor. Pilihan disimpan di perangkat.';toast(enabled?'Ambient Editor aktif':'Ambient Editor nonaktif')}}const ambientIntensity=$('#editorAmbientIntensity'),ambientIntensityValue=$('#editorAmbientIntensityValue');if(ambientIntensity){ambientIntensity.value=String(omsEditorAmbient.intensity);const updateAmbientIntensity=()=>{const v=omsEditorAmbient.setIntensity(ambientIntensity.value);if(ambientIntensityValue)ambientIntensityValue.textContent=`${v}%`};ambientIntensity.oninput=updateAmbientIntensity;ambientIntensity.onchange=updateAmbientIntensity}const preRenderToggle=$('#timelinePreRenderToggle');if(preRenderToggle)preRenderToggle.onchange=e=>{const wasPlaying=model.playing;if(wasPlaying)clock.stop({continuePreRender:false});const enabled=timelinePreRender.setEnabled(e.target.checked);omsDiagnostics.log('cache','PRERENDER_TOGGLE',enabled?'ON':'OFF',{mode:timelinePreRender.mode,storage:timelinePreRender.storageMode});toast(enabled?'Pre-render timeline aktif':'Pre-render timeline nonaktif');if(wasPlaying)clock.start()};const preRenderMode=$('#timelinePreRenderMode'),preRenderModeHelp=$('#timelinePreRenderModeHelp');if(preRenderMode){preRenderMode.value=timelinePreRender.mode;const updatePreRenderModeHelp=()=>{if(!preRenderModeHelp)return;if(preRenderMode.value==='complete')preRenderModeHelp.textContent='Kuat: setiap frame wajib masuk cache sebelum timeline maju. Area yang belum tercache boleh melambat dan hening agar audio tidak lari; saat playhead kembali ke area cache yang siap, audio otomatis diputar sinkron.';else if(preRenderMode.value==='semi')preRenderModeHelp.textContent='Semi Kuat: setiap frame yang hilang diberi waktu singkat untuk exact seek + capture. Playback boleh sedikit melambat dan audio dapat tertahan sesaat, tetapi satu frame berat tidak bisa menghentikan playback tanpa batas.';else if(preRenderMode.value==='follow')preRenderModeHelp.textContent='Real-time Mengejar: playhead dan audio tetap real-time. Pre-render B-frame-safe berjalan sebagai cursor berurutan di belakang playhead; jika perangkat lambat garis hijau akan tertinggal, bukan melompat ke depan dan meninggalkan celah. Worker terus mengejar sampai menyamai bagian timeline yang sudah dilewati.';else preRenderModeHelp.textContent='Normal: playback dan audio tetap real-time, tetapi frame yang masuk pre-render didecode melalui pipeline sequential presentation-order yang sama dengan Kuat/Rekam agar video B-frame aman. Jika decoder tidak sempat mengejar, frame cache boleh terlewat tanpa memperlambat playback.'};updatePreRenderModeHelp();preRenderMode.onchange=e=>{const wasPlaying=model.playing;if(wasPlaying)clock.stop({continuePreRender:false});const mode=timelinePreRender.setMode(e.target.value);omsDiagnostics.log('cache','PRERENDER_MODE',mode,{enabled:timelinePreRender.enabled});updatePreRenderModeHelp();toast(mode==='complete'?'Pre-render Kuat aktif':mode==='semi'?'Pre-render Semi Kuat aktif':mode==='follow'?'Pre-render Real-time Mengejar aktif':'Pre-render Normal aktif');if(wasPlaying)clock.start()}}const preRenderStorage=$('#timelinePreRenderStorage'),preRenderStorageHelp=$('#timelinePreRenderStorageHelp');if(preRenderStorage){preRenderStorage.value=timelinePreRender.storageMode;const updatePreRenderStorageHelp=()=>{if(!preRenderStorageHelp)return;preRenderStorageHelp.textContent=preRenderStorage.value==='classic'?'Klasik: semua frame cache tetap sebagai ImageBitmap mentah. CPU paling ringan, tetapi RAM jauh lebih besar dan frame lama dieviksi saat batas tercapai.':preRenderStorage.value==='video'?'Video HW: frame dekat playhead tetap ImageBitmap, frame jauh dikompresi sebagai keyframe video WebCodecs dengan preferensi hardware. RAM dan CPU biasanya jauh lebih hemat daripada PNG; kualitas preview sangat tinggi tetapi tidak pixel-identical. Ekspor tetap asli. ⚠️ Kompatibilitas bergantung pada browser, SoC, dan driver codec. prefer-hardware hanya preferensi dan tidak menjamin encoder hardware digunakan; jika encoder/decoder tidak didukung atau gagal, Open Motion otomatis fallback ke Cache Klasik.':'Lossless: frame dekat playhead tetap ImageBitmap, frame jauh dikompresi PNG lossless. FPS/kualitas pixel cache tetap sama, RAM lebih hemat dengan biaya CPU tambahan.'};updatePreRenderStorageHelp();preRenderStorage.onchange=e=>{const wasPlaying=model.playing;if(wasPlaying)clock.stop({continuePreRender:false});const mode=timelinePreRender.setStorageMode(e.target.value);omsDiagnostics.log('cache','CACHE_STORAGE_MODE',mode,{enabled:timelinePreRender.enabled});updatePreRenderStorageHelp();renderer.render();toast(mode==='classic'?'Cache Klasik aktif • CPU paling ringan':mode==='video'?'Cache Video HW aktif • RAM & CPU hemat':'Cache Lossless aktif • RAM lebih hemat');if(wasPlaying)clock.start()}}const clearPreRender=$('#clearTimelinePreRender');if(clearPreRender)clearPreRender.onclick=()=>{omsDiagnostics.log('cache','CACHE_CLEAR','manual',{stats:timelinePreRender.statsText?.()});timelinePreRender.clear('manual');renderer.render();toast('Cache pre-render dibersihkan')}};
 
-document.addEventListener('keydown',e=>{const tag=document.activeElement?.tagName;if(['INPUT','SELECT','TEXTAREA'].includes(tag))return;if(e.key==='Escape'&&ui.projectSelectionActive?.()){e.preventDefault();ui.exitProjectSelection();return}if(e.code==='Space'){e.preventDefault();clock.toggle()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?ui.redoAction():ui.undoAction()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();ui.saveLocal()}if(e.key==='Delete'&&ui.projectSelectionActive?.()){e.preventDefault();ui.deleteSelectedProjects();return}if(e.key==='Delete'&&model.selected){history.push();model.removeLayer(model.selected);ui.rebuildAll()}});
+// === OPEN MOTION KEYBOARD SHORTCUTS & CUSTOM REMAPPING ===
+var OMS_DEFAULT_SHORTCUTS = {
+  playPause:     { code: 'Space',      ctrl: false, shift: false, alt: false, category: 'playback' },
+  stepBack1:     { code: 'ArrowLeft',  ctrl: false, shift: false, alt: false, category: 'timeline' },
+  stepForward1:  { code: 'ArrowRight', ctrl: false, shift: false, alt: false, category: 'timeline' },
+  stepBack10:    { code: 'ArrowLeft',  ctrl: false, shift: true,  alt: false, category: 'timeline' },
+  stepForward10: { code: 'ArrowRight', ctrl: false, shift: true,  alt: false, category: 'timeline' },
+  goToStart:     { code: 'Home',       ctrl: false, shift: false, alt: false, category: 'timeline' },
+  goToEnd:       { code: 'End',        ctrl: false, shift: false, alt: false, category: 'timeline' },
+  undo:          { code: 'KeyZ',       ctrl: true,  shift: false, alt: false, category: 'editing' },
+  redo:          { code: 'KeyZ',       ctrl: true,  shift: true,  alt: false, category: 'editing' },
+  save:          { code: 'KeyS',       ctrl: true,  shift: false, alt: false, category: 'editing' },
+  duplicate:     { code: 'KeyD',       ctrl: true,  shift: false, alt: false, category: 'editing' },
+  delete:        { code: 'Delete',     ctrl: false, shift: false, alt: false, category: 'editing' },
+  help:          { code: 'F1',         ctrl: false, shift: false, alt: false, category: 'general' }
+};
+
+var OMS_SHORTCUT_I18N = {
+  id: {
+    modalTitle: 'Pintasan Keyboard',
+    modalSubtitle: 'Sesuaikan kombinasi tombol untuk mempercepat alur kerja pengeditan.',
+    category_playback: 'Pemutaran',
+    category_timeline: 'Garis Waktu & Navigasi',
+    category_editing: 'Pengeditan',
+    category_general: 'Bantuan',
+    act_playPause: 'Putar / Jeda',
+    act_stepBack1: 'Mundur 1 Frame',
+    act_stepForward1: 'Maju 1 Frame',
+    act_stepBack10: 'Mundur 10 Frame',
+    act_stepForward10: 'Maju 10 Frame',
+    act_goToStart: 'Lompat ke Awal',
+    act_goToEnd: 'Lompat ke Akhir',
+    act_undo: 'Urungkan',
+    act_redo: 'Ulangi',
+    act_save: 'Simpan Proyek',
+    act_duplicate: 'Duplikat Layer',
+    act_delete: 'Hapus Pilihan',
+    act_help: 'Buka Panduan Pintasan',
+    resetBtn: 'Reset ke Bawaan',
+    doneBtn: 'Selesai',
+    remapTitle: 'Ganti Pintasan',
+    remapPrompt: 'Tekan kombinasi tombol baru di keyboard Anda...',
+    conflictWarning: 'Tombol ini sudah digunakan untuk: {action}',
+    cancelBtn: 'Batal',
+    saveBtn: 'Simpan',
+    toastSaved: 'Pintasan keyboard berhasil diperbarui',
+    toastReset: 'Pintasan keyboard dikembalikan ke bawaan'
+  },
+  en: {
+    modalTitle: 'Keyboard Shortcuts',
+    modalSubtitle: 'Customize key combinations to speed up your editing workflow.',
+    category_playback: 'Playback',
+    category_timeline: 'Timeline & Navigation',
+    category_editing: 'Editing',
+    category_general: 'Help',
+    act_playPause: 'Play / Pause',
+    act_stepBack1: 'Step Back 1 Frame',
+    act_stepForward1: 'Step Forward 1 Frame',
+    act_stepBack10: 'Step Back 10 Frames',
+    act_stepForward10: 'Step Forward 10 Frames',
+    act_goToStart: 'Jump to Start',
+    act_goToEnd: 'Jump to End',
+    act_undo: 'Undo',
+    act_redo: 'Redo',
+    act_save: 'Save Project',
+    act_duplicate: 'Duplicate Layer',
+    act_delete: 'Delete Selected',
+    act_help: 'Open Shortcuts Guide',
+    resetBtn: 'Reset to Defaults',
+    doneBtn: 'Done',
+    remapTitle: 'Change Shortcut',
+    remapPrompt: 'Press new key combination on your keyboard...',
+    conflictWarning: 'This key is already used for: {action}',
+    cancelBtn: 'Cancel',
+    saveBtn: 'Save',
+    toastSaved: 'Keyboard shortcuts updated',
+    toastReset: 'Keyboard shortcuts reset to defaults'
+  },
+  zh: {
+    modalTitle: '键盘快捷键',
+    modalSubtitle: '自定义按键组合以提高编辑效率。',
+    category_playback: '播放',
+    category_timeline: '时间轴与导航',
+    category_editing: '编辑',
+    category_general: '帮助',
+    act_playPause: '播放 / 暂停',
+    act_stepBack1: '后退 1 帧',
+    act_stepForward1: '前进 1 帧',
+    act_stepBack10: '后退 10 帧',
+    act_stepForward10: '前进 10 帧',
+    act_goToStart: '跳转到开头',
+    act_goToEnd: '跳转到结尾',
+    act_undo: '撤销',
+    act_redo: '重做',
+    act_save: '保存项目',
+    act_duplicate: '复制图层',
+    act_delete: '删除所选',
+    act_help: '快捷键指南',
+    resetBtn: '恢复默认',
+    doneBtn: '完成',
+    remapTitle: '更改快捷键',
+    remapPrompt: '请在键盘上按下新的按键组合...',
+    conflictWarning: '此按键已被用于：{action}',
+    cancelBtn: '取消',
+    saveBtn: '保存',
+    toastSaved: '快捷键已更新',
+    toastReset: '快捷键已恢复默认'
+  },
+  ja: {
+    modalTitle: 'キーボードショートカット',
+    modalSubtitle: 'キーの組み合わせをカスタマイズして編集作業を効率化します。',
+    category_playback: '再生',
+    category_timeline: 'タイムラインと移動',
+    category_editing: '編集',
+    category_general: 'ヘルプ',
+    act_playPause: '再生 / 一時停止',
+    act_stepBack1: '1 フレーム戻る',
+    act_stepForward1: '1 フレーム進む',
+    act_stepBack10: '10 フレーム戻る',
+    act_stepForward10: '10 フレーム進む',
+    act_goToStart: '先頭へ移動',
+    act_goToEnd: '末尾へ移動',
+    act_undo: '元に戻す',
+    act_redo: 'やり直し',
+    act_save: 'プロジェクトを保存',
+    act_duplicate: 'レイヤーを複製',
+    act_delete: '選択項目を削除',
+    act_help: 'ショートカットガイド',
+    resetBtn: '初期設定に戻す',
+    doneBtn: '完了',
+    remapTitle: 'ショートカットを変更',
+    remapPrompt: '新しいキーの組み合わせを押してください...',
+    conflictWarning: 'このキーは既に使用されています: {action}',
+    cancelBtn: 'キャンセル',
+    saveBtn: '保存',
+    toastSaved: 'ショートカットを更新しました',
+    toastReset: 'ショートカットを初期設定に戻しました'
+  },
+  ms: {
+    modalTitle: 'Pintasan Papan Kekunci',
+    modalSubtitle: 'Sesuaikan gabungan kekunci untuk mempercepatkan aliran kerja penyuntingan.',
+    category_playback: 'Main Semula',
+    category_timeline: 'Garis Masa & Navigasi',
+    category_editing: 'Penyuntingan',
+    category_general: 'Bantuan',
+    act_playPause: 'Main / Jeda',
+    act_stepBack1: 'Undur 1 Bingkai',
+    act_stepForward1: 'Maju 1 Bingkai',
+    act_stepBack10: 'Undur 10 Bingkai',
+    act_stepForward10: 'Maju 10 Bingkai',
+    act_goToStart: 'Lompat ke Mula',
+    act_goToEnd: 'Lompat ke Akhir',
+    act_undo: 'Buat Asal',
+    act_redo: 'Buat Semula',
+    act_save: 'Simpan Projek',
+    act_duplicate: 'Duplikasi Lapisan',
+    act_delete: 'Padam Pilihan',
+    act_help: 'Panduan Pintasan',
+    resetBtn: 'Tetapkan Semula Bawaan',
+    doneBtn: 'Selesai',
+    remapTitle: 'Tukar Pintasan',
+    remapPrompt: 'Tekan gabungan kekunci baharu pada papan kekunci anda...',
+    conflictWarning: 'Kekunci ini telah digunakan untuk: {action}',
+    cancelBtn: 'Batal',
+    saveBtn: 'Simpan',
+    toastSaved: 'Pintasan papan kekunci dikemas kini',
+    toastReset: 'Pintasan papan kekunci dikembalikan kepada bawaan'
+  },
+  th: {
+    modalTitle: 'แป้นพิมพ์ลัด',
+    modalSubtitle: 'ปรับแต่งคีย์ลัดเพื่อเพิ่มความเร็วในการทำงานตัดต่อ',
+    category_playback: 'การเล่น',
+    category_timeline: 'ไทม์ไลน์และการนำทาง',
+    category_editing: 'การแก้ไข',
+    category_general: 'ช่วยเหลือ',
+    act_playPause: 'เล่น / หยุดชั่วคราว',
+    act_stepBack1: 'ย้อนหลัง 1 เฟรม',
+    act_stepForward1: 'ไปข้างหน้า 1 เฟรม',
+    act_stepBack10: 'ย้อนหลัง 10 เฟรม',
+    act_stepForward10: 'ไปข้างหน้า 10 เฟรม',
+    act_goToStart: 'ไปที่จุดเริ่มต้น',
+    act_goToEnd: 'ไปที่จุดสิ้นสุด',
+    act_undo: 'เลิกทำ',
+    act_redo: 'ทำซ้ำ',
+    act_save: 'บันทึกโปรเจกต์',
+    act_duplicate: 'ทำซ้ำเลเยอร์',
+    act_delete: 'ลบรายการที่เลือก',
+    act_help: 'คู่มือแป้นพิมพ์ลัด',
+    resetBtn: 'รีเซ็ตเป็นค่าเริ่มต้น',
+    doneBtn: 'เสร็จสิ้น',
+    remapTitle: 'เปลี่ยนแป้นพิมพ์ลัด',
+    remapPrompt: 'กดปุ่มคีย์ลัดใหม่บนแป้นพิมพ์ของคุณ...',
+    conflictWarning: 'ปุ่มนี้ถูกใช้งานแล้วสำหรับ: {action}',
+    cancelBtn: 'ยกเลิก',
+    saveBtn: 'บันทึก',
+    toastSaved: 'อัปเดตแป้นพิมพ์ลัดเรียบร้อยแล้ว',
+    toastReset: 'รีเซ็ตแป้นพิมพ์ลัดเป็นค่าเริ่มต้นแล้ว'
+  },
+  vi: {
+    modalTitle: 'Phím tắt bàn phím',
+    modalSubtitle: 'Tùy chỉnh tổ hợp phím để tăng tốc quy trình chỉnh sửa.',
+    category_playback: 'Phát',
+    category_timeline: 'Dòng thời gian & Điều hướng',
+    category_editing: 'Chỉnh sửa',
+    category_general: 'Trợ giúp',
+    act_playPause: 'Phát / Tạm dừng',
+    act_stepBack1: 'Lùi 1 khung hình',
+    act_stepForward1: 'Tiến 1 khung hình',
+    act_stepBack10: 'Lùi 10 khung hình',
+    act_stepForward10: 'Tiến 10 khung hình',
+    act_goToStart: 'Về đầu',
+    act_goToEnd: 'Về cuối',
+    act_undo: 'Hoàn tác',
+    act_redo: 'Làm lại',
+    act_save: 'Lưu dự án',
+    act_duplicate: 'Nhân đôi lớp',
+    act_delete: 'Xóa mục đã chọn',
+    act_help: 'Hướng dẫn phím tắt',
+    resetBtn: 'Đặt lại về mặc định',
+    doneBtn: 'Xong',
+    remapTitle: 'Đổi phím tắt',
+    remapPrompt: 'Nhấn tổ hợp phím mới trên bàn phím của bạn...',
+    conflictWarning: 'Phím này đã được dùng cho: {action}',
+    cancelBtn: 'Hủy',
+    saveBtn: 'Lưu',
+    toastSaved: 'Đã cập nhật phím tắt',
+    toastReset: 'Đã đặt lại phím tắt về mặc định'
+  },
+  fil: {
+    modalTitle: 'Mga Shortcut sa Keyboard',
+    modalSubtitle: 'I-customize ang mga kumbinasyon ng key para mapabilis ang pag-edit.',
+    category_playback: 'Pag-playback',
+    category_timeline: 'Timeline at Pag-navigate',
+    category_editing: 'Pag-edit',
+    category_general: 'Tulong',
+    act_playPause: 'I-play / I-pause',
+    act_stepBack1: 'Umatras ng 1 Frame',
+    act_stepForward1: 'Sumulong ng 1 Frame',
+    act_stepBack10: 'Umatras ng 10 Frame',
+    act_stepForward10: 'Sumulong ng 10 Frame',
+    act_goToStart: 'Pumunta sa Simula',
+    act_goToEnd: 'Pumunta sa Dulo',
+    act_undo: 'I-undo',
+    act_redo: 'I-redo',
+    act_save: 'I-save ang Proyekto',
+    act_duplicate: 'I-duplicate ang Layer',
+    act_delete: 'Tanggalin ang Napili',
+    act_help: 'Gabay sa Shortcut',
+    resetBtn: 'I-reset sa Default',
+    doneBtn: 'Tapos na',
+    remapTitle: 'Palitan ang Shortcut',
+    remapPrompt: 'Pindutin ang bagong key combination sa iyong keyboard...',
+    conflictWarning: 'Nagamit na ang key na ito para sa: {action}',
+    cancelBtn: 'Kanselahin',
+    saveBtn: 'I-save',
+    toastSaved: 'Na-update ang mga shortcut',
+    toastReset: 'Na-reset ang mga shortcut sa default'
+  },
+  pt: {
+    modalTitle: 'Atalhos de Teclado',
+    modalSubtitle: 'Personalize combinações de teclas para agilizar o fluxo de edição.',
+    category_playback: 'Reprodução',
+    category_timeline: 'Linha do Tempo e Navegação',
+    category_editing: 'Edição',
+    category_general: 'Ajuda',
+    act_playPause: 'Reproduzir / Pausar',
+    act_stepBack1: 'Voltar 1 Quadro',
+    act_stepForward1: 'Avançar 1 Quadro',
+    act_stepBack10: 'Voltar 10 Quadros',
+    act_stepForward10: 'Avançar 10 Quadros',
+    act_goToStart: 'Ir para o Início',
+    act_goToEnd: 'Ir para o Fim',
+    act_undo: 'Desfazer',
+    act_redo: 'Refazer',
+    act_save: 'Salvar Projeto',
+    act_duplicate: 'Duplicar Camada',
+    act_delete: 'Excluir Selecionado',
+    act_help: 'Guia de Atalhos',
+    resetBtn: 'Restaurar Padrões',
+    doneBtn: 'Concluído',
+    remapTitle: 'Alterar Atalho',
+    remapPrompt: 'Pressione a nova combinação de teclas no teclado...',
+    conflictWarning: 'Esta tecla já está em uso para: {action}',
+    cancelBtn: 'Cancelar',
+    saveBtn: 'Salvar',
+    toastSaved: 'Atalhos atualizados',
+    toastReset: 'Atalhos restaurados para o padrão'
+  }
+};
+
+function getShortcutTr(key) {
+  if (typeof OMS_SHORTCUT_I18N === 'undefined' || !OMS_SHORTCUT_I18N) return key;
+  const lang = (typeof homeLanguage !== 'undefined' && homeLanguage) ? homeLanguage : 'en';
+  return OMS_SHORTCUT_I18N[lang]?.[key] ?? OMS_SHORTCUT_I18N.en?.[key] ?? OMS_SHORTCUT_I18N.id?.[key] ?? key;
+}
+
+var activeShortcuts = (() => {
+  try {
+    const saved = localStorage.getItem('oms_keyboard_shortcuts');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return { ...OMS_DEFAULT_SHORTCUTS, ...parsed };
+    }
+  } catch(e) {}
+  return JSON.parse(JSON.stringify(OMS_DEFAULT_SHORTCUTS));
+})();
+
+function formatShortcutKey(s) {
+  const parts = [];
+  if (s.ctrl) parts.push(navigator.platform?.includes('Mac') ? 'Cmd' : 'Ctrl');
+  if (s.alt) parts.push('Alt');
+  if (s.shift) parts.push('Shift');
+  let name = s.code || s.key || '';
+  if (name.startsWith('Key')) name = name.slice(3);
+  else if (name.startsWith('Digit')) name = name.slice(5);
+  else if (name === 'ArrowLeft') name = '←';
+  else if (name === 'ArrowRight') name = '→';
+  else if (name === 'ArrowUp') name = '↑';
+  else if (name === 'ArrowDown') name = '↓';
+  else if (name === 'Space') name = 'Space';
+  else if (name === 'Delete') name = 'Del';
+  parts.push(name);
+  return parts;
+}
+
+function renderShortcutsList() {
+  if (typeof activeShortcuts === 'undefined' || !activeShortcuts) return;
+  const container = $('#shortcutsList');
+  if (!container) return;
+  const categories = [
+    { id: 'playback', titleKey: 'category_playback' },
+    { id: 'timeline', titleKey: 'category_timeline' },
+    { id: 'editing', titleKey: 'category_editing' },
+    { id: 'general', titleKey: 'category_general' }
+  ];
+
+  let html = '';
+  for (const cat of categories) {
+    const catActions = Object.entries(activeShortcuts).filter(([k, v]) => v.category === cat.id);
+    if (!catActions.length) continue;
+    html += `<div class="shortcutCategoryBlock">
+      <div class="shortcutCategoryTitle">${getShortcutTr(cat.titleKey)}</div>`;
+    for (const [actionId, sc] of catActions) {
+      const label = getShortcutTr(`act_${actionId}`);
+      const keyParts = formatShortcutKey(sc);
+      const kbdHtml = keyParts.map(k => `<kbd class="shortcutKbd">${k}</kbd>`).join(' + ');
+      html += `<div class="shortcutRow" data-action="${actionId}">
+        <span class="shortcutRowLabel">${label}</span>
+        <div class="shortcutRowRight">
+          <div class="shortcutKbdWrap">${kbdHtml}</div>
+          <button type="button" class="shortcutEditBtn" data-edit-action="${actionId}" title="${getShortcutTr('remapTitle')}" aria-label="${getShortcutTr('remapTitle')}">✎</button>
+        </div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+  container.innerHTML = html;
+
+  container.querySelectorAll('[data-edit-action]').forEach(btn => {
+    btn.onclick = () => openRemapModal(btn.dataset.editAction);
+  });
+
+  const titleEl = $('#shortcutsModalTitle');
+  if (titleEl) titleEl.textContent = getShortcutTr('modalTitle');
+  const subEl = $('#shortcutsModalSubtitle');
+  if (subEl) subEl.textContent = getShortcutTr('modalSubtitle');
+  const resetBtn = $('#resetShortcutsBtn');
+  if (resetBtn) resetBtn.textContent = getShortcutTr('resetBtn');
+  const doneBtn = $('#doneShortcutsBtn');
+  if (doneBtn) doneBtn.textContent = getShortcutTr('doneBtn');
+}
+
+function openShortcutsModal() {
+  renderShortcutsList();
+  $('#shortcutsModal')?.classList.remove('hidden');
+}
+
+function closeShortcutsModal() {
+  $('#shortcutsModal')?.classList.add('hidden');
+}
+
+function toggleShortcutsModal() {
+  const modal = $('#shortcutsModal');
+  if (!modal) return;
+  modal.classList.contains('hidden') ? openShortcutsModal() : closeShortcutsModal();
+}
+
+var currentRemapAction = null;
+var pendingKeyCombo = null;
+
+function openRemapModal(actionId) {
+  currentRemapAction = actionId;
+  pendingKeyCombo = null;
+  const remapModal = $('#shortcutRemapModal');
+  if (!remapModal) return;
+  const titleEl = $('#remapActionTitle');
+  if (titleEl) titleEl.textContent = `${getShortcutTr('remapTitle')}: ${getShortcutTr(`act_${actionId}`)}`;
+  const promptEl = $('#remapPromptText');
+  if (promptEl) promptEl.textContent = getShortcutTr('remapPrompt');
+  const keyDisplay = $('#remapKeyDisplay');
+  if (keyDisplay) keyDisplay.innerHTML = `<kbd class="shortcutKbd">${getShortcutTr('remapPrompt')}</kbd>`;
+  const warnEl = $('#remapConflictText');
+  if (warnEl) {
+    warnEl.textContent = '';
+    warnEl.classList.add('hidden');
+  }
+  const saveBtn = $('#saveRemapBtn');
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.textContent = getShortcutTr('saveBtn');
+  }
+  const cancelBtn = $('#cancelRemapBtn');
+  if (cancelBtn) cancelBtn.textContent = getShortcutTr('cancelBtn');
+  remapModal.classList.remove('hidden');
+}
+
+function closeRemapModal() {
+  $('#shortcutRemapModal')?.classList.add('hidden');
+  currentRemapAction = null;
+  pendingKeyCombo = null;
+}
+
+function checkShortcutConflict(combo, actionId) {
+  for (const [otherId, s] of Object.entries(activeShortcuts)) {
+    if (otherId === actionId) continue;
+    if (s.ctrl === combo.ctrl && s.shift === combo.shift && s.alt === combo.alt && s.code.toLowerCase() === combo.code.toLowerCase()) {
+      return otherId;
+    }
+  }
+  return null;
+}
+
+window.addEventListener('keydown', e => {
+  const remapModal = $('#shortcutRemapModal');
+  if (!remapModal || remapModal.classList.contains('hidden')) return;
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (e.key === 'Escape') {
+    closeRemapModal();
+    return;
+  }
+
+  const isModifier = ['Control', 'Shift', 'Alt', 'Meta'].includes(e.key);
+  const ctrl = !!(e.ctrlKey || e.metaKey);
+  const shift = !!e.shiftKey;
+  const alt = !!e.altKey;
+
+  if (isModifier) {
+    const mods = [];
+    if (ctrl) mods.push(navigator.platform?.includes('Mac') ? 'Cmd' : 'Ctrl');
+    if (alt) mods.push('Alt');
+    if (shift) mods.push('Shift');
+    const keyDisplay = $('#remapKeyDisplay');
+    if (keyDisplay) keyDisplay.innerHTML = mods.map(m => `<kbd class="shortcutKbd">${m}</kbd>`).join(' + ') + ' + ...';
+    const saveBtn = $('#saveRemapBtn');
+    if (saveBtn) saveBtn.disabled = true;
+    return;
+  }
+
+  const code = e.code || e.key;
+  const combo = { code, ctrl, shift, alt };
+  pendingKeyCombo = combo;
+
+  const keyDisplay = $('#remapKeyDisplay');
+  if (keyDisplay) {
+    const keyParts = formatShortcutKey(combo);
+    keyDisplay.innerHTML = keyParts.map(k => `<kbd class="shortcutKbd">${k}</kbd>`).join(' + ');
+  }
+
+  const conflictAction = checkShortcutConflict(combo, currentRemapAction);
+  const warnEl = $('#remapConflictText');
+  const saveBtn = $('#saveRemapBtn');
+
+  if (conflictAction) {
+    const conflictName = getShortcutTr(`act_${conflictAction}`);
+    if (warnEl) {
+      warnEl.textContent = getShortcutTr('conflictWarning').replace('{action}', conflictName);
+      warnEl.classList.remove('hidden');
+    }
+    if (saveBtn) saveBtn.disabled = true;
+  } else {
+    if (warnEl) warnEl.classList.add('hidden');
+    if (saveBtn) saveBtn.disabled = false;
+  }
+}, true);
+
+$('#saveRemapBtn')?.addEventListener('click', () => {
+  if (currentRemapAction && pendingKeyCombo && !$('#saveRemapBtn')?.disabled) {
+    activeShortcuts[currentRemapAction] = {
+      ...activeShortcuts[currentRemapAction],
+      code: pendingKeyCombo.code,
+      ctrl: pendingKeyCombo.ctrl,
+      shift: pendingKeyCombo.shift,
+      alt: pendingKeyCombo.alt
+    };
+    try {
+      localStorage.setItem('oms_keyboard_shortcuts', JSON.stringify(activeShortcuts));
+    } catch(e) {}
+    toast(getShortcutTr('toastSaved'));
+    closeRemapModal();
+    renderShortcutsList();
+  }
+});
+
+$('#cancelRemapBtn')?.addEventListener('click', closeRemapModal);
+$('#closeRemapModal')?.addEventListener('click', closeRemapModal);
+$('#shortcutRemapModal')?.addEventListener('click', e => {
+  if (e.target === $('#shortcutRemapModal')) closeRemapModal();
+});
+
+$('#resetShortcutsBtn')?.addEventListener('click', () => {
+  activeShortcuts = JSON.parse(JSON.stringify(OMS_DEFAULT_SHORTCUTS));
+  try {
+    localStorage.removeItem('oms_keyboard_shortcuts');
+  } catch(e) {}
+  toast(getShortcutTr('toastReset'));
+  renderShortcutsList();
+});
+
+$('#doneShortcutsBtn')?.addEventListener('click', closeShortcutsModal);
+$('#closeShortcutsModal')?.addEventListener('click', closeShortcutsModal);
+$('#shortcutsModal')?.addEventListener('click', e => {
+  if (e.target === $('#shortcutsModal')) closeShortcutsModal();
+});
+$('#shortcutsHelpBtn')?.addEventListener('click', openShortcutsModal);
+
+function executeShortcutAction(actionId) {
+  if (actionId === 'help') {
+    toggleShortcutsModal();
+    return true;
+  }
+  if ($('#editor').classList.contains('hidden') || !model.project) {
+    return false;
+  }
+  const fps = Number(model.project.fps) || 30;
+  const dur = Number(model.project.duration || model.project.dur) || 10;
+  const frameStep = 1 / fps;
+
+  function doSeek(target) {
+    clock.stop({continuePreRender:false});
+    const clamped = Math.max(0, Math.min(dur, target));
+    model.time = timeline.snapTime ? timeline.snapTime(clamped) : clamped;
+    timeline.updatePlayhead();
+    const pre = window.omsTimelinePreRender;
+    pre?.settleTraversal?.(model.time, 1200);
+    const cached = pre?.tryShowAt?.(model.time, {scrub: true}) || false;
+    if (!cached) pre?.requestSettledGapFill?.(model.time);
+    media?.sync?.(model.time, false, false, {forceSeek: true, interactiveScrub: false, preserveFrameCache: false});
+    if (!cached && !timeline.hasActiveScrubVideo?.(model.time)) renderer.render();
+  }
+
+  switch(actionId) {
+    case 'playPause':
+      clock.toggle();
+      return true;
+    case 'stepBack1':
+      doSeek(model.time - frameStep);
+      return true;
+    case 'stepForward1':
+      doSeek(model.time + frameStep);
+      return true;
+    case 'stepBack10':
+      doSeek(model.time - 10 * frameStep);
+      return true;
+    case 'stepForward10':
+      doSeek(model.time + 10 * frameStep);
+      return true;
+    case 'goToStart':
+      doSeek(0);
+      return true;
+    case 'goToEnd':
+      doSeek(dur);
+      return true;
+    case 'undo':
+      ui.undoAction();
+      return true;
+    case 'redo':
+      ui.redoAction();
+      return true;
+    case 'save':
+      ui.saveLocal();
+      return true;
+    case 'duplicate':
+      if (model.selected) {
+        ui.duplicateSelectedLayer?.();
+      }
+      return true;
+    case 'delete':
+      if (ui.projectSelectionActive?.()) {
+        ui.deleteSelectedProjects();
+      } else if (model.selected) {
+        history.push();
+        model.removeLayer(model.selected);
+        ui.rebuildAll();
+      }
+      return true;
+    default:
+      return false;
+  }
+}
+
+function matchesShortcutEvent(e, s) {
+  if (!s) return false;
+  const isCtrl = !!(e.ctrlKey || e.metaKey);
+  const isShift = !!e.shiftKey;
+  const isAlt = !!e.altKey;
+  if (isCtrl !== !!s.ctrl || isShift !== !!s.shift || isAlt !== !!s.alt) return false;
+
+  const targetCode = s.code || s.key || '';
+  if (e.code && e.code.toLowerCase() === targetCode.toLowerCase()) return true;
+  if (e.key && e.key.toLowerCase() === targetCode.toLowerCase()) return true;
+  if (targetCode.startsWith('Key') && e.code === targetCode) return true;
+  if (targetCode.startsWith('Key') && e.key && e.key.toUpperCase() === targetCode.slice(3).toUpperCase()) return true;
+  return false;
+}
+
+document.addEventListener('keydown', e => {
+  const tag = document.activeElement?.tagName;
+  if (['INPUT', 'SELECT', 'TEXTAREA'].includes(tag)) return;
+  if (!$('#shortcutRemapModal')?.classList.contains('hidden')) return;
+
+  if (e.key === 'Escape') {
+    if (!$('#shortcutsModal')?.classList.contains('hidden')) {
+      e.preventDefault();
+      closeShortcutsModal();
+      return;
+    }
+    if (ui.projectSelectionActive?.()) {
+      e.preventDefault();
+      ui.exitProjectSelection();
+      return;
+    }
+  }
+
+  // Secondary trigger for shortcuts guide: ? or F1
+  if ((e.key === '?' || (e.shiftKey && e.code === 'Slash')) && !e.ctrlKey && !e.altKey && !e.metaKey) {
+    e.preventDefault();
+    toggleShortcutsModal();
+    return;
+  }
+
+  // Match against active configurable shortcuts
+  for (const [actionId, sc] of Object.entries(activeShortcuts)) {
+    if (matchesShortcutEvent(e, sc)) {
+      e.preventDefault();
+      executeShortcutAction(actionId);
+      return;
+    }
+  }
+
+  // Secondary fallbacks for natural keyboard habits
+  if (e.key === 'Backspace' && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+    if (executeShortcutAction('delete')) e.preventDefault();
+  } else if ((e.ctrlKey || e.metaKey) && e.code === 'KeyY') {
+    if (executeShortcutAction('redo')) e.preventDefault();
+  }
+});
+window.omsShortcutsInitialized = true;
+renderShortcutsList();
+const helpBtn = $('#shortcutsHelpBtn');
+if (helpBtn && typeof getShortcutTr === 'function') helpBtn.title = getShortcutTr('modalTitle') + ' (F1 / ?)';
 window.addEventListener('resize',()=>{
   if(!$('#editor').classList.contains('hidden')){
     setTimeout(()=>{
