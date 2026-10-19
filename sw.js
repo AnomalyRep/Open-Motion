@@ -1,7 +1,7 @@
-/* Open Motion V5.283 PWA service worker.
+/* Open Motion V5.284 PWA service worker.
    Network-first navigation keeps GitHub deployments fresh while retaining an
    offline shell. User-imported Blob/File media is never cached here. */
-const CACHE_NAME = 'open-motion-pwa-v5283-pr33';
+const CACHE_NAME = 'open-motion-pwa-v5284-pr34';
 const SHELL = [
   './',
   './manifest.webmanifest',

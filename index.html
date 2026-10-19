@@ -3776,6 +3776,120 @@ body.omsExportPseudoFullscreen{overflow:hidden!important;overscroll-behavior:non
 @media (prefers-reduced-motion:reduce){.exportResultAmbient{filter:blur(28px) saturate(1.12) brightness(.58)}}
 </style>
 
+<style id="omsExportProgressOverlayStyles">
+/* Alight Motion 5.0.273 1:1 Export Progress Overlay — export_progress_dialog.xml */
+.exportProgressOverlay{
+  position:fixed;
+  inset:0;
+  z-index:140000;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(0,0,0,0.80);
+  color:#ffffff;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:none;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;
+}
+.exportProgressOverlay.hidden{display:none!important}
+.exportOverlayCenter{
+  margin:auto 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:100%;
+  padding:0 15px;
+  box-sizing:border-box;
+}
+.exportOverlayTitle{
+  font-size:18px;
+  font-weight:500;
+  color:#ffffff;
+  text-align:center;
+  margin-bottom:15px;
+  letter-spacing:-0.2px;
+}
+.exportOverlayBarTrack{
+  width:220px;
+  height:7px;
+  background:#202332;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:5px;
+  position:relative;
+}
+.exportOverlayBarFill{
+  width:0%;
+  height:100%;
+  background:#00ffa8;
+  border-radius:5px;
+  transition:width .08s linear;
+}
+.exportOverlayMetaRow{
+  width:220px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.exportOverlayPercent{
+  font-size:13px;
+  color:#ffffff;
+  font-weight:400;
+  line-height:1.2;
+}
+.exportOverlayRemaining{
+  font-size:13px;
+  color:#ffffff;
+  font-weight:400;
+  line-height:1.2;
+}
+.exportOverlayBottom{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-bottom:calc(30px + env(safe-area-inset-bottom, 0px));
+  box-sizing:border-box;
+}
+.exportOverlayCancelBtn{
+  background:transparent;
+  border:none;
+  outline:none;
+  cursor:pointer;
+  color:#00ffa8;
+  font-size:17px;
+  font-weight:500;
+  padding:10px 24px;
+  margin-bottom:30px;
+  -webkit-tap-highlight-color:transparent;
+  transition:opacity .15s ease;
+}
+.exportOverlayCancelBtn:active{opacity:.65}
+.exportOverlayFooter{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  margin:0 30px;
+  max-width:320px;
+  box-sizing:border-box;
+}
+.exportOverlayWarnIcon{
+  width:26px;
+  height:26px;
+  flex:0 0 26px;
+}
+.exportOverlayWarnText{
+  font-size:12px;
+  color:#ffffff;
+  line-height:1.35;
+  font-weight:400;
+  text-align:left;
+}
+</style>
 
 <style id="oms-editor-ambient-v540">
 /* V5.227 — Fixed-count ambient surfaces. Only plate opacity interpolates;
@@ -5861,6 +5975,13 @@ html.omsIOSStandalone #editor.editor:not(.hidden) {
     z-index: 125 !important;
   }
   #drawer.addDrawer {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: 100vw !important;
+    width: 100% !important;
     height: 251px !important;
     max-height: 251px !important;
     min-height: 251px !important;
@@ -5868,11 +5989,28 @@ html.omsIOSStandalone #editor.editor:not(.hidden) {
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-bottom: 0 !important;
     border-radius: 18px 18px 0 0 !important;
-    z-index: 120 !important;
+    box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.7) !important;
+    z-index: 200 !important;
     padding: 0 !important;
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    align-self: auto !important;
+    animation: omsAddPopupSlideUp 0.22s cubic-bezier(0.18, 0.89, 0.32, 1) !important;
+  }
+  #drawer.addDrawer.drawerClosing {
+    animation: omsAddPopupSlideDown 0.18s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+    pointer-events: none !important;
+  }
+  @keyframes omsAddPopupSlideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes omsAddPopupSlideDown {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100%); opacity: 0; }
   }
   #drawer.addDrawer::before {
     display: none !important;
@@ -7547,7 +7685,7 @@ body #desktopCanvasSplitToolbarBtn,
     </div>
     <div class="settingsList">
       <div class="settingRow"><label>Resolusi</label><select id="newRes"><option value="720">720p (HD)</option><option value="1080" selected>1080p (FHD)</option><option value="1440">1440p (2K)</option></select></div>
-      <div class="settingRow"><label>Frame Rate</label><select id="newFps"><option>15</option><option>18</option><option>20</option><option>24</option><option>25</option><option selected>30</option><option>48</option><option>50</option><option>60</option><option>90</option><option>120</option><option>144</option><option>240</option></select></div>
+      <div class="settingRow"><label>Frame Rate</label><select id="newFps"><option>15</option><option>18</option><option>20</option><option>24</option><option>25</option><option selected>30</option><option>48</option><option>50</option><option>60</option><option>90</option><option>120</option></select></div>
       <div class="settingRow"><label>Durasi</label><select id="newDur"><option value="10">10 detik</option><option value="15">15 detik</option><option value="30">30 detik</option><option value="60">60 detik</option></select></div>
       <div class="settingRow"><label>Latar Belakang</label><input id="newBg" type="color" value="#ffffff"></div>
     </div>
@@ -7675,6 +7813,30 @@ body #desktopCanvasSplitToolbarBtn,
   </div>
 </section>
 
+<!-- Alight Motion 5.0.273 1:1 Export Progress Overlay — export_progress_dialog.xml -->
+<section id="exportProgressOverlay" class="exportProgressOverlay hidden" role="dialog" aria-modal="true" aria-labelledby="exportOverlayTitle">
+  <div class="exportOverlayCenter">
+    <div id="exportOverlayTitle" class="exportOverlayTitle">Exporting Video</div>
+    <div class="exportOverlayBarTrack">
+      <div id="exportOverlayProgress" class="exportOverlayBarFill"></div>
+    </div>
+    <div class="exportOverlayMetaRow">
+      <span id="exportOverlayPercent" class="exportOverlayPercent">0%</span>
+      <span id="exportOverlayRemaining" class="exportOverlayRemaining"></span>
+    </div>
+  </div>
+  <div class="exportOverlayBottom">
+    <button id="exportOverlayCancel" class="exportOverlayCancelBtn" type="button">Cancel</button>
+    <div class="exportOverlayFooter">
+      <svg class="exportOverlayWarnIcon" width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <path d="M13 3l11 20H2z" stroke="#ff3b30" stroke-width="2" stroke-linejoin="round" fill="none" fill-rule="evenodd"/>
+        <circle cx="13" cy="19" r="1" fill="#f05547"/>
+        <path d="M12 11.1135C12 10.3712 12.3333 10 13 10C13.6667 10 14 10.3712 14 11.1135C13.8283 15.0378 13.4996 17 13.014 17C12.5284 17 12.1904 15.0378 12 11.1135Z" fill="#ff3b30"/>
+      </svg>
+      <span id="exportOverlayWarning" class="exportOverlayWarnText">Please do not leave Open Motion or lock your screen while export is in progress.</span>
+    </div>
+  </div>
+</section>
 
 <section id="exportSheet" class="exportSheet hidden">
   <div class="exportTop"><button id="closeExport">×</button><b>Ekspor &amp; Bagikan</b><span></span></div>
@@ -7682,6 +7844,10 @@ body #desktopCanvasSplitToolbarBtn,
     <div id="exportScopeNotice" class="exportScopeNotice hidden" role="status" aria-live="polite"></div>
     <div class="spaceRow"><span>Ruang yang Tersedia</span><b id="spaceInfo">Browser</b></div>
     <div class="estRow"><span>Ukuran file (perkiraan)</span><b id="estSize">Tergantung codec</b></div>
+    <div id="omsWakeLockNotice" style="display:flex;align-items:center;gap:6px;padding:7px 10px;margin:8px 0;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;font-size:11px;color:#065f46;font-weight:600">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <span>Anti Layar Mati: Layar dijaga tetap aktif selama ekspor berlangsung.</span>
+    </div>
     <div class="exportOption">
       <div class="radioRow active"><span class="radioDot"></span><div><b>Video</b><small style="display:block;color:#888">Animasi penuh</small></div><span>›</span></div>
       <label>Resolusi Ekspor</label>
@@ -7708,7 +7874,7 @@ body #desktopCanvasSplitToolbarBtn,
   <div><b>Eksperimental</b> Pipeline WebCodecs lama dengan decoder persisten dan persiapan frame berikutnya.</div>
   <div><b>Cepat Realtime</b> Merekam preview langsung; cepat, tetapi proyek berat dapat menjatuhkan frame.</div>
 </div>
-      <div style="height:10px"></div><label>Frame Rate</label><select id="exportFps"><option>15</option><option>18</option><option>20</option><option>24</option><option>25</option><option selected>30</option><option>48</option><option>50</option><option>60</option><option>90</option><option>120</option><option>144</option><option>240</option></select>
+      <div style="height:10px"></div><label>Frame Rate</label><select id="exportFps"><option>15</option><option>18</option><option>20</option><option>24</option><option>25</option><option selected>30</option><option>48</option><option>50</option><option>60</option><option>90</option><option>120</option></select>
       <div style="height:10px"></div><label>Kualitas</label><input id="qualityRange" style="width:100%" type="range" min="3" max="16" value="10"><div class="progress"><i id="exportProgress"></i></div>
     </div>
     <div class="exportOption nonVideoExportOption"><div class="radioRow"><span class="radioDot"></span><div><b>Frame Saat Ini sebagai PNG</b><small style="display:block;color:#888">Simpan frame aktif</small></div><button id="exportPng" style="border:0;background:#eef1f5;border-radius:7px;padding:7px">PNG</button></div></div>
@@ -9267,7 +9433,7 @@ class ProjectModel{
     const [rw,rh]=ratio==='custom'?[9,16]:ratio.split(':').map(Number);let width,height;
     if(rw>=rh){width=res;height=Math.round(res*rh/rw)}else{height=res;width=Math.round(res*rw/rh)}
     const fov=55,focal=height/(2*Math.tan(rad(fov/2)));
-    return {id:uid('project'),name,width,height,fps:+fps,duration:+duration,bg,ratio,created:Date.now(),updated:Date.now(),grid:true,ambient:.72,editorFocal:focal,playheadMode:'center',timelinePx:55,timelineZoomScale:1,timelineZoomVersion:1,timelineViewportWidth:0,timelineGestureVersion:2,timelineSplitCompatVersion:2,audioVisualizer:true,sceneVersion:4,colorSpace:'srgb',renderer:'webgl',transformSpaceDefaultsVersion:2};
+    return {id:uid('project'),name,width,height,fps:Math.min(120,Math.max(1,+fps||30)),duration:+duration,bg,ratio,created:Date.now(),updated:Date.now(),grid:true,ambient:.72,editorFocal:focal,playheadMode:'center',timelinePx:55,timelineZoomScale:1,timelineZoomVersion:1,timelineViewportWidth:0,timelineGestureVersion:2,timelineSplitCompatVersion:2,audioVisualizer:true,sceneVersion:4,colorSpace:'srgb',renderer:'webgl',transformSpaceDefaultsVersion:2};
   }
   defaultLayer(type,opt={}){
     const p=this.project;const base={id:uid('layer'),type,name:'Layer',start:0,duration:p.duration,hidden:false,locked:false,parentId:null,transformSpace:'world',space3d:false,
@@ -9478,6 +9644,7 @@ class ProjectModel{
       this.disposeLayerRuntime(old)
     }
     this.project=d.project;
+    if(this.project&&this.project.fps)this.project.fps=Math.min(120,Math.max(1,+this.project.fps||30));
     if(this.project&&!this.project.playheadMode)this.project.playheadMode='center';
     if(this.project&&!Number.isFinite(this.project.timelinePx))this.project.timelinePx=55;
     // V5.70 — project-isolated responsive timeline zoom migration.
@@ -16126,14 +16293,14 @@ class TimelineController{
     const drawer=$('#drawer');
     if(!sc||!inner||!drawer)return;
 
-    if(drawer.classList.contains('hidden')){
+    if(drawer.classList.contains('hidden')||drawer.classList.contains('addDrawer')){
       inner.style.paddingBottom='0px';
       delete inner.dataset.omsPinnedPadding;
       return;
     }
 
     requestAnimationFrame(()=>{
-      if(drawer.classList.contains('hidden')){
+      if(drawer.classList.contains('hidden')||drawer.classList.contains('addDrawer')){
         inner.style.paddingBottom='0px';
         delete inner.dataset.omsPinnedPadding;
         return;
@@ -20348,9 +20515,11 @@ const OMSProjectThumbnails=(()=>{
     if(!host)return false;host.classList.remove('hasThumb');host.querySelector('.projectThumbImg')?.remove();
     const thumb=validate(url);if(!thumb)return false;
     const img=document.createElement('img');img.className='projectThumbImg';img.alt=String(name||'Thumbnail');img.decoding='async';img.loading='lazy';
-    img.onload=()=>{if(img.parentNode===host&&img.naturalWidth>0&&img.naturalHeight>0)host.classList.add('hasThumb');else img.remove();};
+    img.onload=()=>{if(img.parentNode===host&&img.naturalWidth>0&&img.naturalHeight>0){host.classList.add('hasThumb');try{window.omsRefreshRecentProjects?.()}catch(e){}}else img.remove();};
     img.onerror=()=>{if(img.parentNode===host){host.classList.remove('hasThumb');img.remove();}};
-    host.append(img);img.src=thumb;return true;
+    host.append(img);img.src=thumb;
+    if(img.complete&&img.naturalWidth>0){host.classList.add('hasThumb');try{window.omsRefreshRecentProjects?.()}catch(e){}}
+    return true;
   }
   return{validate,sanitizeSnapshot,capture,paint,install};
 })();
@@ -26990,7 +27159,8 @@ class UIController{
       d.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.isTrusted){e.preventDefault();this.projectSelectionActive()?this.toggleProjectSelection(p.id):open(e)}};
       root.appendChild(d)
     });
-    this.refreshProjectSelectionUI()
+    this.refreshProjectSelectionUI();
+    try{window.omsRefreshRecentProjects?.()}catch(e){}
   }
   async saveLocal(notify=true){if(!model.project)return false;const ok=await autosave.flush(!!notify);await this.loadProjectList();return ok}
   async loadLocal(id,{silent=false,userInitiated=false}={}){if(!userInitiated){console.warn('Blocked automatic project restore to editor:',id);return false}try{const data=await persistentStore.loadProjectData(id);if(!data)throw Error('missing project');model.restore(data,{timeOverride:0});history.clear();autosave.lastFingerprint=autosave.fingerprint();try{sessionStorage.removeItem('oms4_resume_project')}catch(e){}this.authorizeEditorOpen();this.showEditor();persistentStore.saveCurrent().catch(()=>{});return true}catch(e){console.warn('Project load failed:',e);if(!silent)toast('Proyek tidak dapat dibuka');return false}}
@@ -27195,6 +27365,13 @@ class OMSAppBackRouter{
     // Edit Points / Pen Tool is its own editor surface and must leave before the
     // underlying Inspector/timeline can participate in Back navigation.
     if(ui?.vectorPenState){ui.exitVectorPenTool?.();return true}
+
+    // Export progress overlay (1:1 Alight Motion export progress dialog).
+    const exportOverlay=document.getElementById('exportProgressOverlay');
+    if(this.visible(exportOverlay)){
+      try{exporter?.cancel?.()}catch(e){}
+      return true;
+    }
 
     // Export settings should close back to the editor (or restore Home context
     // for a Home-project export) rather than sending Chrome to another page.
@@ -27410,7 +27587,7 @@ class EditorSplitController{
   drawer(){return document.getElementById('drawer')}
   handle(){return document.getElementById('editorSplitHandle')}
   timelineArea(){return document.querySelector('.timelineArea')}
-  isDrawerOpen(){const d=this.drawer();return !!d&&!d.classList.contains('hidden')}
+  isDrawerOpen(){const d=this.drawer();return !!d&&!d.classList.contains('hidden')&&!d.classList.contains('addDrawer')}
   projectRatio(){
     return this.layoutPolicy.projectRatio(model.project)
   }
@@ -27989,7 +28166,7 @@ class EditorSplitController{
     }
   }
   autoForDrawer(iter=0){
-    if(!this.mobile()||!this.isDrawerOpen())return;
+    if(!this.mobile()||!this.isDrawerOpen()||this.drawer()?.classList.contains('addDrawer'))return;
     this.syncSelectedLayerFocus();
     const main=this.main(),drawer=this.drawer();
     if(!main||!drawer)return;
@@ -28029,7 +28206,7 @@ class EditorSplitController{
     }
   }
   onDrawerOpened(wasHidden){
-    if(!this.mobile())return;
+    if(!this.mobile()||this.drawer()?.classList.contains('addDrawer'))return;
     if(wasHidden)this.captureBeforeDrawer();
     // V4.12 — arm selected-only synchronously on every drawer open, including
     // the second/subsequent Inspector entry. Do not wait for autoForDrawer.
@@ -28218,17 +28395,17 @@ class EditorSplitController{
     };
     const originalOpenTool=this.ui.openTool.bind(this.ui);
     this.ui.openTool=(...args)=>{
-      const wasHidden=this.drawer()?.classList.contains('hidden')!==false;
-      if(wasHidden)this.captureBeforeDrawer();
-      const out=originalOpenTool(...args);
-      this.onDrawerOpened(false);
-      return out;
+      const d=this.drawer();
+      const hadInspectorOpen=d&&!d.classList.contains('hidden')&&!d.classList.contains('addDrawer');
+      if(hadInspectorOpen)this.onDrawerClosed();
+      return originalOpenTool(...args);
     };
     const originalCloseDrawer=this.ui.closeDrawer.bind(this.ui);
     this.ui.closeDrawer=(...args)=>{
+      const wasAddDrawer=this.drawer()?.classList.contains('addDrawer');
       const wasOpen=this.isDrawerOpen();
       const out=originalCloseDrawer(...args);
-      if(wasOpen)this.onDrawerClosed();
+      if(wasOpen && !wasAddDrawer)this.onDrawerClosed();
       return out;
     };
     const originalFit=this.ui.fit.bind(this.ui);
@@ -28494,14 +28671,35 @@ const viewportNav=new ViewportNavigator(model,renderer,ui,renderer.canvas);
 
 class PlaybackClock{
   constructor(){this.last=0;this.raf=0;this.playbackTime=0;this.lastRenderedFrame=-1;this.lastMeterUpdate=0;this.completeTargetFrame=-1;this.completeRequestedFrame=-1;this.completeRequestedAt=0;this.completeLastAdvanceAt=0;this.completeAudioActive=false;this.completeDecodePromise=null;this.completeDecodeFrame=-1;this.completeDecodeSerial=0;this.semiTargetFrame=-1;this.semiRequestedFrame=-1;this.semiRequestedAt=0;this.semiLastAdvanceAt=0;this.semiAudioActive=false;this.normalSequentialPromise=null;this.normalSequentialQueuedFrame=-1;this.normalSequentialSession=0;this.followSequentialPromise=null;this.followCursorAbs=-1;this.followLiveAbs=-1;this.followLiveLap=0;this.followLastLiveFrame=-1;this.followTotalFrames=0;this.followDecoderCycle=-1;this.followPauseChaseActive=false;this.followPauseTargetAbs=-1;this.pacingJankEvents=0;this.pacingMaxDtMs=0;this.pacingSkippedFrames=0}
-  toggle(){model.playing?this.stop():this.start()}
+  toggle(){
+    if(!model.playing&&model.project){
+      const fps=Math.max(1,timeline.projectFPS());
+      const dur=(window.omsGroupWorkspace?.current?.()?window.omsGroupWorkspace.end():Math.max(0,+model.project.duration||0));
+      const origin=(window.omsGroupWorkspace?.current?.()?window.omsGroupWorkspace.start():0);
+      if(dur>origin&&(model.time>=dur-(1/fps)*0.95||model.time>=dur-0.001)){
+        model.time=origin;
+        this.playbackTime=origin;
+        timeline.updatePlayhead();
+        media.sync(origin,false,false,{forceSeek:true});
+        renderer.render();
+        if(typeof ui!=='undefined'&&ui.finishFrameUI)ui.finishFrameUI();
+      }
+    }
+    model.playing?this.stop():this.start()
+  }
   start(){
     media.resetNativeMultiSourceClock();
     if(model.project){
-      const dur=window.omsGroupWorkspace?window.omsGroupWorkspace.end():Math.max(0,+model.project.duration||0);
-      const origin=window.omsGroupWorkspace?.start()||0;
-      if(dur>0&&model.time>=dur-0.001){
+      const fps=Math.max(1,timeline.projectFPS());
+      const dur=(window.omsGroupWorkspace?.current?.()?window.omsGroupWorkspace.end():Math.max(0,+model.project.duration||0));
+      const origin=(window.omsGroupWorkspace?.current?.()?window.omsGroupWorkspace.start():0);
+      if(dur>origin&&(model.time>=dur-(1/fps)*0.95||model.time>=dur-0.001)){
         model.time=origin;
+        this.playbackTime=origin;
+        timeline.updatePlayhead();
+        media.sync(origin,false,false,{forceSeek:true});
+        renderer.render();
+        if(typeof ui!=='undefined'&&ui.finishFrameUI)ui.finishFrameUI();
       }
     }
     omsDiagnostics.log('playback','PLAY_START','',{time:model.time,frame:timeline.frameIndex(model.time),preRender:!!window.omsTimelinePreRender?.enabled});
@@ -29519,7 +29717,7 @@ const XMLBridge={
   applyAMTransform(layer,transform,start,duration){const location=transform.querySelector(':scope > location'),scale=transform.querySelector(':scope > scale'),rotation=transform.querySelector(':scope > rotation'),opacity=transform.querySelector(':scope > opacity');if(!location&&!scale&&!rotation&&!opacity)return false;const loc=this.amNode(layer,location,['x','y','z'],start,duration,[layer.x,layer.y,layer.z]),scl=this.amNode(layer,scale,['scaleX','scaleY','scaleZ'],start,duration,[layer.scaleX,layer.scaleY,layer.scaleZ]),rot=this.amNode(layer,rotation,['rotation'],start,duration,[layer.rotation]),opa=this.amNode(layer,opacity,['opacity'],start,duration,[layer.opacity]);layer.x=loc[0]??layer.x;layer.y=loc[1]??layer.y;layer.z=loc[2]??layer.z;layer.scaleX=scl[0]??layer.scaleX;layer.scaleY=scl[1]??scl[0]??layer.scaleY;layer.scaleZ=scl[2]??layer.scaleZ;layer.rotation=rot[0]??layer.rotation;layer.opacity=opa[0]??layer.opacity;return true},
   parse(text,fileName='Imported XML'){
     const doc=new DOMParser().parseFromString(text,'application/xml');if(doc.querySelector('parsererror'))throw Error('XML tidak valid');const root=doc.documentElement,scene=root.matches('scene,project,composition')?root:(root.querySelector('scene,project,composition')||root);
-    const isAM=scene.hasAttribute('amver')||scene.hasAttribute('amplatform')||(!scene.hasAttribute('duration')&&scene.hasAttribute('totalTime')),width=Math.max(16,Math.round(this.num(scene,['width','w','exportWidth'],1080))),height=Math.max(16,Math.round(this.num(scene,['height','h','exportHeight'],1920))),fps=clamp(this.num(scene,['fps','frameRate','framerate'],30),1,240),rawDuration=this.attr(scene,['duration','totalTime','length'],10),duration=Math.max(.05,isAM?(parseFloat(rawDuration)||10000)/1000:this.seconds(rawDuration,10)),name=this.attr(scene,['name','title'],fileName.replace(/\.[^.]+$/,''));
+    const isAM=scene.hasAttribute('amver')||scene.hasAttribute('amplatform')||(!scene.hasAttribute('duration')&&scene.hasAttribute('totalTime')),width=Math.max(16,Math.round(this.num(scene,['width','w','exportWidth'],1080))),height=Math.max(16,Math.round(this.num(scene,['height','h','exportHeight'],1920))),fps=clamp(this.num(scene,['fps','frameRate','framerate'],30),1,120),rawDuration=this.attr(scene,['duration','totalTime','length'],10),duration=Math.max(.05,isAM?(parseFloat(rawDuration)||10000)/1000:this.seconds(rawDuration,10)),name=this.attr(scene,['name','title'],fileName.replace(/\.[^.]+$/,''));
     if(isAM)return AMNativeSceneImporter.parse(scene,fileName);
     const project={id:uid('project'),name,width,height,fps,duration,bg:this.color(this.attr(scene,['background','bgColor','backgroundColor'],'#ffffff'),'#ffffff'),ratio:`${width}:${height}`,created:Date.now(),updated:Date.now(),grid:true,ambient:.72,editorFocal:height/(2*Math.tan(rad(55/2))),playheadMode:'center',timelinePx:55,timelineZoomScale:1,timelineZoomVersion:1,timelineViewportWidth:0,timelineGestureVersion:2,timelineSplitCompatVersion:2,audioVisualizer:true,sceneVersion:4,colorSpace:'srgb',renderer:'webgl',importSource:'xml'};
     const resourceMedia=[...scene.querySelectorAll('media')].filter(el=>!el.hasAttribute('startTime')&&!el.hasAttribute('endTime')&&!el.querySelector(':scope > transform')),mediaByUri=new Map(resourceMedia.flatMap(el=>[this.attr(el,['uri','src'],''),this.attr(el,['filename'],null)].filter(Boolean).map(key=>[key,el]))),selector='layer,shape,text,image,video,audio,camera,object,embedScene,media',candidates=[...scene.querySelectorAll(selector)].filter(el=>!resourceMedia.includes(el));
@@ -29555,7 +29753,7 @@ const AMNativeSceneImporter={
       child=(n,tag)=>[...(n?.children||[])].find(x=>x.tagName.toLowerCase()===tag.toLowerCase()),
       vec=(n,d)=>XMLBridge.values(A(n,'value',A(child(n,'kf'),'v','')),d),
       W=N(root,'width',1080),H=N(root,'height',1920),duration=N(root,'totalTime',10000)/1000;
-    const project={id:uid('project'),name:A(root,'title',fileName),width:W,height:H,fps:N(root,'fps',30),duration,
+    const project={id:uid('project'),name:A(root,'title',fileName),width:W,height:H,fps:Math.min(120,Math.max(1,N(root,'fps',30))),duration,
       bg:XMLBridge.color(A(root,'bgcolor','#ff000000'),'#000000'),ratio:`${W}:${H}`,created:Date.now(),updated:Date.now(),
       amBackgroundAlpha:/^#[0-9a-f]{8}$/i.test(A(root,'bgcolor'))?parseInt(A(root,'bgcolor').slice(1,3),16)/255:1,grid:false,ambient:.72,editorFocal:H/(2*Math.tan(rad(55/2))),playheadMode:'center',timelinePx:55,timelineZoomScale:1,
       timelineZoomVersion:1,timelineViewportWidth:0,timelineGestureVersion:2,timelineSplitCompatVersion:2,
@@ -29776,7 +29974,8 @@ const AMCloudPackage={
         if(!response.ok){let detail;try{detail=await response.json()}catch{}throw Object.assign(Error(detail?.error||'Unduhan paket AM gagal (HTTP '+response.status+').'),{code:detail?.code,status:response.status})}
         if(!/application\/(?:zip|octet-stream)/i.test(response.headers.get('content-type')||'')||Number(response.headers.get('content-length'))>payload.maxPackageBytes)throw Error('Respons paket AM tidak valid atau melebihi batas ukuran.');
         const bytes=await this.read(response.body,payload.maxPackageBytes,payload.size||0);
-        cache={link:payload.shareLink,bytes,entries:this.index(bytes),id:crypto.randomUUID().replaceAll('-',''),projects:[]};
+        const packageId=(window.crypto?.randomUUID?crypto.randomUUID().replaceAll('-',''):(Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).padEnd(32,'0').slice(0,32));
+        cache={link:payload.shareLink,bytes,entries:this.index(bytes),id:packageId,projects:[]};
         for(const entry of cache.entries.filter(e=>/\.xml$/i.test(e.name))){
           if(entry.size>16777216)throw Error('XML proyek AM melebihi 16 MB.');
           const xml=await(await this.extract(cache,entry)).text();
@@ -33802,6 +34001,128 @@ class CleanupStack{
   }
 }
 
+/* Screen Wake Lock Manager — keeps mobile / PWA display awake during export */
+const omsWakeLock = {
+  _lock: null,
+  _reasons: new Set(),
+  async request(reason = 'default') {
+    this._reasons.add(reason);
+    if (!('wakeLock' in navigator) || !navigator.wakeLock?.request) return;
+    try {
+      if (!this._lock || this._lock.released) {
+        this._lock = await navigator.wakeLock.request('screen');
+        this._lock.addEventListener?.('release', () => {
+          this._lock = null;
+        });
+      }
+    } catch (e) {}
+  },
+  async release(reason = 'default') {
+    this._reasons.delete(reason);
+    if (this._reasons.size === 0 && this._lock) {
+      try {
+        await this._lock.release();
+      } catch (e) {}
+      this._lock = null;
+    }
+  },
+  isActive() {
+    return this._reasons.size > 0;
+  },
+  async reacquire() {
+    if (this._reasons.size > 0 && ('wakeLock' in navigator) && navigator.wakeLock?.request) {
+      try {
+        if (!this._lock || this._lock.released) {
+          this._lock = await navigator.wakeLock.request('screen');
+          this._lock.addEventListener?.('release', () => {
+            this._lock = null;
+          });
+        }
+      } catch (e) {}
+    }
+  }
+};
+window.omsWakeLock = omsWakeLock;
+
+/* Alight Motion 5.0.273 1:1 Export Progress Overlay Controller — export_progress_dialog.xml */
+const omsExportOverlay = {
+  el: null,
+  progressEl: null,
+  percentEl: null,
+  remainingEl: null,
+  titleEl: null,
+  cancelBtn: null,
+  warningEl: null,
+  startTime: 0,
+  init() {
+    this.el = document.getElementById('exportProgressOverlay');
+    if (!this.el) return;
+    this.progressEl = document.getElementById('exportOverlayProgress');
+    this.percentEl = document.getElementById('exportOverlayPercent');
+    this.remainingEl = document.getElementById('exportOverlayRemaining');
+    this.titleEl = document.getElementById('exportOverlayTitle');
+    this.cancelBtn = document.getElementById('exportOverlayCancel');
+    this.warningEl = document.getElementById('exportOverlayWarning');
+    this.cancelBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof exporter !== 'undefined') {
+        exporter.cancel();
+      }
+    });
+  },
+  show() {
+    if (!this.el) this.init();
+    if (!this.el) return;
+    this.startTime = performance.now();
+    const isId = (typeof homeLanguage !== 'undefined' && homeLanguage === 'id') ||
+                 (document.documentElement.lang === 'id');
+    if (this.titleEl) {
+      this.titleEl.textContent = isId ? 'Mengekspor Video' : 'Exporting Video';
+    }
+    if (this.cancelBtn) {
+      this.cancelBtn.textContent = isId ? 'Batal' : 'Cancel';
+    }
+    if (this.warningEl) {
+      this.warningEl.textContent = isId
+        ? 'Mohon untuk tidak keluar dari Open Motion atau mengunci layar Anda saat ekspor sedang berlangsung.'
+        : 'Please do not leave Open Motion or lock your screen while export is in progress.';
+    }
+    if (this.progressEl) this.progressEl.style.width = '0%';
+    if (this.percentEl) this.percentEl.textContent = '0%';
+    if (this.remainingEl) this.remainingEl.textContent = '';
+    this.el.classList.remove('hidden');
+  },
+  update(fraction) {
+    if (!this.el || this.el.classList.contains('hidden')) return;
+    const clamped = Math.max(0, Math.min(1, fraction));
+    const pct = Math.round(clamped * 100);
+    if (this.progressEl) this.progressEl.style.width = pct + '%';
+    if (this.percentEl) this.percentEl.textContent = pct + '%';
+    if (pct > 2 && pct < 100 && this.startTime) {
+      const elapsed = (performance.now() - this.startTime) / 1000;
+      const totalEstimated = elapsed / Math.max(0.01, clamped);
+      const remaining = Math.max(0, Math.round(totalEstimated - elapsed));
+      if (this.remainingEl && remaining > 0) {
+        const m = Math.floor(remaining / 60);
+        const s = remaining % 60;
+        this.remainingEl.textContent = `${m}:${String(s).padStart(2, '0')}`;
+      }
+    }
+  },
+  hide() {
+    if (!this.el) this.init();
+    if (this.el) this.el.classList.add('hidden');
+  }
+};
+window.omsExportOverlay = omsExportOverlay;
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && window.omsWakeLock?.isActive()) {
+    window.omsWakeLock.reacquire();
+  }
+});
+
 // Owns export-session editor snapshots plus common cleanup scope. The five
 // export engines remain separate; codec policy, frame scheduling, audio
 // strategy, progress timing, and output encoding remain engine-owned.
@@ -33829,6 +34150,7 @@ class ExportSessionGuard{
     setDecodeLock?.(true)
   }
   restoreOffline(snapshot,setDecodeLock){
+    window.omsWakeLock?.release('exportVideo');
     model.time=snapshot.time;
     model.selected=snapshot.selected;
     model.cameraView=snapshot.cameraView;
@@ -33855,6 +34177,7 @@ class ExportSessionGuard{
     return cleanup
   }
   restoreRealtimeEditor(snapshot){
+    window.omsWakeLock?.release('exportVideo');
     this.exporter.running=false;
     model.time=snapshot.time;
     model.selected=snapshot.selected;
@@ -34039,8 +34362,10 @@ class OMSExportResultPreview{
     this.el('exportResultMeta').textContent=detail;
     const shareSupported=!!navigator.share;
     panel.dataset.shareSupported=String(shareSupported);
+    window.omsExportOverlay?.hide();
     panel.classList.remove('hidden');
     document.getElementById('exportSheet')?.classList.add('hidden');
+    window.omsWakeLock?.release('exportSheet');
     this.refreshPlayButton();this.refreshFullscreenButton();this.refreshTimeline();
     omsDiagnostics.log('export','EXPORT_PREVIEW_OPEN','',{filename:this.filename,size:blob.size,type:blob.type,engine});
     try{panel.focus?.({preventScroll:true})}catch(e){}
@@ -34614,7 +34939,17 @@ const OMSVideoDecodePolicy=(()=>{
 })();
 
 class Exporter{
-  constructor(){this.running=false;this.exportSessionGuard=new ExportSessionGuard(this);this.layerSelectionPlan=null;this._suspendedPreviewVideos=new Map();this.sharedDecodeStats=null;this._gpuDiagActive=false;this.gpuFastDiag=null;this._offlineAudioCacheEpoch=0;this._offlineAudioDecodeCache=new Map();this._offlineAudioDecodeInflight=new Map()}
+  constructor(){this.running=false;this.cancelled=false;this.exportSessionGuard=new ExportSessionGuard(this);this.layerSelectionPlan=null;this._suspendedPreviewVideos=new Map();this.sharedDecodeStats=null;this._gpuDiagActive=false;this.gpuFastDiag=null;this._offlineAudioCacheEpoch=0;this._offlineAudioDecodeCache=new Map();this._offlineAudioDecodeInflight=new Map()}
+  cancel(){
+    this.cancelled=true;
+  }
+  updateProgress(fraction){
+    const frac=Math.max(0,Math.min(1,fraction));
+    const pctStr=(frac*100)+'%';
+    const bar=document.getElementById('exportProgress');
+    if(bar)bar.style.width=pctStr;
+    window.omsExportOverlay?.update(frac);
+  }
   resetGpuFastDiagnostic(){
     this._gpuDiagActive=!!(omsDiagnostics.is('gpu')||omsDiagnostics.prefs.autoErrorPanel);
     this._gpuDiagRuntimeAt=-Infinity;this._offlineDiagnosticStamps=new Map();this.gpuFastDiag={schema:'open-motion-gpu-diagnostics/3',version:OMSDecoderDiagnostics.VERSION,project:OMSDecoderDiagnostics.clean({id:model?.project?.id,name:model?.project?.name,fps:model?.project?.fps}),startedAt:new Date().toISOString(),stage:'START',frame:-1,logs:[],sources:[],stats:null,error:null,previewBeforeExport:this._gpuDiagActive?OMSDecoderDiagnostics.preview():null};
@@ -36092,7 +36427,7 @@ class Exporter{
       throw Error('WebCodecs VideoEncoder/VideoDecoder/VideoFrame tidak tersedia')
     }
 
-    const fps=Math.max(1,+$('#exportFps').value||model.project?.fps||30);
+    const fps=Math.min(120,Math.max(1,+$('#exportFps').value||model.project?.fps||30));
     const bitrate=Math.max(250000,+$('#qualityRange').value*1_000_000||8_000_000);
     const size=selectedExportDimensions();
     const selected=selectedExportCodec();
@@ -36124,7 +36459,7 @@ class Exporter{
     }
 
     this.running=true;
-    const fps=Math.max(1,+$('#exportFps').value||model.project?.fps||30);
+    const fps=Math.min(120,Math.max(1,+$('#exportFps').value||model.project?.fps||30));
     const bitrate=Math.max(250000,+$('#qualityRange').value*1_000_000||8_000_000);
     const exportSize=selectedExportDimensions();
     const selected=selectedExportCodec();
@@ -36358,6 +36693,7 @@ class Exporter{
       if(gpuFast)this.gpuDiag('FIRST_FRAME_READY',`${profile.primeDecodeMs.toFixed(1)}ms`);
 
       for(let i=0;i<totalFrames;i++){
+        if(this.cancelled)throw Object.assign(new Error('Ekspor dibatalkan'),{aborted:true});
         if(gpuFast&&this.gpuFastDiag)this.gpuFastDiag.frame=i;
         if(encoderState.error)throw encoderState.error;
         const t=i/fps;
@@ -36425,7 +36761,7 @@ class Exporter{
         }
         profile.frames++;
 
-        if(!gpuFast||(i&3)===3||i===totalFrames-1)$('#exportProgress').style.width=((i+1)/totalFrames*100)+'%';
+        if(!gpuFast||(i&3)===3||i===totalFrames-1)this.updateProgress((i+1)/totalFrames);
         if((i&(gpuFast?31:15))===(gpuFast?31:15))await new Promise(r=>setTimeout(r,0))
       }
 
@@ -36502,108 +36838,141 @@ class Exporter{
 
   async video(){
     if(this.running)return;
-    const engine=selectedExportEngine();
-    omsDiagnostics.log('export','EXPORT_REQUEST','',{engine,fps:+$('#exportFps')?.value||model.project?.fps||0,time:model.time});
+    this.cancelled=false;
+    $('#exportSheet')?.classList.add('hidden');
+    window.omsWakeLock?.release('exportSheet');
+    window.omsExportOverlay?.show();
+    window.omsWakeLock?.request('exportVideo');
+    try{
+      const engine=selectedExportEngine();
+      omsDiagnostics.log('export','EXPORT_REQUEST','',{engine,fps:+$('#exportFps')?.value||model.project?.fps||0,time:model.time});
 
-    if(engine==='realtime'){
-      toast('Memakai mesin Cepat Realtime');
-      return this.videoRealtimeFallback();
-    }
+      const hasWebCodecs = typeof window.VideoEncoder !== 'undefined' && typeof window.VideoFrame !== 'undefined';
+      if (!hasWebCodecs && engine !== 'realtime') {
+        toast('WebCodecs butuh HTTPS/localhost; beralih ke Cepat Realtime');
+        try {
+          return await this.videoRealtimeFallback();
+        } catch(rtErr) {
+          if (this.cancelled || rtErr?.aborted) { toast('Ekspor dibatalkan'); return; }
+          throw rtErr;
+        }
+      }
 
-    if(engine==='gpu-fast'){
-      this.resetGpuFastDiagnostic();
-      toast('Memakai GPU Fast • diagnostic-aware');
-      try{
-        await this.videoHardware({gpuFast:true});
-        omsDiagnostics.log('export','EXPORT_DONE','GPU Fast',{engine:'gpu-fast'});
-      }catch(err){
-        omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','GPU Fast',{message:String(err?.message||err)});
-        console.error('Mesin GPU Fast gagal:',err);
-        this.gpuDiag('FAILED',String(err?.message||err));this.showGpuFastDiagnostic(err);
-        this.running=false;
-        renderer.fastExportRenderer=false;renderer._fastExportPruned=false;
-        $('#exportProgress').style.width='0';
-        toast('GPU Fast gagal/tidak kompatibel; fallback ke Legacy Video HW');
+      if(engine==='realtime'){
+        toast('Memakai mesin Cepat Realtime');
+        try{
+          return await this.videoRealtimeFallback();
+        }catch(rtErr){
+          if(this.cancelled||rtErr?.aborted){toast('Ekspor dibatalkan');return;}
+          throw rtErr;
+        }
+      }
+
+      if(engine==='gpu-fast'){
+        this.resetGpuFastDiagnostic();
+        toast('Memakai GPU Fast • diagnostic-aware');
+        try{
+          await this.videoHardware({gpuFast:true});
+          omsDiagnostics.log('export','EXPORT_DONE','GPU Fast',{engine:'gpu-fast'});
+        }catch(err){
+          if(this.cancelled||err?.aborted){toast('Ekspor dibatalkan');return;}
+          omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','GPU Fast',{message:String(err?.message||err)});
+          console.error('Mesin GPU Fast gagal:',err);
+          this.gpuDiag('FAILED',String(err?.message||err));this.showGpuFastDiagnostic(err);
+          this.running=false;
+          renderer.fastExportRenderer=false;renderer._fastExportPruned=false;
+          $('#exportProgress').style.width='0';
+          toast('GPU Fast gagal/tidak kompatibel; fallback ke Legacy Video HW');
+          try{
+            await this.videoHardware();
+            omsDiagnostics.log('export','EXPORT_FALLBACK_DONE','Video HW',{from:'gpu-fast'});
+          }catch(hwErr){
+            if(this.cancelled||hwErr?.aborted){toast('Ekspor dibatalkan');return;}
+            omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Video HW fallback',{message:String(hwErr?.message||hwErr)});
+            console.error('Fallback Video HW gagal:',hwErr);
+            this.running=false;
+            $('#exportProgress').style.width='0';
+            toast('Legacy Video HW gagal; fallback ke Legacy Stabil Presisi');
+            try{await this.videoOffline();omsDiagnostics.log('export','EXPORT_FALLBACK_DONE','Stabil Presisi',{from:'gpu-fast'})}catch(stableErr){if(this.cancelled||stableErr?.aborted){toast('Ekspor dibatalkan');return;}omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Stabil Presisi fallback',{message:String(stableErr?.message||stableErr)});console.error('Fallback Stabil Presisi gagal:',stableErr);this.running=false;$('#exportProgress').style.width='0';toast('Presisi gagal; mencoba fallback Cepat Realtime');try{return await this.videoRealtimeFallback();}catch(rtErr){if(this.cancelled||rtErr?.aborted){toast('Ekspor dibatalkan');return;}toast('Semua mesin presisi gagal pada perangkat/media ini.')}}
+          }
+        }
+        return;
+      }
+
+      if(engine==='hardware'){
+        toast('Memakai mesin Video HW • hardware acceleration diprioritaskan');
         try{
           await this.videoHardware();
-          omsDiagnostics.log('export','EXPORT_FALLBACK_DONE','Video HW',{from:'gpu-fast'});
-        }catch(hwErr){
-          omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Video HW fallback',{message:String(hwErr?.message||hwErr)});
-          console.error('Fallback Video HW gagal:',hwErr);
+          omsDiagnostics.log('export','EXPORT_DONE','Video HW',{engine:'hardware'});
+        }catch(err){
+          if(this.cancelled||err?.aborted){toast('Ekspor dibatalkan');return;}
+          omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Video HW',{message:String(err?.message||err)});
+          console.error('Mesin Video HW gagal:',err);
           this.running=false;
           $('#exportProgress').style.width='0';
-          toast('Legacy Video HW gagal; fallback ke Legacy Stabil Presisi');
-          try{await this.videoOffline();omsDiagnostics.log('export','EXPORT_FALLBACK_DONE','Stabil Presisi',{from:'gpu-fast'})}catch(stableErr){omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Stabil Presisi fallback',{message:String(stableErr?.message||stableErr)});console.error('Fallback Stabil Presisi gagal:',stableErr);this.running=false;$('#exportProgress').style.width='0';toast('Semua mesin presisi gagal pada perangkat/media ini.')}
+          toast('Video HW gagal/tidak didukung; fallback ke Stabil Presisi');
+          try{
+            await this.videoOffline();
+            omsDiagnostics.log('export','EXPORT_FALLBACK_DONE','Stabil Presisi',{from:'hardware'});
+          }catch(stableErr){
+            if(this.cancelled||stableErr?.aborted){toast('Ekspor dibatalkan');return;}
+            omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Stabil Presisi fallback',{message:String(stableErr?.message||stableErr)});
+            console.error('Fallback Stabil Presisi gagal:',stableErr);
+            this.running=false;
+            $('#exportProgress').style.width='0';
+            toast('Video HW dan Stabil Presisi gagal pada perangkat/media ini.');
+          }
         }
+        return;
       }
-      return;
-    }
 
-    if(engine==='hardware'){
-      toast('Memakai mesin Video HW • hardware acceleration diprioritaskan');
-      try{
-        await this.videoHardware();
-        omsDiagnostics.log('export','EXPORT_DONE','Video HW',{engine:'hardware'});
-      }catch(err){
-        omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Video HW',{message:String(err?.message||err)});
-        console.error('Mesin Video HW gagal:',err);
-        this.running=false;
-        $('#exportProgress').style.width='0';
-        toast('Video HW gagal/tidak didukung; fallback ke Stabil Presisi');
+      if(engine==='experimental'){
+        toast('Memakai mesin Eksperimental • WebCodecs pipeline');
         try{
-          await this.videoOffline();
-          omsDiagnostics.log('export','EXPORT_FALLBACK_DONE','Stabil Presisi',{from:'hardware'});
-        }catch(stableErr){
-          omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Stabil Presisi fallback',{message:String(stableErr?.message||stableErr)});
-          console.error('Fallback Stabil Presisi gagal:',stableErr);
+          await this.videoExperimental();
+          omsDiagnostics.log('export','EXPORT_DONE','Eksperimental',{engine:'experimental'});
+        }catch(err){
+          if(this.cancelled||err?.aborted){toast('Ekspor dibatalkan');return;}
+          omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Eksperimental',{message:String(err?.message||err)});
+          console.error('Mesin Eksperimental gagal:',err);
           this.running=false;
           $('#exportProgress').style.width='0';
-          toast('Video HW dan Stabil Presisi gagal pada perangkat/media ini.');
+          toast('Mesin Eksperimental gagal pada media/perangkat ini. Stabil Presisi tetap tersedia.');
         }
+        return;
       }
-      return;
-    }
 
-    if(engine==='experimental'){
-      toast('Memakai mesin Eksperimental • WebCodecs pipeline');
       try{
-        await this.videoExperimental();
-        omsDiagnostics.log('export','EXPORT_DONE','Eksperimental',{engine:'experimental'});
+        await this.videoOffline();
+        omsDiagnostics.log('export','EXPORT_DONE','Stabil Presisi',{engine:'stable'});
+        return;
       }catch(err){
-        omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Eksperimental',{message:String(err?.message||err)});
-        console.error('Mesin Eksperimental gagal:',err);
+        if(this.cancelled||err?.aborted){toast('Ekspor dibatalkan');return;}
+        omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Stabil Presisi',{message:String(err?.message||err)});
+        console.error('Offline export utama gagal:',err);
         this.running=false;
         $('#exportProgress').style.width='0';
-        toast('Mesin Eksperimental gagal pada media/perangkat ini. Stabil Presisi tetap tersedia.');
       }
-      return;
-    }
 
-    try{
-      await this.videoOffline();
-      omsDiagnostics.log('export','EXPORT_DONE','Stabil Presisi',{engine:'stable'});
-      return;
-    }catch(err){
-      omsDiagnostics.log('export','EXPORT_ENGINE_FAIL','Stabil Presisi',{message:String(err?.message||err)});
-      console.error('Offline export utama gagal:',err);
-      this.running=false;
-      $('#exportProgress').style.width='0';
-    }
-
-    // Some Windows H.264 hardware encoders can return an incomplete/corrupt
-    // stream at high resolution. Retry deterministically as VP9 WebM instead
-    // of immediately falling back to real-time capture (which can skip frames).
-    try{
-      toast('Encoder utama bermasalah; mencoba encoder aman VP9');
-      await this.videoOffline({forceSafeWebM:true});
-      omsDiagnostics.log('export','EXPORT_FALLBACK_DONE','VP9 aman',{from:'stable'});
-      return;
-    }catch(err){
-      console.error('Offline export aman juga gagal:',err);
-      this.running=false;
-      $('#exportProgress').style.width='0';
-      toast('Mesin Stabil Presisi gagal pada perangkat ini. Coba pilih Cepat Realtime bila perlu.');
-      return;
+      // Some Windows H.264 hardware encoders can return an incomplete/corrupt
+      // stream at high resolution. Retry deterministically as VP9 WebM instead
+      // of immediately falling back to real-time capture (which can skip frames).
+      try{
+        toast('Encoder utama bermasalah; mencoba encoder aman VP9');
+        await this.videoOffline({forceSafeWebM:true});
+        omsDiagnostics.log('export','EXPORT_FALLBACK_DONE','VP9 aman',{from:'stable'});
+        return;
+      }catch(err){
+        if(this.cancelled||err?.aborted){toast('Ekspor dibatalkan');return;}
+        console.error('Offline export aman juga gagal:',err);
+        this.running=false;
+        $('#exportProgress').style.width='0';
+        toast('Mesin Stabil Presisi gagal pada perangkat ini. Coba pilih Cepat Realtime bila perlu.');
+        return;
+      }
+    }finally{
+      window.omsExportOverlay?.hide();
+      window.omsWakeLock?.release('exportVideo');
     }
   }
   async createExperimentalVideoDecoders(){
@@ -36689,7 +37058,7 @@ class Exporter{
 
     this.running=true;
 
-    const fps=Math.max(1,+$('#exportFps').value||model.project.fps||30);
+    const fps=Math.min(120,Math.max(1,+$('#exportFps').value||model.project.fps||30));
     const bitrate=Math.max(250000,+$('#qualityRange').value*1_000_000||8_000_000);
     const exportSize=selectedExportDimensions();
     const selected=selectedExportCodec();
@@ -36810,6 +37179,7 @@ class Exporter{
       prepared.catch(()=>{});
 
       for(let i=0;i<totalFrames;i++){
+        if(this.cancelled)throw Object.assign(new Error('Ekspor dibatalkan'),{aborted:true});
         const t=i/fps;
         model.time=this.projectTime(Math.min(t,exportDuration));
 
@@ -36852,8 +37222,7 @@ class Exporter{
 
         await encodePromise;
 
-        $('#exportProgress').style.width=
-          ((i+1)/totalFrames*100)+'%';
+        this.updateProgress((i+1)/totalFrames);
 
         if((i&7)===7)await new Promise(r=>setTimeout(r,0))
       }
@@ -36894,7 +37263,7 @@ class Exporter{
     if(!window.VideoEncoder||!window.VideoFrame)throw Error('WebCodecs tidak tersedia');
 
     this.running=true;
-    const fps=Math.max(1,+$('#exportFps').value||model.project.fps||30);
+    const fps=Math.min(120,Math.max(1,+$('#exportFps').value||model.project.fps||30));
     const bitrate=Math.max(250000,+$('#qualityRange').value*1_000_000||8_000_000);
     const exportSize=selectedExportDimensions();
     const requestedCodec=selectedExportCodec();
@@ -36991,6 +37360,7 @@ class Exporter{
       const frameDuration=1/fps;
       const totalFrames=Math.max(1,Math.ceil(exportDuration*fps));
       for(let i=0;i<totalFrames;i++){
+        if(this.cancelled)throw Object.assign(new Error('Ekspor dibatalkan'),{aborted:true});
         const t=i/fps;
         model.time=this.projectTime(Math.min(t,exportDuration));
 
@@ -37009,7 +37379,7 @@ class Exporter{
         const keyFrame=i===0||(i%Math.max(1,Math.round(fps*2))===0);
         await videoSource.add(t,duration,keyFrame?{keyFrame:true}:undefined);
 
-        $('#exportProgress').style.width=((i+1)/totalFrames*100)+'%';
+        this.updateProgress((i+1)/totalFrames);
         // Yield only for UI responsiveness. Timestamps stay frame-index based.
         if((i&3)===3)await new Promise(r=>setTimeout(r,0));
       }
@@ -37048,7 +37418,7 @@ class Exporter{
     }
 
     this.running=true;
-    const fps=+$('#exportFps').value||model.project.fps;
+    const fps=Math.min(120,Math.max(1,+$('#exportFps').value||model.project?.fps||30));
     const bitrate=+$('#qualityRange').value*1_000_000;
     const exportSize=selectedExportDimensions();
     const codec=selectedExportCodec();
@@ -37305,6 +37675,10 @@ class Exporter{
 
       const frame=now=>{
         if(terminal!=='pending'||finishing)return;
+        if(this.cancelled){
+          settleFailure(Object.assign(new Error('Ekspor dibatalkan'),{aborted:true}));
+          return;
+        }
         try{
           const elapsed=now-start;
           const durationMs=exportDuration*1000;
@@ -37324,8 +37698,7 @@ class Exporter{
             }
           }
 
-          $('#exportProgress').style.width=
-            (Math.min(elapsed,durationMs)/durationMs*100)+'%';
+          this.updateProgress(Math.min(elapsed,durationMs)/durationMs);
 
           requestAnimationFrame(frame)
         }catch(e){
@@ -37345,10 +37718,30 @@ const exporter=new Exporter();
 
 async function openExportSheet({keepLayerSelection=false}={}){
   if(window.omsAMGPU?.legacyProject()&&!confirm('Proyek ini masih memakai konversi AM lama. Kurva rotasi/efek yang hilang tidak pulih hanya dengan membuka HTML baru. Simpan cadangan lalu impor ulang link/XML sebagai proyek baru untuk akurasi terbaru. Tetap ekspor proyek lama tanpa mengubahnya?'))return;
+  window.omsWakeLock?.request('exportSheet');
+  const notice=$('#omsWakeLockNotice');
+  if(notice){
+    const supported=('wakeLock' in navigator)&&typeof navigator.wakeLock?.request==='function';
+    if(!supported){
+      notice.style.background='#fffbeb';
+      notice.style.borderColor='#fde68a';
+      notice.style.color='#92400e';
+      const text=notice.querySelector('span');
+      if(text)text.textContent='Anti Layar Mati tidak didukung oleh browser/protokol ini. Jaga layar tetap menyala saat ekspor.';
+    }else{
+      notice.style.background='#ecfdf5';
+      notice.style.borderColor='#a7f3d0';
+      notice.style.color='#065f46';
+      const text=notice.querySelector('span');
+      if(text)text.textContent='Anti Layar Mati Aktif: Layar dijaga tetap menyala selama proses ekspor.';
+    }
+  }
   if(!keepLayerSelection)exporter.clearLayerSelection();
   if(model.project?.fps && $('#exportFps')){
-    const val=String(Math.round(model.project.fps));
+    const clamped=Math.min(120,Math.max(1,Math.round(model.project.fps)));
+    const val=String(clamped);
     if(Array.from($('#exportFps').options).some(o=>o.value===val))$('#exportFps').value=val;
+    else $('#exportFps').value='120';
   }
   $('#exportSheet').classList.remove('hidden');
   exporter.refreshLayerSelectionNotice();
@@ -37358,6 +37751,7 @@ async function openExportSheet({keepLayerSelection=false}={}){
 }
 
 function closeExportSheet(){
+  window.omsWakeLock?.release('exportSheet');
   $('#exportSheet').classList.add('hidden');
   exporter.clearLayerSelection();
   ui?.restoreHomeProjectExportContext?.()
@@ -37477,7 +37871,7 @@ function setHomeLanguage(id){
 function openLanguageModal(){const modal=$('#languageModal');if(!modal)return;renderLanguageList();modal.classList.remove('hidden')}
 function closeLanguageModal(){const modal=$('#languageModal');if(modal)modal.classList.add('hidden')}
 
-function createProject(){const name=$('#newName').value||'Project Baru',res=+$('#newRes').value,fps=+$('#newFps').value,dur=+$('#newDur').value,bg=$('#newBg').value,bgHex=String(bg||'#ffffff').replace('#',''),rgb=parseInt(bgHex,16),lum=(((rgb>>16)&255)*.2126+((rgb>>8)&255)*.7152+(rgb&255)*.0722),titleColor=lum>145?'#111827':'#ffffff';model.reset();model.project=model.defaultProject(name,ui.newRatio,res,fps,dur,bg);model.resetEditorCamera();model.mode3d=false;model.cameraView=true;renderer.resize();history.clear();$('#newModal').classList.add('hidden');const homeFab=$('#newProjectFab');if(homeFab){homeFab.style.display='none';homeFab.style.pointerEvents='none'}ui.authorizeEditorOpen();ui.showEditor();history.push();model.addLayer('camera',{name:'Main Camera'});const title=model.addLayer('text',{text:'OPEN MOTION',name:'Title',fontSize:model.project.height*.075,y:model.project.height*.44,color:titleColor});model.anim.setKey(title,'opacity',0,0,'ease-out');model.anim.setKey(title,'opacity',.45,1,'ease-out');model.anim.setKey(title,'scaleX',0,.72,'overshoot');model.anim.setKey(title,'scaleX',.7,1,'overshoot');model.anim.setKey(title,'scaleY',0,.72,'overshoot');model.anim.setKey(title,'scaleY',.7,1,'overshoot');history.clear();ui.rebuildAll();timeline.activateInitialSecondsFit(2);try{sessionStorage.removeItem('oms4_resume_project')}catch(e){}persistentStore.requestDurableStorage();autosave.check(true)}
+function createProject(){const name=$('#newName').value||'Project Baru',res=+$('#newRes').value,fps=Math.min(120,Math.max(1,+$('#newFps').value||30)),dur=+$('#newDur').value,bg=$('#newBg').value,bgHex=String(bg||'#ffffff').replace('#',''),rgb=parseInt(bgHex,16),lum=(((rgb>>16)&255)*.2126+((rgb>>8)&255)*.7152+(rgb&255)*.0722),titleColor=lum>145?'#111827':'#ffffff';model.reset();model.project=model.defaultProject(name,ui.newRatio,res,fps,dur,bg);model.resetEditorCamera();model.mode3d=false;model.cameraView=true;renderer.resize();history.clear();$('#newModal').classList.add('hidden');const homeFab=$('#newProjectFab');if(homeFab){homeFab.style.display='none';homeFab.style.pointerEvents='none'}ui.authorizeEditorOpen();ui.showEditor();history.push();model.addLayer('camera',{name:'Main Camera'});const title=model.addLayer('text',{text:'OPEN MOTION',name:'Title',fontSize:model.project.height*.075,y:model.project.height*.44,color:titleColor});model.anim.setKey(title,'opacity',0,0,'ease-out');model.anim.setKey(title,'opacity',.45,1,'ease-out');model.anim.setKey(title,'scaleX',0,.72,'overshoot');model.anim.setKey(title,'scaleX',.7,1,'overshoot');model.anim.setKey(title,'scaleY',0,.72,'overshoot');model.anim.setKey(title,'scaleY',.7,1,'overshoot');history.clear();ui.rebuildAll();timeline.activateInitialSecondsFit(2);try{sessionStorage.removeItem('oms4_resume_project')}catch(e){}persistentStore.requestDurableStorage();autosave.check(true)}
 
 function canvasPointFromClient(clientX,clientY,rect){
   return {
@@ -37739,7 +38133,7 @@ $('#ruler').onpointerdown=e=>{
 $$('#bottomTools button').forEach(b=>b.onclick=()=>{omsDiagnostics.log('ui','OPEN_TOOL',b.dataset.tool||'');ui.openTool(b.dataset.tool)});$('#plusBtn').onclick=()=>{const d=$('#drawer');(d.classList.contains('hidden')||d.classList.contains('drawerClosing'))?ui.openTool(ui.addTool||'shapes'):ui.closeDrawer()};
 $('#mediaInput').onchange=e=>media.importFiles([...e.target.files]);
 $('#viewport').ondragover=e=>{e.preventDefault();$('#viewport').classList.add('dragover')};$('#viewport').ondragleave=()=>$('#viewport').classList.remove('dragover');$('#viewport').ondrop=e=>{e.preventDefault();$('#viewport').classList.remove('dragover');media.importFiles([...e.dataTransfer.files])};
-initExportEngineOptions();$('#openExport').onclick=()=>openExportSheet();$('#closeExport').onclick=()=>closeExportSheet();$('#exportPng').onclick=()=>exporter.png();$('#exportJson').onclick=()=>exporter.projectJSON();$('#exportXml').onclick=()=>XMLBridge.download();$('#doExport').onclick=()=>exporter.video();
+initExportEngineOptions();$('#openExport').onclick=()=>openExportSheet();$('#closeExport').onclick=()=>closeExportSheet();$('#exportPng').onclick=()=>exporter.png();$('#exportJson').onclick=()=>exporter.projectJSON();$('#exportXml').onclick=()=>XMLBridge.download();$('#doExport').onclick=()=>{ $('#exportSheet').classList.add('hidden'); window.omsWakeLock?.release('exportSheet'); exporter.video(); };
 $('#exportRes').onchange=()=>updateResolutionEstimate();
 $('#exportFps').onchange=async()=>{await refreshResolutionOptions();updateResolutionEstimate()};
 $('#qualityRange').oninput=()=>updateResolutionEstimate();
@@ -37748,6 +38142,7 @@ $('#homeAMLink').onclick=()=>AMIndependentLinkUI.open();
 $('#homeLanguageBtn').onclick=openLanguageModal;
 $('#languageClose').onclick=closeLanguageModal;
 $('#languageModal').onclick=e=>{if(e.target===$('#languageModal'))closeLanguageModal()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#exportProgressOverlay')?.classList.contains('hidden'))exporter?.cancel?.()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#languageModal')?.classList.contains('hidden'))closeLanguageModal()});
 $('#projectSort').onchange=()=>ui.loadProjectList();
 $('#projectActionExport').onclick=()=>ui.exportSelectedProject();
@@ -40016,7 +40411,8 @@ const OMSNativeEffects=(()=>{
   }
   function applyCanvasMultipass(layer,instance,canvas,time,rasterScale,options){
     const s=ensure(),gl=s.gl,w=canvas.width,h=canvas.height;if(!w||!h)return false;
-    if(w>gl.getParameter(gl.MAX_TEXTURE_SIZE)||h>gl.getParameter(gl.MAX_TEXTURE_SIZE))throw Error('Ukuran layer melebihi kapasitas efek WebGL.');
+    const glLimit=gl.getParameter(gl.MAX_TEXTURE_SIZE),maxTex=(typeof glLimit==='number'&&glLimit>0)?glLimit:4096;
+    if(w>maxTex||h>maxTex)return false;
     if(s.canvas.width!==w||s.canvas.height!==h){s.canvas.width=w;s.canvas.height=h;}
     const pair=scratchPair(s,w,h),cw=Math.max(1,Number(options.contentWidth)||Number(layer.w)*rasterScale||w),ch=Math.max(1,Number(options.contentHeight)||Number(layer.h)*rasterScale||h),px=Number.isFinite(options.padX)?options.padX:(w-cw)*.5,py=Number.isFinite(options.padY)?options.padY:(h-ch)*.5;
     const vals=uniformValues(layer,instance,time,rasterScale),count=passCount(instance.specId);gl.disable(gl.BLEND);gl.disable(gl.DEPTH_TEST);gl.disable(gl.SCISSOR_TEST);gl.viewport(0,0,w,h);
@@ -40882,9 +41278,26 @@ const OMSAMEffectsGraph252=(()=>{
     switch(p.omsTypes252.get(name)){case gl.FLOAT:gl.uniform1f(loc,+scalar(v)||0);break;case gl.INT:case gl.BOOL:case gl.SAMPLER_2D:gl.uniform1i(loc,Math.round(+scalar(v)||0));break;case gl.FLOAT_VEC2:gl.uniform2fv(loc,[v?.[0]||0,v?.[1]||0]);break;case gl.FLOAT_VEC3:gl.uniform3fv(loc,[v?.[0]||0,v?.[1]||0,v?.[2]||0]);break;case gl.FLOAT_VEC4:gl.uniform4fv(loc,[v?.[0]||0,v?.[1]||0,v?.[2]||0,v?.[3]??1]);break;case gl.FLOAT_MAT3:gl.uniformMatrix3fv(loc,false,v);break;case gl.FLOAT_MAT4:gl.uniformMatrix4fv(loc,false,v?.length===16?v:identity);break;}
   }
   function target(q,w,h,locked,clear=true){
-    const gl=q.s.gl;w=Math.max(1,Math.floor(w));h=Math.max(1,Math.floor(h));if(Math.max(w,h)>gl.getParameter(gl.MAX_TEXTURE_SIZE))throw Error('Effect graph exceeds GPU texture size');
+    const gl=q.s.gl,glLimit=gl.getParameter(gl.MAX_TEXTURE_SIZE),maxTex=(typeof glLimit==='number'&&glLimit>0)?glLimit:4096;
+    w=Math.max(1,Math.floor(w));h=Math.max(1,Math.floor(h));
+    if(Math.max(w,h)>maxTex){const s=maxTex/Math.max(w,h);w=Math.max(1,Math.floor(w*s));h=Math.max(1,Math.floor(h*s));}
     let t=q.targets.find(t=>!t.busy&&!locked.has(t.tex)&&t.w===w&&t.h===h);
-    if(!t){t={tex:gl.createTexture(),fbo:gl.createFramebuffer(),w,h,busy:false};gl.bindTexture(gl.TEXTURE_2D,t.tex);for(const [k,v]of [[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]])gl.texParameteri(gl.TEXTURE_2D,k,v);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,w,h,0,gl.RGBA,gl.UNSIGNED_BYTE,null);gl.bindFramebuffer(gl.FRAMEBUFFER,t.fbo);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,t.tex,0);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw Error('Incomplete effect buffer');q.targets.push(t);}
+    if(!t){
+      let tex=gl.createTexture(),fbo=gl.createFramebuffer();
+      if(!tex||!fbo){trim(q,null,null);tex||=gl.createTexture();fbo||=gl.createFramebuffer();}
+      t={tex,fbo,w,h,busy:false};gl.bindTexture(gl.TEXTURE_2D,t.tex);
+      for(const [k,v]of [[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]])gl.texParameteri(gl.TEXTURE_2D,k,v);
+      gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,w,h,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+      gl.bindFramebuffer(gl.FRAMEBUFFER,t.fbo);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,t.tex,0);
+      if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE){
+        trim(q,null,null);gl.bindTexture(gl.TEXTURE_2D,t.tex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,w,h,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+        gl.bindFramebuffer(gl.FRAMEBUFFER,t.fbo);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,t.tex,0);
+        if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE){
+          console.warn('[omsAMEffectsGraph] Incomplete effect buffer at ' + w + 'x' + h);
+        }
+      }
+      q.targets.push(t);
+    }
     t.busy=true;t.serial=q.serial;gl.bindFramebuffer(gl.FRAMEBUFFER,t.fbo);if(clear){gl.colorMask(true,true,true,true);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);}return t;
   }
   function downsample(w,h,n){
@@ -40892,7 +41305,10 @@ const OMSAMEffectsGraph252=(()=>{
     const bw=Math.trunc(w/n),bh=Math.trunc(h/n);if(bw>=16&&bh>=16)return[Math.max(16,bw),Math.max(16,bh)];
     // Raw z.Ew.t and TextureSpec constructor/getters confirm this transposed
     // tiny-buffer aspect branch. Preserve native behavior, not an inferred fix.
-    return w>h?[16,Math.trunc(((w*16)|0)/h)]:[Math.trunc(((h*16)|0)/w),16];
+    const safeH=Math.max(1,h),safeW=Math.max(1,w);
+    const aspectW=Math.min(4096,Math.max(16,Math.trunc(((w*16)|0)/safeH)));
+    const aspectH=Math.min(4096,Math.max(16,Math.trunc(((h*16)|0)/safeW)));
+    return w>h?[16,aspectW]:[aspectH,16];
   }
   function image(q,src){if(q.images.has(src))return q.images.get(src);const im=decoded.get(src);if(!im)throw Error('Image not prepared: '+src);throw Error('Image decode is pending: '+src);}
   function uploadImages(q){for(const [src,im]of decodedImages){if(q.images.has(src))continue;const gl=q.s.gl,tex=gl.createTexture();gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,true);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);const repeat=gl instanceof WebGL2RenderingContext||((im.width&(im.width-1))===0&&(im.height&(im.height-1))===0);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,repeat?gl.REPEAT:gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,repeat?gl.REPEAT:gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,im);q.images.set(src,{tex,w:im.width,h:im.height,repeat});counters.imageUploads++;}}
@@ -40942,14 +41358,14 @@ const OMSAMEffectsGraph252=(()=>{
       for(const t of buffers.values())t.busy=false;if(!output)throw Error('No output pass '+d.id);if(current!==input)current.busy=false;current=output;
     }return current;
   }
-  function trim(q,input,output){const gl=q.s.gl;let bytes=0;for(const t of [...q.targets].sort((a,b)=>b.serial-a.serial)){bytes+=t.w*t.h*4;if(t.tex!==output&&t.tex!==input&&!t.busy&&(q.serial-t.serial>4||bytes>64*1048576)){gl.deleteTexture(t.tex);gl.deleteFramebuffer(t.fbo);q.targets.splice(q.targets.indexOf(t),1);}}}
+  function trim(q,input,output){const gl=q.s.gl;let bytes=0;for(const t of [...q.targets].sort((a,b)=>b.serial-a.serial)){bytes+=t.w*t.h*4;if(t.tex!==output&&t.tex!==input&&!t.busy&&(q.serial-t.serial>2||bytes>32*1048576)){gl.deleteTexture(t.tex);gl.deleteFramebuffer(t.fbo);const idx=q.targets.indexOf(t);if(idx>=0)q.targets.splice(idx,1);}}}
   function run(s,l,fxs,input,comp,tag,geometry,cw,ch,scale){
     const q=state(s),e=s.engine,localBounds=tag==='local'||tag==='fast-local',dw=localBounds?cw:s.w,dh=localBounds?ch:s.h,pad=geometry[4]-cw/2;AMReference.geometry(e.o,localBounds?[1,0,0,1,cw/2,ch/2]:geometry,cw,ch,dw,dh);
     q.serial++;q.trace=[];for(const t of q.targets)t.busy=false;
     const incoming={tex:input,w:s.w,h:s.h},backdrop=comp?{tex:comp.tex||comp,w:s.w,h:s.h}:null;let current=incoming;
     const record=s.frame.get(l),ctx={s,q,l,comp:backdrop,scale,localBounds,dw,dh,cw,ch,pad,vel:record?.vel||{x:0,y:0,scale:0,angle:0}};
     const lastRaster260=window.omsAMLegacyLuma?.lastRaster(s,l,fxs)??-1;
-    try{for(let fxIndex260=0;fxIndex260<fxs.length;fxIndex260++){const fx=fxs[fxIndex260];ctx.nativeTail260=fxIndex260===lastRaster260;ctx.vel=(/\.motionblur[234]$/.test(fx.id)?record?.motionLocalVelocity:null)||record?.vel||{x:0,y:0,scale:0,angle:0};current=render(ctx,fx,current);}counters.runs++;return current.tex;
+    try{for(let fxIndex260=0;fxIndex260<fxs.length;fxIndex260++){const fx=fxs[fxIndex260];ctx.nativeTail260=fxIndex260===lastRaster260;ctx.vel=(/\.motionblur[234]$/.test(fx.id)?record?.motionLocalVelocity:null)||record?.vel||{x:0,y:0,scale:0,angle:0};try{current=render(ctx,fx,current);}catch(fxErr){console.warn('[omsAMEffectsGraph] Skip glitch effect:',fx.id,fxErr);}}counters.runs++;return current.tex;
     }catch(error){q.lastFailure=String(error.message);throw error;}finally{trim(q,input,current.tex);}
   }
   function capability(id){const d=AMEffectDefinitions[id];if(d?.omsGraphBlocked252)return{available:false,reason:d.omsGraphBlocked252};if(failures.has(id))return{available:false,reason:'Shader eksperimen gagal: '+failures.get(id)};return{available:true};}
@@ -42357,6 +42773,7 @@ window.omsAudioDiagnostics=OMSAudioDiagnostics.attach({hub:omsDiagnostics,model,
   try{sessionStorage.removeItem('oms4_resume_project')}catch(e){}
   ui.showHome();
   await ui.loadProjectList();
+  try{window.omsRefreshRecentProjects?.()}catch(e){}
 })();
 
 // BEGIN_OMS_ACORN_V211
@@ -50693,7 +51110,7 @@ const OMSShatter=(()=>{
     }finally{if(attached){gl.bindFramebuffer(gl.FRAMEBUFFER,framebuffer);gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,null);}gl.bindRenderbuffer(gl.RENDERBUFFER,rb);gl.depthFunc(depthFunc);gl.clearDepth(clearDepth);omsUnifiedRender.restoreGL(gl,old);}
   }
   function applyCanvas(s,l,i,canvas,time,scale,options={}){
-    if(progress(l,i,time)<=.000001)return true;const gl=s.gl,w=canvas.width,h=canvas.height;if(!w||!h)return false;if(w>gl.getParameter(gl.MAX_TEXTURE_SIZE)||h>gl.getParameter(gl.MAX_TEXTURE_SIZE))throw Error('Ukuran Shatter melebihi kapasitas WebGL.');if(s.canvas.width!==w||s.canvas.height!==h){s.canvas.width=w;s.canvas.height=h;}
+    if(progress(l,i,time)<=.000001)return true;const gl=s.gl,w=canvas.width,h=canvas.height;if(!w||!h)return false;const glLimit=gl.getParameter(gl.MAX_TEXTURE_SIZE),maxTex=(typeof glLimit==='number'&&glLimit>0)?glLimit:4096;if(w>maxTex||h>maxTex)return false;if(s.canvas.width!==w||s.canvas.height!==h){s.canvas.width=w;s.canvas.height=h;}
     const cw=options.contentWidth||l.w*scale,ch=options.contentHeight||l.h*scale,px=Number.isFinite(options.padX)?options.padX:(w-cw)*.5,py=Number.isFinite(options.padY)?options.padY:(h-ch)*.5,mapping=new Float32Array([cw/w,0,0,0,-ch/h,0,px/w,1-py/h,1]);
     gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,s.texture);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,false);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,canvas);s.uploads++;render(gl,l,i,s.texture,null,w,h,mapping,time,false);s.passes++;
     const ctx=canvas.getContext('2d');ctx.save();try{ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=1;ctx.globalCompositeOperation='copy';ctx.filter='none';ctx.drawImage(s.canvas,0,0,w,h);}finally{ctx.restore();}return true;
@@ -55697,28 +56114,7 @@ html.omsMobileLandscapeDesktop .transportBalanced .transportLeft{
    430px right overlay. Inspector/property drawers deliberately keep their
    existing right-side layout. Mobile landscape desktop mode is unchanged. */
 @media (min-width:900px){
-  html:not(.omsMobileLandscapeDesktop) .timelineArea:has(> #drawer.addDrawer:not(.hidden)){
-    grid-template-rows:38px minmax(0,1fr) 251px!important;
-  }
-  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer{
-    position:relative!important;
-    left:auto!important;
-    right:auto!important;
-    top:auto!important;
-    bottom:auto!important;
-    grid-column:1!important;
-    grid-row:3!important;
-    align-self:stretch!important;
-    width:100%!important;
-    min-width:0!important;
-    height:100%!important;
-    max-height:none!important;
-    overflow:hidden!important;
-    border-left:0!important;
-    border-top:1px solid #353c52!important;
-    border-radius:0!important;
-    box-shadow:0 -10px 24px rgba(0,0,0,.24)!important;
-  }
+  /* Add Popup (#drawer.addDrawer) remains a pure bottom overlay; only Inspector docks below timeline */
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .addHubTabs{
     flex:0 0 auto;
     width:100%;
@@ -55744,17 +56140,13 @@ html.omsMobileLandscapeDesktop .transportBalanced .transportLeft{
 }
 </style>
 <style id="oms-v445-desktop-bottom-drawers-compact-add-hub">
-/* V4.45 — both desktop drawer families are docked below the timeline.
-   Add Hub uses a compact, fixed-fit layout so its own body never needs a
-   vertical scrollbar. Inspector keeps internal scrolling for long editors. */
+/* V4.45 — desktop Inspector drawer is docked below the timeline.
+   Add Popup (#drawer.addDrawer) is an authentic Alight Motion bottom overlay. */
 @media (min-width:900px){
-  html:not(.omsMobileLandscapeDesktop) .timelineArea:has(> #drawer.addDrawer:not(.hidden)){
-    grid-template-rows:38px minmax(0,1fr) clamp(260px,34vh,320px)!important;grid-template-rows:38px minmax(0,1fr) clamp(260px,34dvh,320px)!important;
-  }
   html:not(.omsMobileLandscapeDesktop) .timelineArea:has(> #drawer:not(.hidden):not(.addDrawer)){
     grid-template-rows:38px minmax(0,1fr) clamp(260px,38vh,380px)!important;grid-template-rows:38px minmax(0,1fr) clamp(260px,38dvh,380px)!important;
   }
-  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer:not(.hidden){
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer:not(.hidden):not(.addDrawer){
     position:relative!important;
     left:auto!important;
     right:auto!important;
@@ -55773,7 +56165,7 @@ html.omsMobileLandscapeDesktop .transportBalanced .transportLeft{
     border-radius:0!important;
     box-shadow:0 -10px 24px rgba(0,0,0,.24)!important;
   }
-  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.drawerClosing {
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.drawerClosing:not(.addDrawer) {
     animation: omsDesktopDrawerSlideDown 0.2s cubic-bezier(0.4, 0, 1, 1) forwards !important;
     pointer-events: none !important;
   }
@@ -56580,6 +56972,7 @@ html.omsMobileLandscapeDesktop #preRenderRecordBtn{left:35px!important}
 
     let pressTimer=null;
     let isLongPress=false;
+    let lastLongPressTime=0;
     let startX=0,startY=0;
 
     function toggleLoopMode(){
@@ -56606,38 +56999,48 @@ html.omsMobileLandscapeDesktop #preRenderRecordBtn{left:35px!important}
 
     btn.oncontextmenu=(e)=>{
       e.preventDefault();
+      // On Android mobile/PWA, holding finger triggers contextmenu ~500ms after pointerdown.
+      // Ignore this contextmenu event if toggleLoopMode was already executed by the hold timer within 1200ms!
+      if(Date.now()-lastLongPressTime<1200)return;
       toggleLoopMode();
     };
 
     btn.addEventListener('pointerdown',(e)=>{
+      if(e.button!==undefined&&e.button!==0)return;
       isLongPress=false;
       startX=e.clientX;
       startY=e.clientY;
       clearTimeout(pressTimer);
       pressTimer=setTimeout(()=>{
         isLongPress=true;
+        lastLongPressTime=Date.now();
         toggleLoopMode();
       },450);
     },{passive:true});
 
     btn.addEventListener('pointermove',(e)=>{
       if(!pressTimer)return;
-      // Allow minor natural finger roll (up to 24px) without cancelling hold
-      if(Math.hypot(e.clientX-startX,e.clientY-startY)>24){
+      // Allow minor natural finger roll (up to 22px) without cancelling hold
+      if(Math.hypot(e.clientX-startX,e.clientY-startY)>22){
         clearTimeout(pressTimer);
         pressTimer=null;
       }
     },{passive:true});
 
-    const cancelPress=()=>{
+    const handlePointerEnd=()=>{
       clearTimeout(pressTimer);
       pressTimer=null;
+      // In PWA on Android, synthetic 'click' might not be dispatched after long press hold.
+      // Auto-clear isLongPress after 350ms so subsequent taps to play are never blocked!
+      if(isLongPress){
+        setTimeout(()=>{isLongPress=false;},350);
+      }
     };
-    btn.addEventListener('pointerup',cancelPress,{passive:true});
-    btn.addEventListener('pointercancel',cancelPress,{passive:true});
+    btn.addEventListener('pointerup',handlePointerEnd,{passive:true});
+    btn.addEventListener('pointercancel',handlePointerEnd,{passive:true});
 
     btn.addEventListener('click',(e)=>{
-      if(isLongPress){
+      if(isLongPress||(Date.now()-lastLongPressTime<400)){
         e.preventDefault();
         e.stopImmediatePropagation();
         isLongPress=false;
@@ -57655,9 +58058,38 @@ THE SOFTWARE.
       targetGrid.innerHTML = '';
       const limit = Math.min(cards.length, 4);
       for (let i = 0; i < limit; i++) {
-        const clone = cards[i].cloneNode(true);
-        // Delegate click to original card
         const original = cards[i];
+        const clone = original.cloneNode(true);
+
+        const origThumb = original.querySelector('.projectThumb');
+        const origImg = origThumb?.querySelector('.projectThumbImg');
+        const cloneThumb = clone.querySelector('.projectThumb');
+        let cloneImg = cloneThumb?.querySelector('.projectThumbImg');
+
+        if (cloneThumb && (cloneImg || origImg)) {
+          const src = cloneImg?.src || origImg?.src;
+          if (src) {
+            if (origThumb?.classList.contains('hasThumb') || (cloneImg && cloneImg.complete && cloneImg.naturalWidth > 0)) {
+              cloneThumb.classList.add('hasThumb');
+            } else {
+              if (!cloneImg) {
+                cloneImg = document.createElement('img');
+                cloneImg.className = 'projectThumbImg';
+                cloneImg.decoding = 'async';
+                cloneImg.src = src;
+                cloneThumb.appendChild(cloneImg);
+              }
+              const onDone = () => {
+                if (cloneImg && cloneImg.naturalWidth > 0) cloneThumb.classList.add('hasThumb');
+              };
+              cloneImg.onload = onDone;
+              cloneImg.onerror = () => { cloneThumb.classList.remove('hasThumb'); };
+              if (cloneImg.complete && cloneImg.naturalWidth > 0) onDone();
+            }
+          }
+        }
+
+        // Delegate click to original card
         clone.onclick = (e) => {
           e.preventDefault();
           original.click();
@@ -57665,6 +58097,7 @@ THE SOFTWARE.
         targetGrid.appendChild(clone);
       }
     }
+    window.omsRefreshRecentProjects = refreshRecentProjects;
 
     // Observe changes to projectList to automatically sync recent projects
     const pList = document.getElementById('projectList');
@@ -57672,11 +58105,13 @@ THE SOFTWARE.
       const observer = new MutationObserver(() => {
         refreshRecentProjects();
       });
-      observer.observe(pList, { childList: true, subtree: true });
+      observer.observe(pList, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
     }
 
     // Initial recent projects refresh
+    setTimeout(refreshRecentProjects, 100);
     setTimeout(refreshRecentProjects, 350);
+    setTimeout(refreshRecentProjects, 800);
 
     // 4. One-tap Template Application
     document.querySelectorAll('[data-template-use]').forEach(btn => {
