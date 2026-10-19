@@ -4534,13 +4534,16 @@ SOFTWARE. -->
         root.classList.add('omsStandalone');
         if (isIOS) {
           root.classList.add('omsIOSStandalone');
-        }
-        if (window.screen && window.screen.height) {
-          const isLandscape = window.innerWidth > window.innerHeight;
-          const screenH = isLandscape 
-            ? Math.min(window.screen.width, window.screen.height) 
-            : Math.max(window.screen.width, window.screen.height);
-          root.style.setProperty('--oms-screen-height', screenH + 'px');
+          if (window.screen && window.screen.height) {
+            const isLandscape = window.innerWidth > window.innerHeight;
+            const screenH = isLandscape 
+              ? Math.min(window.screen.width, window.screen.height) 
+              : Math.max(window.screen.width, window.screen.height);
+            root.style.setProperty('--oms-screen-height', screenH + 'px');
+          }
+        } else {
+          root.classList.remove('omsIOSStandalone');
+          root.style.removeProperty('--oms-screen-height');
         }
       } else {
         root.classList.remove('omsStandalone');
@@ -4578,37 +4581,46 @@ SOFTWARE. -->
   --oms-m-muted: #8c9cb0;
 }
 
-/* Standalone PWA / iOS Shortcut Fullscreen & Safe Area Rules */
+/* Standalone PWA Default Rules (Android & Non-iOS: standard 100dvh avoids sinking navigation bar) */
 @media (display-mode: standalone) {
   html, body {
     height: 100% !important;
-    height: 100lvh !important;
+    height: 100dvh !important;
     min-height: 100% !important;
-    min-height: 100lvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
     overflow: hidden !important;
   }
-  html body #home.home:not(.hidden) {
-    height: 100% !important;
-    height: 100lvh !important;
-    height: var(--oms-screen-height, 100lvh) !important;
-    min-height: 100% !important;
-    min-height: 100lvh !important;
-    min-height: var(--oms-screen-height, 100lvh) !important;
-    max-height: var(--oms-screen-height, 100lvh) !important;
-  }
+  html body #home.home:not(.hidden),
   html body #editor.editor:not(.hidden) {
     height: 100% !important;
-    height: 100lvh !important;
-    height: var(--oms-screen-height, 100lvh) !important;
+    height: 100dvh !important;
     min-height: 100% !important;
-    min-height: 100lvh !important;
-    min-height: var(--oms-screen-height, 100lvh) !important;
-    max-height: var(--oms-screen-height, 100lvh) !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
   }
 }
 
 html.omsStandalone,
-html.omsStandalone body,
+html.omsStandalone body {
+  height: 100% !important;
+  height: 100dvh !important;
+  min-height: 100% !important;
+  min-height: 100dvh !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+}
+
+html.omsStandalone #home.home:not(.hidden),
+html.omsStandalone #editor.editor:not(.hidden) {
+  height: 100% !important;
+  height: 100dvh !important;
+  min-height: 100% !important;
+  min-height: 100dvh !important;
+  max-height: 100dvh !important;
+}
+
+/* iOS Standalone Specific Rules (Home Screen WebApp with Notch & Home Indicator Safe Areas) */
 html.omsIOSStandalone,
 html.omsIOSStandalone body {
   height: 100% !important;
@@ -4618,18 +4630,7 @@ html.omsIOSStandalone body {
   overflow: hidden !important;
 }
 
-html.omsStandalone #home.home:not(.hidden),
-html.omsIOSStandalone #home.home:not(.hidden) {
-  height: 100% !important;
-  height: 100lvh !important;
-  height: var(--oms-screen-height, 100lvh) !important;
-  min-height: 100% !important;
-  min-height: 100lvh !important;
-  min-height: var(--oms-screen-height, 100lvh) !important;
-  max-height: var(--oms-screen-height, 100lvh) !important;
-}
-
-html.omsStandalone #editor.editor:not(.hidden),
+html.omsIOSStandalone #home.home:not(.hidden),
 html.omsIOSStandalone #editor.editor:not(.hidden) {
   height: 100% !important;
   height: 100lvh !important;
@@ -57113,6 +57114,9 @@ html.omsMobileLandscapeDesktop #preRenderRecordBtn{left:35px!important}
           : Math.max(window.screen.width, window.screen.height);
         root.style.setProperty('--oms-screen-height', screenH + 'px');
       }
+    } else {
+      root.classList.remove('omsIOSStandalone');
+      root.style.removeProperty('--oms-screen-height');
     }
   };
 

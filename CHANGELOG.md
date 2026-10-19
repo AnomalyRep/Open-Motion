@@ -8,6 +8,7 @@
 - **Experimental Notice Suppression**: add persistent "Jangan tampilkan lagi" / "Don't show again" secondary action with synchronous `localStorage` verification and 14-language translations.
 - **Projects Tab Empty State**: high-contrast dark theme empty state with styled icon card (`#18202e`, `#73e2bd` accent) and clear typographic hierarchy (`#f1f5f9` header, `#94a3b8` description).
 - **iOS Safari Viewport Docking**: switch mobile browser viewport height to `100dvh` to keep bottom navigation cleanly above the Safari URL bar, while preserving edge-to-edge `100lvh` for standalone Home Screen PWAs.
+- **Android PWA Viewport Alignment**: restrict hardware screen scaling to iOS and standardize non-iOS standalone PWAs on `100dvh`, preventing bottom navigation bars from sinking beneath Android system buttons or gesture navigation areas.
 - **Navbar Polish**: high-contrast white text for language selector badge ID in mobile navigation bar.
 
 ## V5.284 — 2026-10-19
