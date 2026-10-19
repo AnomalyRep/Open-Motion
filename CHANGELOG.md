@@ -1,5 +1,15 @@
 # Changelog
 
+## V5.285 — 2026-10-19
+
+### Mobile & PWA UX Refinements
+
+- **Add Object Drawer Physics**: smooth slide-down close animations (`.drawerClosing`) for mobile bottom sheets and desktop docked trays; prevent stuck states and race conditions upon rapid toggle.
+- **Experimental Notice Suppression**: add persistent "Jangan tampilkan lagi" / "Don't show again" secondary action with synchronous `localStorage` verification and 14-language translations.
+- **Projects Tab Empty State**: high-contrast dark theme empty state with styled icon card (`#18202e`, `#73e2bd` accent) and clear typographic hierarchy (`#f1f5f9` header, `#94a3b8` description).
+- **iOS Safari Viewport Docking**: switch mobile browser viewport height to `100dvh` to keep bottom navigation cleanly above the Safari URL bar, while preserving edge-to-edge `100lvh` for standalone Home Screen PWAs.
+- **Navbar Polish**: high-contrast white text for language selector badge ID in mobile navigation bar.
+
 ## V5.284 — 2026-10-19
 
 ### Alight Motion UX Alignment & Add Object Drawer Overhaul

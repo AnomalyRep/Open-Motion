@@ -433,7 +433,7 @@ input[type=range]{accent-color:var(--accent)}
 .plusBtn{bottom:12px !important;transition:transform .18s ease,background .18s ease}
 .plusBtn.open{transform:rotate(45deg);background:#243047}
 .addDrawer .drawerHead{display:none}
-.addDrawer{max-height:78%;background:#242a3b}
+.addDrawer{height:251px!important;max-height:251px!important;background:#242a3b}
 .addHubTabs{display:flex;overflow-x:auto;border-bottom:1px solid #353c50;background:#2a3042;padding:0 4px;scrollbar-width:none}
 .addHubTabs::-webkit-scrollbar{display:none}
 .addHubTab{min-width:92px;padding:12px 7px 10px;border:0;border-bottom:2px solid transparent;background:transparent;color:#e6ebf5;font-size:10px;font-weight:700;text-align:center}
@@ -445,7 +445,7 @@ input[type=range]{accent-color:var(--accent)}
 .addHubBody .mediaDrop{margin:4px}
 .addHubTitle{display:flex;align-items:center;justify-content:space-between;padding:2px 2px 10px;font-weight:800}
 .addHubClose{width:34px;height:34px;border:1px solid #3b4358;background:#202637;border-radius:10px;color:#fff;font-size:18px}
-@media(max-width:520px){.addHubTab{min-width:82px;font-size:9px}.addHubTab span{font-size:21px}.addHubBody .shapeGrid{grid-template-columns:repeat(4,1fr)}.addDrawer{max-height:72%}}
+@media(max-width:520px){.addHubTab{min-width:82px;font-size:9px}.addHubTab span{font-size:21px}.addHubBody .shapeGrid{grid-template-columns:repeat(6,1fr)}.addDrawer{height:251px!important;max-height:251px!important;}}
 
 
 /* =========================================================
@@ -523,8 +523,8 @@ input[type=range]{accent-color:var(--accent)}
     padding:0 !important;
   }
 
-  /* Bentuk: 12 item = 4 kolom x 3 baris, memenuhi ruang secara fluid */
-  .addHubBody .shapeGrid{
+  /* Bentuk legacy override — isolate from authentic amShapeGrid */
+  .addHubBody .shapeGrid:not(.amShapeGrid){
     flex:1 1 auto !important;
     min-height:0 !important;
     height:100% !important;
@@ -535,7 +535,7 @@ input[type=range]{accent-color:var(--accent)}
     overflow:hidden !important;
   }
 
-  .addHubBody .shapeItem{
+  .addHubBody .shapeItem:not(.amShapeItem){
     aspect-ratio:auto !important;
     width:100% !important;
     height:100% !important;
@@ -2144,7 +2144,7 @@ input[type=range]{accent-color:var(--accent)}
 .simpleHome .projectCard.projectSelected .projectThumb{box-shadow:0 0 0 2px rgba(82,211,175,.35)}
 .simpleHome.projectSelectionMode .fabHome{display:none!important;pointer-events:none!important}
 .simpleHome.projectSelectionMode .homeMain{padding-bottom:118px}
-.projectSelectionBar{position:fixed;z-index:90;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translate(-50%,calc(100% + 28px));width:min(680px,calc(100% - 18px));height:92px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:#485170;box-shadow:0 18px 42px rgba(0,0,0,.32);display:grid;grid-template-columns:repeat(3,1fr);align-items:stretch;padding:8px 8px 7px;opacity:0;visibility:hidden;pointer-events:none;transition:transform .2s ease,opacity .2s ease,visibility 0s linear .2s}
+.projectSelectionBar{position:fixed;z-index:150;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translate(-50%,calc(100% + 28px));width:min(680px,calc(100% - 18px));height:92px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:#485170;box-shadow:0 18px 42px rgba(0,0,0,.32);display:grid;grid-template-columns:repeat(3,1fr);align-items:stretch;padding:8px 8px 7px;opacity:0;visibility:hidden;pointer-events:none;transition:transform .2s ease,opacity .2s ease,visibility 0s linear .2s}
 .projectSelectionBar.active{transform:translate(-50%,0);opacity:1;visibility:visible;pointer-events:auto;transition:transform .2s ease,opacity .2s ease,visibility 0s}
 .projectSelectionCount{position:absolute;left:50%;top:-12px;transform:translateX(-50%);height:23px;min-width:68px;padding:0 10px;border-radius:999px;background:#69dbba;color:#123f34;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900;letter-spacing:.04em;box-shadow:0 4px 12px rgba(0,0,0,.16)}
 .projectSelectionAction{border:0;background:transparent;color:#fff;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font:inherit;touch-action:manipulation}
@@ -2168,11 +2168,11 @@ input[type=range]{accent-color:var(--accent)}
   overflow:visible;
   text-align:center;
 }
-.simpleHome .emptyIcon{position:relative;width:54px;height:54px;margin-bottom:17px;border:1px solid #d8dde3;border-radius:16px;background:#fff}
-.simpleHome .emptyIcon:before,.simpleHome .emptyIcon:after{content:"";position:absolute;left:17px;top:26px;width:20px;height:1px;background:#727983}
+.simpleHome .emptyIcon{position:relative;width:58px;height:58px;margin-bottom:16px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:#18202e;box-shadow:0 8px 24px rgba(0,0,0,.35);display:inline-flex;align-items:center;justify-content:center}
+.simpleHome .emptyIcon:before,.simpleHome .emptyIcon:after{content:"";position:absolute;left:19px;top:28px;width:20px;height:2px;border-radius:2px;background:var(--oms-m-accent,#73e2bd)}
 .simpleHome .emptyIcon:after{transform:rotate(90deg)}
-.simpleHome .emptyCopy b{display:block;color:#353942;font-size:11px}
-.simpleHome .emptyCopy p{max-width:245px;margin:7px 0 0;color:#a0a5ad;font-size:8px;line-height:1.55}
+.simpleHome .emptyCopy b{display:block;color:#f1f5f9;font-size:14px;font-weight:750;letter-spacing:-.01em}
+.simpleHome .emptyCopy p{max-width:260px;margin:7px auto 0;color:#94a3b8;font-size:11px;line-height:1.55}
 .simpleHome .fabHome{
   position:absolute!important;
   left:auto!important;
@@ -2369,6 +2369,9 @@ input[type=range]{accent-color:var(--accent)}
   line-height:1.6;
 }
 .experimentalNoticeFooter{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
   padding:13px 20px calc(13px + env(safe-area-inset-bottom));
   border-top:1px solid rgba(255,255,255,.08);
   background:#171a24;
@@ -2384,9 +2387,37 @@ input[type=range]{accent-color:var(--accent)}
   font-size:11px;
   letter-spacing:.02em;
   box-shadow:0 8px 24px rgba(94,219,181,.15);
+  cursor:pointer;
+  transition:transform .12s ease, filter .12s ease;
 }
 .experimentalNoticeAccept:active{transform:translateY(1px);filter:brightness(.96)}
 .experimentalNoticeAccept:focus-visible{outline:2px solid #b5f4df;outline-offset:3px}
+.experimentalNoticeDontShow{
+  width:100%;
+  height:38px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:11px;
+  background:#232734;
+  color:#9eb0c6;
+  font-weight:750;
+  font-size:11px;
+  letter-spacing:.01em;
+  cursor:pointer;
+  transition:background .15s ease,color .15s ease,border-color .15s ease,transform .12s ease;
+}
+.experimentalNoticeDontShow:hover{
+  background:#2e3446;
+  color:#ffffff;
+  border-color:rgba(255,255,255,.26);
+}
+.experimentalNoticeDontShow:active{
+  transform:translateY(1px);
+  background:#1d212d;
+}
+.experimentalNoticeDontShow:focus-visible{
+  outline:2px solid rgba(255,255,255,.32);
+  outline-offset:2px;
+}
 @media(max-width:560px){
   .experimentalNotice{padding:12px;place-items:center}
   .experimentalNoticeCard{max-height:88vh;max-height:88dvh;border-radius:16px}
@@ -4489,6 +4520,42 @@ SOFTWARE. -->
 </style>
 
 
+<script id="oms-standalone-viewport-bootstrap">
+(()=>{
+  try {
+    const sync = () => {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+        (navigator.platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1);
+      const isStandalone = window.navigator.standalone === true || 
+        window.matchMedia?.('(display-mode: standalone)').matches === true;
+      const root = document.documentElement;
+
+      if (isStandalone) {
+        root.classList.add('omsStandalone');
+        if (isIOS) {
+          root.classList.add('omsIOSStandalone');
+        }
+        if (window.screen && window.screen.height) {
+          const isLandscape = window.innerWidth > window.innerHeight;
+          const screenH = isLandscape 
+            ? Math.min(window.screen.width, window.screen.height) 
+            : Math.max(window.screen.width, window.screen.height);
+          root.style.setProperty('--oms-screen-height', screenH + 'px');
+        }
+      } else {
+        root.classList.remove('omsStandalone');
+        root.classList.remove('omsIOSStandalone');
+        root.style.removeProperty('--oms-screen-height');
+      }
+    };
+    sync();
+    window.matchMedia?.('(display-mode: standalone)').addEventListener?.('change', sync);
+    window.addEventListener('resize', sync);
+    window.addEventListener('orientationchange', sync);
+  } catch(e){}
+})();
+</script>
+
 <style id="oms-mobile-device-overhaul">
 /* ==========================================================================
    OPEN MOTION — COMPLETE MOBILE DEVICE UI OVERHAUL (ALIGHT MOTION 5.0 PARITY)
@@ -4509,6 +4576,68 @@ SOFTWARE. -->
   --oms-m-accent-dark: #20c997;
   --oms-m-text: #f1f5f9;
   --oms-m-muted: #8c9cb0;
+}
+
+/* Standalone PWA / iOS Shortcut Fullscreen & Safe Area Rules */
+@media (display-mode: standalone) {
+  html, body {
+    height: 100% !important;
+    height: 100lvh !important;
+    min-height: 100% !important;
+    min-height: 100lvh !important;
+    overflow: hidden !important;
+  }
+  html body #home.home:not(.hidden) {
+    height: 100% !important;
+    height: 100lvh !important;
+    height: var(--oms-screen-height, 100lvh) !important;
+    min-height: 100% !important;
+    min-height: 100lvh !important;
+    min-height: var(--oms-screen-height, 100lvh) !important;
+    max-height: var(--oms-screen-height, 100lvh) !important;
+  }
+  html body #editor.editor:not(.hidden) {
+    height: 100% !important;
+    height: 100lvh !important;
+    height: var(--oms-screen-height, 100lvh) !important;
+    min-height: 100% !important;
+    min-height: 100lvh !important;
+    min-height: var(--oms-screen-height, 100lvh) !important;
+    max-height: var(--oms-screen-height, 100lvh) !important;
+  }
+}
+
+html.omsStandalone,
+html.omsStandalone body,
+html.omsIOSStandalone,
+html.omsIOSStandalone body {
+  height: 100% !important;
+  height: 100lvh !important;
+  min-height: 100% !important;
+  min-height: 100lvh !important;
+  overflow: hidden !important;
+}
+
+html.omsStandalone #home.home:not(.hidden),
+html.omsIOSStandalone #home.home:not(.hidden) {
+  height: 100% !important;
+  height: 100lvh !important;
+  height: var(--oms-screen-height, 100lvh) !important;
+  min-height: 100% !important;
+  min-height: 100lvh !important;
+  min-height: var(--oms-screen-height, 100lvh) !important;
+  max-height: var(--oms-screen-height, 100lvh) !important;
+}
+
+html.omsStandalone #editor.editor:not(.hidden),
+html.omsIOSStandalone #editor.editor:not(.hidden) {
+  height: 100% !important;
+  height: 100lvh !important;
+  height: var(--oms-screen-height, 100lvh) !important;
+  min-height: 100% !important;
+  min-height: 100lvh !important;
+  min-height: var(--oms-screen-height, 100lvh) !important;
+  max-height: var(--oms-screen-height, 100lvh) !important;
 }
 
 /* Base mobile touch optimization */
@@ -4540,6 +4669,15 @@ SOFTWARE. -->
    MOBILE HOME SCREEN (ALIGHT MOTION APP PARITY)
    ========================================================================== */
 @media (max-width: 899px) {
+  html, body {
+    height: 100% !important;
+    height: 100dvh !important;
+    min-height: 100% !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
   #home.hidden,
   #editor.hidden {
     display: none !important;
@@ -4549,8 +4687,12 @@ SOFTWARE. -->
     display: flex !important;
     flex-direction: column !important;
     width: 100vw !important;
+    height: 100% !important;
     height: 100vh !important;
     height: 100dvh !important;
+    min-height: 100% !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
     background: radial-gradient(circle at 85% 0%, rgba(115, 226, 189, 0.12), transparent 35%),
                 radial-gradient(circle at 10% 90%, rgba(139, 131, 255, 0.08), transparent 40%),
                 var(--oms-m-bg) !important;
@@ -4614,6 +4756,11 @@ SOFTWARE. -->
     align-items: center !important;
     gap: 4px !important;
   }
+  #home .homeTopActions .rightBtn .langCode,
+  #home .homeTopActions .languageBtn .langCode,
+  #homeLanguageCode {
+    color: #ffffff !important;
+  }
   #home .homeTopActions #homeInstallBtn {
     display: none !important;
   }
@@ -4625,7 +4772,7 @@ SOFTWARE. -->
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    padding: 0 0 calc(75px + var(--oms-sab)) 0 !important;
+    padding: 0 0 20px 0 !important;
   }
 
   /* Tab View Transitions */
@@ -4994,14 +5141,76 @@ SOFTWARE. -->
     display: none !important;
   }
 
+  /* Empty Projects State in Home Mobile */
+  #home .homeEmpty {
+    grid-column: 1 / -1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: min(44vh, 340px) !important;
+    padding: 36px 16px !important;
+    text-align: center !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+  #home .emptyIcon {
+    position: relative !important;
+    width: 58px !important;
+    height: 58px !important;
+    margin: 0 auto 16px auto !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 18px !important;
+    background: #18202e !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  #home .emptyIcon:before,
+  #home .emptyIcon:after {
+    content: "" !important;
+    position: absolute !important;
+    left: 19px !important;
+    top: 28px !important;
+    width: 20px !important;
+    height: 2px !important;
+    border-radius: 2px !important;
+    background: var(--oms-m-accent, #73e2bd) !important;
+  }
+  #home .emptyIcon:after {
+    transform: rotate(90deg) !important;
+  }
+  #home .emptyCopy {
+    text-align: center !important;
+  }
+  #home .emptyCopy b {
+    display: block !important;
+    color: #f1f5f9 !important;
+    font-size: 14.5px !important;
+    font-weight: 750 !important;
+    letter-spacing: -0.01em !important;
+    margin-bottom: 3px !important;
+  }
+  #home .emptyCopy p {
+    max-width: 280px !important;
+    margin: 6px auto 0 auto !important;
+    color: #94a3b8 !important;
+    font-size: 11.5px !important;
+    line-height: 1.5 !important;
+  }
+
   /* ------------------------------------------------------------------------
-     MOBILE BOTTOM NAVIGATION BAR (FIXED DOCK)
+     MOBILE BOTTOM NAVIGATION BAR (ALIGHT MOTION FIXED BOTTOM DOCK)
      ------------------------------------------------------------------------ */
   .mobileBottomNav {
-    position: fixed !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
+    position: relative !important;
+    flex: 0 0 auto !important;
+    margin-top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
     height: calc(58px + var(--oms-sab)) !important;
     padding-bottom: var(--oms-sab) !important;
     background: rgba(13, 17, 25, 0.96) !important;
@@ -5058,7 +5267,10 @@ SOFTWARE. -->
   }
   .mNavCenterFab {
     position: absolute !important;
-    bottom: calc(14px + var(--oms-sab)) !important;
+    top: -10px !important;
+    bottom: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     width: 52px !important;
     height: 52px !important;
     border-radius: 50% !important;
@@ -5077,7 +5289,7 @@ SOFTWARE. -->
     transition: transform 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28) !important;
   }
   .mNavCenterFab:active {
-    transform: scale(0.92) !important;
+    transform: translateX(-50%) scale(0.92) !important;
   }
 }
 
@@ -5089,8 +5301,12 @@ SOFTWARE. -->
     display: flex !important;
     flex-direction: column !important;
     width: 100vw !important;
+    height: 100% !important;
     height: 100vh !important;
     height: 100dvh !important;
+    min-height: 100% !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
     overflow: hidden !important;
     background: #080a0f !important;
   }
@@ -5569,6 +5785,14 @@ SOFTWARE. -->
     from { transform: translateY(100%); }
     to { transform: translateY(0); }
   }
+  #drawer.drawerClosing {
+    animation: omsSheetSlideDown 0.2s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+    pointer-events: none !important;
+  }
+  @keyframes omsSheetSlideDown {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100%); opacity: 0; }
+  }
 
   #drawer::before {
     content: '' !important;
@@ -5636,9 +5860,9 @@ SOFTWARE. -->
     z-index: 125 !important;
   }
   #drawer.addDrawer {
-    height: clamp(300px, 48vh, 440px) !important;
-    height: clamp(300px, 48dvh, 440px) !important;
-    max-height: clamp(300px, 48vh, 440px) !important;
+    height: 251px !important;
+    max-height: 251px !important;
+    min-height: 251px !important;
     background: #2b2e3c !important; /* @color/A9_W5P */
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-bottom: 0 !important;
@@ -5726,10 +5950,32 @@ SOFTWARE. -->
     user-select: none !important;
     box-sizing: border-box !important;
   }
+  .amTabIconWrap {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 2px !important;
+  }
+  .amNewBadge {
+    position: absolute !important;
+    top: -5px !important;
+    right: -12px !important;
+    background: #ffcd4b !important; /* @color/new_tag_background */
+    color: #141620 !important; /* @color/new_tag_text */
+    font-size: 7px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    padding: 1.5px 3.5px !important;
+    border-radius: 2px !important;
+    letter-spacing: 0.3px !important;
+    text-transform: uppercase !important;
+    pointer-events: none !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+  }
   .amTab svg,
   #drawer.addDrawer .addHubTab svg {
     display: block !important;
-    margin-bottom: 2px !important;
     color: currentColor !important;
     flex-shrink: 0 !important;
   }
@@ -5846,64 +6092,145 @@ SOFTWARE. -->
     grid-column: 1 / 3 !important;
     grid-row: 2 !important;
     background: #202332 !important; /* @color/A9 */
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    padding: 8px 10px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
     box-sizing: border-box !important;
     min-height: 0 !important;
-  }
-
-  .amShapeGrid {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 8px !important;
-    padding: 2px !important;
-    box-sizing: border-box !important;
-  }
-  @media (min-width: 600px) {
-    .amShapeGrid {
-      grid-template-columns: repeat(6, 1fr) !important;
-      gap: 10px !important;
-    }
-  }
-  .amShapeItem {
-    min-height: 60px !important;
-    height: 60px !important;
-    background: #2b2e3c !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 10px !important;
+    height: 193px !important;
+    max-height: 193px !important;
     display: flex !important;
     flex-direction: column !important;
+    justify-content: space-between !important;
+    position: relative !important;
+  }
+
+  .amShapeViewPagerWrap {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+  }
+
+  .amShapeViewPager {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    user-select: none !important;
+    cursor: grab !important;
+    touch-action: pan-x pan-y !important;
+  }
+  .amShapeViewPager:active {
+    cursor: grabbing !important;
+  }
+  .amShapeViewPager::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .amShapePage {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    padding: 2px 4px !important;
+  }
+
+  .amShapePage .amShapeGrid {
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    grid-template-rows: repeat(3, 48px) !important;
+    gap: 2px 4px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: 100% !important;
+    align-content: center !important;
+    justify-items: center !important;
+  }
+  .amShapeItem {
+    min-height: 48px !important;
+    height: 48px !important;
+    max-width: 48px !important;
+    width: 48px !important;
+    margin: 0 auto !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     cursor: pointer !important;
     color: #ffffff !important;
-    padding: 4px !important;
+    padding: 0 !important;
     box-sizing: border-box !important;
-    transition: background 0.14s ease, border-color 0.14s ease, transform 0.14s ease !important;
+    transition: background 0.12s ease, transform 0.12s ease !important;
   }
   .amShapeItem:hover {
-    background: #363a4c !important;
-    border-color: rgba(0, 255, 168, 0.4) !important;
-    transform: translateY(-2px) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 0 !important;
+    transform: scale(1.08) !important;
   }
   .amShapeItem:active {
-    background: #00ffa8 !important;
-    color: #141620 !important;
-    transform: scale(0.95) !important;
+    background: rgba(0, 255, 168, 0.22) !important;
+    color: #00ffa8 !important;
+    transform: scale(0.92) !important;
   }
   .amShapeItem svg {
     display: block !important;
-    margin-bottom: 2px !important;
+    margin: 0 !important;
     pointer-events: none !important;
     color: currentColor !important;
+    width: 28px !important;
+    height: 28px !important;
   }
   .amShapeItem span {
-    font-size: 7.8px !important;
-    font-weight: 600 !important;
-    opacity: 0.85 !important;
-    pointer-events: none !important;
-    color: inherit !important;
+    display: none !important;
+  }
+
+  .amShapePagination {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px !important;
+    height: 14px !important;
+    min-height: 14px !important;
+    padding: 2px 0 4px 0 !important;
+    margin-top: auto !important;
+    z-index: 5 !important;
+  }
+  .amDot {
+    width: 5px !important;
+    height: 5px !important;
+    border-radius: 3px !important;
+    background: #474b5c !important;
+    transition: all 0.22s ease !important;
+    cursor: pointer !important;
+  }
+  .amDot.active {
+    width: 15px !important;
+    height: 5px !important;
+    background: #00ffa8 !important;
+    border-radius: 3px !important;
   }
 
   .amObjectsGrid {
@@ -6025,6 +6352,59 @@ SOFTWARE. -->
     border-bottom: 0 !important;
     padding: 16px 16px calc(16px + var(--oms-sab)) 16px !important;
     overflow-y: auto !important;
+  }
+
+  .modalHead button,
+  #closeNew {
+    color: #ffffff !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+    background: transparent !important;
+    border: 0 !important;
+    cursor: pointer !important;
+  }
+  .modalHead button:active,
+  #closeNew:active {
+    opacity: 0.6 !important;
+  }
+
+  .modalShade .settingRow label,
+  #newModal .settingRow label {
+    color: #ffffff !important;
+  }
+
+  /* Bottom sheet slide-up and slide-down animation */
+  #newModal:not(.hidden) {
+    animation: omsModalFadeIn 0.22s ease-out forwards !important;
+  }
+  #newModal:not(.hidden) .modal {
+    animation: omsModalSlideUp 0.26s cubic-bezier(0.18, 0.9, 0.32, 1) forwards !important;
+    will-change: transform;
+  }
+  #newModal.isClosing {
+    animation: omsModalFadeOut 0.2s ease-in forwards !important;
+    pointer-events: none !important;
+  }
+  #newModal.isClosing .modal {
+    animation: omsModalSlideDown 0.2s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+    will-change: transform;
+  }
+
+  @keyframes omsModalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes omsModalFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  @keyframes omsModalSlideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes omsModalSlideDown {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
   }
 }
 </style>
@@ -6461,8 +6841,17 @@ body #desktopCanvasSplitToolbarBtn,
 .simpleHome .languageBtn .langCode {
   font-size: 13px !important;
   font-weight: 850 !important;
-  color: #242933 !important;
+  color: inherit !important;
   letter-spacing: 0.04em !important;
+}
+
+@media (max-width: 899px) {
+  #home .homeTopActions .rightBtn .langCode,
+  #home .homeTopActions .languageBtn .langCode,
+  #homeLanguageCode,
+  .simpleHome .languageBtn .langCode {
+    color: #ffffff !important;
+  }
 }
 
 /* INSTAL Button */
@@ -6923,6 +7312,7 @@ body #desktopCanvasSplitToolbarBtn,
 
 
   <div id="experimentalNotice" class="experimentalNotice" role="dialog" aria-modal="true" aria-labelledby="experimentalNoticeTitle" aria-describedby="experimentalNoticeIntro">
+    <script>try{if(localStorage.getItem('oms_hide_experimental_notice')==='1'){document.currentScript.parentElement.setAttribute('aria-hidden','true');window.__omsExperimentalNoticeAccepted=true;}}catch(e){}</script>
     <section class="experimentalNoticeCard">
       <header class="experimentalNoticeHead">
         <span class="experimentalNoticeEyebrow">EXPERIMENTAL PREVIEW</span>
@@ -6960,6 +7350,7 @@ body #desktopCanvasSplitToolbarBtn,
 
       <footer class="experimentalNoticeFooter">
         <button id="experimentalNoticeAccept" class="experimentalNoticeAccept" type="button">Saya Mengerti</button>
+        <button id="experimentalNoticeDontShow" class="experimentalNoticeDontShow" type="button">Jangan tampilkan lagi</button>
       </footer>
     </section>
   </div>
@@ -8896,8 +9287,12 @@ class ProjectModel{
       const shortEdge=Math.max(1,Math.min(+p.width||1,+p.height||1));
       const primitiveSize=shortEdge*.50;
       Object.assign(base,{name:'Bentuk',shape:opt.shape||'rect',shapePoints:5,shapeInner:46,shapePhase:0,shapeSides:6,shapeTip:50,shapeArrowHead:35,shapeArrowBody:28,shapeLineCap:'round',shapeLockAspect:true});
+      if(opt.shape==='roundrect')base.radius=30;
       if(!Object.prototype.hasOwnProperty.call(opt,'w'))base.w=primitiveSize;
       if(!Object.prototype.hasOwnProperty.call(opt,'h'))base.h=primitiveSize;
+      if(opt.shape==='line'){base.shapeLockAspect=false;if(!Object.prototype.hasOwnProperty.call(opt,'h'))base.h=Math.max(6,primitiveSize*0.1);}
+      if(opt.shape==='pill'){base.shapeLockAspect=false;if(!Object.prototype.hasOwnProperty.call(opt,'h'))base.h=primitiveSize*0.55;}
+      if(opt.shape==='arrow'){base.shapeLockAspect=false;if(!Object.prototype.hasOwnProperty.call(opt,'h'))base.h=primitiveSize*0.6;}
     }
     if(type==='text')Object.assign(base,{name:'Teks',text:opt.text||'Open Motion',fontSize:Math.round(p.height*.07),fontWeight:700,fontFamily:'system-ui',fontStyle:'normal',tracking:0,lineHeight:1.15,color:'#ffffff',textFillOpacity:1,w:p.width*.72,h:p.height*.18,align:'center'});
     if(type==='image')Object.assign(base,{name:opt.name||'Gambar',dataUrl:opt.dataUrl||'',w:p.width*.65,h:p.height*.4});
@@ -12493,6 +12888,159 @@ function tracePrimitiveShapePath(ctx,layer,w=null,h=null,offsetX=0,offsetY=0,tim
     ctx.arc(cx,cy,r,-Math.PI/2,Math.PI/2,false);
     ctx.bezierCurveTo(cx-r*0.2,cy+r*0.6,cx-r*0.2,cy-r*0.6,cx,cy-r);
     ctx.closePath();return st
+  }
+  if(shape==='ring'||shape==='donut'){
+    const r=Math.min(rx,ry);
+    ctx.arc(cx,cy,r,0,Math.PI*2,false);
+    ctx.arc(cx,cy,r*0.58,0,Math.PI*2,true);
+    ctx.closePath();return st
+  }
+  if(shape==='pill'||shape==='capsule'){
+    const r=Math.min(rx,ry);
+    if(ctx.roundRect)ctx.roundRect(offsetX,offsetY,w,h,r);else ctx.rect(offsetX,offsetY,w,h);
+    return st
+  }
+  if(shape==='star4'||shape==='sparkle'){
+    const count=8,phase=rad(st.phase-90);
+    for(let i=0;i<count;i++){
+      const a=phase+i*Math.PI/4,inner=i%2===1,rxi=rx*(inner?0.28:1),ryi=ry*(inner?0.28:1),x=cx+Math.cos(a)*rxi,y=cy+Math.sin(a)*ryi;
+      i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+    }
+    ctx.closePath();return st
+  }
+  if(shape==='bubble'||shape==='speech'){
+    const r=Math.min(rx,ry)*0.3,bx=cx-rx*0.2,by=offsetY+h;
+    if(ctx.roundRect)ctx.roundRect(offsetX,offsetY,w,h*0.8,r);
+    ctx.moveTo(bx,offsetY+h*0.8);ctx.lineTo(bx-rx*0.3,by);ctx.lineTo(bx+rx*0.2,offsetY+h*0.8);
+    ctx.closePath();return st
+  }
+  if(shape==='drop'||shape==='droplet'){
+    ctx.moveTo(cx,offsetY);
+    ctx.bezierCurveTo(cx+rx*0.85,offsetY+h*0.45,offsetX+w,offsetY+h*0.75,cx,offsetY+h);
+    ctx.bezierCurveTo(offsetX,offsetY+h*0.75,cx-rx*0.85,offsetY+h*0.45,cx,offsetY);
+    ctx.closePath();return st
+  }
+  if(shape==='penta'){
+    const count=5,phase=rad(st.phase-90);
+    for(let i=0;i<count;i++){const a=phase+i*Math.PI*2/count,x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}
+    ctx.closePath();return st
+  }
+  if(shape==='multifoil'){
+    const count=12,phase=rad(st.phase-90);
+    for(let i=0;i<count;i++){const a=phase+i*Math.PI/6,inner=i%2===1,rxi=rx*(inner?0.55:1),ryi=ry*(inner?0.55:1),x=cx+Math.cos(a)*rxi,y=cy+Math.sin(a)*ryi;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}
+    ctx.closePath();return st
+  }
+  if(shape==='wideline'){const th=Math.max(4,h*0.3);ctx.rect(offsetX,cy-th/2,w,th);return st}
+  if(shape==='doublearrow'){
+    const head=Math.min(w*.35,Math.max(4,w*st.arrowHead)),body=Math.max(2,h*st.arrowBody),y0=cy-body/2,y1=cy+body/2;
+    ctx.moveTo(offsetX,cy);ctx.lineTo(offsetX+head,offsetY);ctx.lineTo(offsetX+head,y0);ctx.lineTo(offsetX+w-head,y0);ctx.lineTo(offsetX+w-head,offsetY);ctx.lineTo(offsetX+w,cy);ctx.lineTo(offsetX+w-head,offsetY+h);ctx.lineTo(offsetX+w-head,y1);ctx.lineTo(offsetX+head,y1);ctx.lineTo(offsetX+head,offsetY+h);ctx.closePath();return st
+  }
+  if(shape==='chevron'){
+    const t=w*0.35;ctx.moveTo(offsetX,offsetY);ctx.lineTo(offsetX+w-t,cy);ctx.lineTo(offsetX,offsetY+h);ctx.lineTo(offsetX+t,offsetY+h);ctx.lineTo(offsetX+w,cy);ctx.lineTo(offsetX+t,offsetY);ctx.closePath();return st
+  }
+  if(shape==='arc'){
+    ctx.arc(cx,cy,Math.min(rx,ry),Math.PI*0.8,Math.PI*2.2);return st
+  }
+  if(shape==='hexagon'){
+    for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/6,x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath();return st
+  }
+  if(shape==='octagon'){
+    for(let i=0;i<8;i++){const a=i*Math.PI/4-Math.PI/8,x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath();return st
+  }
+  if(shape==='trapezoid'){
+    ctx.moveTo(offsetX+w*0.2,offsetY);ctx.lineTo(offsetX+w*0.8,offsetY);ctx.lineTo(offsetX+w,offsetY+h);ctx.lineTo(offsetX,offsetY+h);ctx.closePath();return st
+  }
+  if(shape==='parallelogram'){
+    ctx.moveTo(offsetX+w*0.25,offsetY);ctx.lineTo(offsetX+w,offsetY);ctx.lineTo(offsetX+w*0.75,offsetY+h);ctx.lineTo(offsetX,offsetY+h);ctx.closePath();return st
+  }
+  if(shape==='cross'){
+    const tw=w*0.28,th=h*0.28;
+    ctx.moveTo(cx-tw/2,offsetY);ctx.lineTo(cx+tw/2,offsetY);ctx.lineTo(cx+tw/2,cy-th/2);ctx.lineTo(offsetX+w,cy-th/2);ctx.lineTo(offsetX+w,cy+th/2);ctx.lineTo(cx+tw/2,cy+th/2);ctx.lineTo(cx+tw/2,offsetY+h);ctx.lineTo(cx-tw/2,offsetY+h);ctx.lineTo(cx-tw/2,cy+th/2);ctx.lineTo(offsetX,cy+th/2);ctx.lineTo(offsetX,cy-th/2);ctx.lineTo(cx-tw/2,cy-th/2);ctx.closePath();return st
+  }
+  if(shape==='star5'){
+    for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,r=i%2===1?rx*0.42:rx,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath();return st
+  }
+  if(shape==='star6'){
+    for(let i=0;i<12;i++){const a=-Math.PI/2+i*Math.PI/6,r=i%2===1?rx*0.5:rx,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath();return st
+  }
+  if(shape==='star8'){
+    for(let i=0;i<16;i++){const a=-Math.PI/2+i*Math.PI/8,r=i%2===1?rx*0.5:rx,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath();return st
+  }
+  if(shape==='burst'){
+    for(let i=0;i<24;i++){const a=i*Math.PI/12,r=i%2===1?rx*0.7:rx,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath();return st
+  }
+  if(shape==='badge'){
+    for(let i=0;i<16;i++){const a=i*Math.PI/8,r=i%2===1?rx*0.82:rx,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath();return st
+  }
+  if(shape==='shield'){
+    ctx.moveTo(cx,offsetY);ctx.lineTo(offsetX+w,offsetY+h*0.2);ctx.lineTo(offsetX+w,offsetY+h*0.55);ctx.bezierCurveTo(offsetX+w,offsetY+h*0.85,cx,offsetY+h,cx,offsetY+h);ctx.bezierCurveTo(cx,offsetY+h,offsetX,offsetY+h*0.85,offsetX,offsetY+h*0.55);ctx.lineTo(offsetX,offsetY+h*0.2);ctx.closePath();return st
+  }
+  if(shape==='cloud'){
+    ctx.arc(cx,cy-ry*0.1,rx*0.48,0,Math.PI*2);
+    ctx.arc(cx-rx*0.42,cy+ry*0.18,rx*0.38,0,Math.PI*2);
+    ctx.arc(cx+rx*0.42,cy+ry*0.18,rx*0.38,0,Math.PI*2);
+    ctx.closePath();return st
+  }
+  if(shape==='sun'){
+    ctx.arc(cx,cy,rx*0.45,0,Math.PI*2);
+    for(let i=0;i<8;i++){const a=i*Math.PI/4,x1=cx+Math.cos(a)*rx*0.65,y1=cy+Math.sin(a)*ry*0.65,x2=cx+Math.cos(a)*rx,y2=cy+Math.sin(a)*ry;ctx.moveTo(x1,y1);ctx.lineTo(x2,y2)}return st
+  }
+  if(shape==='lightning'){
+    ctx.moveTo(cx+rx*0.15,offsetY);ctx.lineTo(offsetX,cy+ry*0.15);ctx.lineTo(cx,cy+ry*0.15);ctx.lineTo(cx-rx*0.15,offsetY+h);ctx.lineTo(offsetX+w,cy-ry*0.15);ctx.lineTo(cx,cy-ry*0.15);ctx.closePath();return st
+  }
+  if(shape==='flame'){
+    ctx.moveTo(cx,offsetY);ctx.bezierCurveTo(cx+rx,cy,offsetX+w,offsetY+h*0.8,cx,offsetY+h);ctx.bezierCurveTo(offsetX,offsetY+h*0.8,cx-rx,cy,cx,offsetY);ctx.closePath();return st
+  }
+  if(shape==='snowflake'){
+    for(let i=0;i<6;i++){const a=i*Math.PI/3,cos=Math.cos(a),sin=Math.sin(a);ctx.moveTo(cx,cy);ctx.lineTo(cx+cos*rx,cy+sin*ry);ctx.moveTo(cx+cos*rx*0.6,cy+sin*ry*0.6);ctx.lineTo(cx+cos*rx*0.6-sin*ry*0.25,cy+sin*ry*0.6+cos*rx*0.25);ctx.moveTo(cx+cos*rx*0.6,cy+sin*ry*0.6);ctx.lineTo(cx+cos*rx*0.6+sin*ry*0.25,cy+sin*ry*0.6-cos*rx*0.25)}return st
+  }
+  if(shape==='flower'){
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;ctx.arc(cx+Math.cos(a)*rx*0.48,cy+Math.sin(a)*ry*0.48,rx*0.32,0,Math.PI*2)}ctx.arc(cx,cy,rx*0.28,0,Math.PI*2);return st
+  }
+  if(shape==='leaf'){
+    ctx.moveTo(offsetX,offsetY+h);ctx.bezierCurveTo(offsetX,offsetY,cx,offsetY,offsetX+w,offsetY);ctx.bezierCurveTo(offsetX+w,offsetY+h,cx,offsetY+h,offsetX,offsetY+h);ctx.closePath();return st
+  }
+  if(shape==='checkmark'){
+    ctx.moveTo(offsetX+w*0.15,cy);ctx.lineTo(cx-rx*0.1,offsetY+h*0.82);ctx.lineTo(offsetX+w*0.88,offsetY+h*0.22);return st
+  }
+  if(shape==='xmark'){
+    ctx.moveTo(offsetX+w*0.18,offsetY+h*0.18);ctx.lineTo(offsetX+w*0.82,offsetY+h*0.82);ctx.moveTo(offsetX+w*0.82,offsetY+h*0.18);ctx.lineTo(offsetX+w*0.18,offsetY+h*0.82);return st
+  }
+  if(shape==='bookmark'){
+    ctx.moveTo(offsetX+w*0.2,offsetY);ctx.lineTo(offsetX+w*0.8,offsetY);ctx.lineTo(offsetX+w*0.8,offsetY+h);ctx.lineTo(cx,offsetY+h*0.75);ctx.lineTo(offsetX+w*0.2,offsetY+h);ctx.closePath();return st
+  }
+  if(shape==='flag'){
+    ctx.moveTo(offsetX+w*0.15,offsetY);ctx.lineTo(offsetX+w*0.85,offsetY+h*0.25);ctx.lineTo(offsetX+w*0.15,offsetY+h*0.5);ctx.lineTo(offsetX+w*0.15,offsetY+h);ctx.moveTo(offsetX+w*0.15,offsetY);ctx.lineTo(offsetX+w*0.15,offsetY+h*0.5);return st
+  }
+  if(shape==='pin'){
+    ctx.arc(cx,cy-ry*0.25,rx*0.55,-Math.PI*0.8,Math.PI*0.8,false);ctx.lineTo(cx,offsetY+h);ctx.closePath();return st
+  }
+  if(shape==='lock'){
+    if(ctx.roundRect)ctx.roundRect(offsetX+w*0.15,cy-ry*0.2,w*0.7,h*0.6,rx*0.2);ctx.arc(cx,cy-ry*0.35,rx*0.32,Math.PI,0,false);return st
+  }
+  if(shape==='banner1'||shape==='banner2'){
+    ctx.moveTo(offsetX,offsetY+h*0.25);ctx.lineTo(cx-rx*0.7,cy);ctx.lineTo(offsetX,offsetY+h*0.75);ctx.lineTo(offsetX+w,offsetY+h*0.75);ctx.lineTo(cx+rx*0.7,cy);ctx.lineTo(offsetX+w,offsetY+h*0.25);ctx.closePath();return st
+  }
+  if(shape==='crown'){
+    ctx.moveTo(offsetX+w*0.1,offsetY+h*0.85);ctx.lineTo(offsetX+w*0.9,offsetY+h*0.85);ctx.lineTo(offsetX+w,offsetY+h*0.3);ctx.lineTo(cx+rx*0.4,cy+ry*0.2);ctx.lineTo(cx,offsetY+h*0.15);ctx.lineTo(cx-rx*0.4,cy+ry*0.2);ctx.lineTo(offsetX,offsetY+h*0.3);ctx.closePath();return st
+  }
+  if(shape==='bell'){
+    ctx.arc(cx,offsetY+h*0.4,rx*0.5,Math.PI,0,false);ctx.lineTo(offsetX+w*0.9,offsetY+h*0.78);ctx.lineTo(offsetX+w*0.1,offsetY+h*0.78);ctx.closePath();ctx.arc(cx,offsetY+h*0.84,rx*0.18,0,Math.PI,false);return st
+  }
+  if(shape==='play'){
+    ctx.moveTo(offsetX+w*0.25,offsetY+h*0.15);ctx.lineTo(offsetX+w*0.85,cy);ctx.lineTo(offsetX+w*0.25,offsetY+h*0.85);ctx.closePath();return st
+  }
+  if(shape==='pause'){
+    const pw=w*0.22;ctx.rect(cx-rx*0.7,offsetY+h*0.15,pw,h*0.7);ctx.rect(cx+rx*0.7-pw,offsetY+h*0.15,pw,h*0.7);return st
+  }
+  if(shape==='search'){
+    ctx.arc(cx-rx*0.15,cy-ry*0.15,rx*0.48,0,Math.PI*2);ctx.moveTo(cx+rx*0.22,cy+ry*0.22);ctx.lineTo(offsetX+w*0.85,offsetY+h*0.85);return st
+  }
+  if(shape==='rocket'||shape==='paperplane'){
+    ctx.moveTo(cx,offsetY);ctx.lineTo(offsetX+w*0.85,offsetY+h);ctx.lineTo(cx,offsetY+h*0.72);ctx.lineTo(offsetX+w*0.15,offsetY+h);ctx.closePath();return st
+  }
+  if(shape==='callout_round'||shape==='callout_cloud'){
+    ctx.arc(cx,cy-ry*0.15,rx*0.75,0,Math.PI*2);ctx.moveTo(cx-rx*0.3,offsetY+h*0.65);ctx.lineTo(offsetX+w*0.15,offsetY+h);ctx.lineTo(cx+rx*0.1,offsetY+h*0.65);return st
   }
   const r=Math.max(0,Math.min(st.radius,w/2,h/2));if(ctx.roundRect)ctx.roundRect(offsetX,offsetY,w,h,r);else ctx.rect(offsetX,offsetY,w,h);return st
 }
@@ -21073,7 +21621,7 @@ class UIController{
     model.playing=false;
     $('#home').classList.remove('hidden');
     $('#editor').classList.add('hidden');
-    this.closeDrawer();
+    this.closeDrawer({immediate:true});
     this.exitProjectSelection?.({silent:true});
     this.loadProjectList();
 
@@ -21203,12 +21751,13 @@ class UIController{
   }
   drawerShell(title,html,options={}){
     const d=$('#drawer');
+    if(this._drawerClosingTimer){clearTimeout(this._drawerClosingTimer);this._drawerClosingTimer=null}
     if(this._curveGraphPlaybackRAF){cancelAnimationFrame(this._curveGraphPlaybackRAF);this._curveGraphPlaybackRAF=0}
 
     // Setiap inspector/properti harus keluar dari mode menu "+".
     // Jika addDrawer dibiarkan aktif, CSS .addDrawer .drawerHead akan
     // menyembunyikan header beserta tombol X.
-    d.classList.remove('hidden','transformDrawer','transformEaseDrawer','addDrawer','multiSelectDrawer','blendOpacityDrawer','curveGraphDrawer','effectsDrawer','effectEaseDrawer','effectsBrowserDrawer');
+    d.classList.remove('hidden','drawerClosing','transformDrawer','transformEaseDrawer','addDrawer','multiSelectDrawer','blendOpacityDrawer','curveGraphDrawer','effectsDrawer','effectEaseDrawer','effectsBrowserDrawer');
 
     $('#plusBtn')?.classList.remove('open');
 
@@ -21406,28 +21955,55 @@ class UIController{
       close();renderer.render();timeline.rebuild();if(this.drawerMode==='move')this.openInspector('move');
     });
   }
-  closeDrawer({preserveLayerMultiSelection=false}={}){
+  closeDrawer({preserveLayerMultiSelection=false, immediate=false}={}){
     const d=$('#drawer');
+    if(!d || d.classList.contains('hidden')) return;
+
     const closingMulti=this.drawerMode==='multi';
-    if(['effects','effect-browser'].includes(this.drawerMode)){this._effectPanelSessionOpen=false;this.effectEaseEditorOpen=false;this.effectCurveReturnToEasing=false}
-    d.classList.add('hidden');
-    d.classList.remove('addDrawer','transformDrawer','transformEaseDrawer','multiSelectDrawer');
+    if(['effects','effect-browser'].includes(this.drawerMode)){
+      this._effectPanelSessionOpen=false;
+      this.effectEaseEditorOpen=false;
+      this.effectCurveReturnToEasing=false;
+    }
+
+    if(this._drawerClosingTimer){
+      clearTimeout(this._drawerClosingTimer);
+      this._drawerClosingTimer=null;
+    }
+
     this.drawerMode=null;
     this.setTimelineInspectorScope?.(false);
-    $('#plusBtn').classList.remove('open');
+    $('#plusBtn')?.classList.remove('open');
+
     if(closingMulti&&!preserveLayerMultiSelection){
       this.layerMultiSelectMode=false;
       this.layerMultiSelectedIds.clear();
       this.layerMultiFocusId=null;
       this._multiSelectionToolSignature='';
       if(timeline)timeline.suppressClickUntil=0;
-      this.syncLayerMultiSelectModeUI()
+      this.syncLayerMultiSelectModeUI();
     }
-    timeline.updateDrawerOverlap();
-    timeline.updateKeyframePlayheadState();
-    timeline.refreshKeyframeInteractionState?.();
-    timeline.refreshKeyframeLaneMode?.();
-    if(closingMulti&&!preserveLayerMultiSelection){timeline.rebuild();renderer.render()}
+
+    const finishClosing=()=>{
+      if(this._drawerClosingTimer){
+        clearTimeout(this._drawerClosingTimer);
+        this._drawerClosingTimer=null;
+      }
+      d.classList.add('hidden');
+      d.classList.remove('drawerClosing','addDrawer','transformDrawer','transformEaseDrawer','multiSelectDrawer','blendOpacityDrawer','curveGraphDrawer','effectsDrawer','effectEaseDrawer','effectsBrowserDrawer');
+      timeline?.updateDrawerOverlap?.();
+      timeline?.updateKeyframePlayheadState?.();
+      timeline?.refreshKeyframeInteractionState?.();
+      timeline?.refreshKeyframeLaneMode?.();
+      if(closingMulti&&!preserveLayerMultiSelection){timeline?.rebuild?.();renderer?.render?.()}
+    };
+
+    if(immediate){
+      finishClosing();
+    } else {
+      d.classList.add('drawerClosing');
+      this._drawerClosingTimer=setTimeout(finishClosing, 200);
+    }
   }
   openTool(tool){
     this.drawerMode='tool';
@@ -21435,7 +22011,11 @@ class UIController{
     const validTabs=['shapes','media','audio','objects','templates'];
     this.addTool=validTabs.includes(tool)?tool:(validTabs.includes(this.addTool)?this.addTool:'shapes');
     const d=$('#drawer');
-    d.classList.remove('hidden','transformDrawer','transformEaseDrawer','multiSelectDrawer');
+    if(this._drawerClosingTimer){
+      clearTimeout(this._drawerClosingTimer);
+      this._drawerClosingTimer=null;
+    }
+    d.classList.remove('hidden','drawerClosing','transformDrawer','transformEaseDrawer','multiSelectDrawer');
     d.classList.add('addDrawer');
     $('#plusBtn').classList.add('open');
     timeline.updateDrawerOverlap();
@@ -21465,19 +22045,112 @@ class UIController{
 
     let body='';
     if(this.addTool==='shapes'){
-      body=`<div class="amShapeGrid shapeGrid">
-        <button class="amShapeItem shapeItem" data-add="rect" title="Kotak"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="1"/></svg><span>Kotak</span></button>
-        <button class="amShapeItem shapeItem" data-add="roundrect" title="Sudut Bulat"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="6"/></svg><span>Sudut Bulat</span></button>
-        <button class="amShapeItem shapeItem" data-add="ellipse" title="Lingkaran"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><circle cx="12" cy="12" r="9"/></svg><span>Lingkaran</span></button>
-        <button class="amShapeItem shapeItem" data-add="triangle" title="Segitiga"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12,3 21,20 3,20"/></svg><span>Segitiga</span></button>
-        <button class="amShapeItem shapeItem" data-add="star" title="Bintang"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg><span>Bintang</span></button>
-        <button class="amShapeItem shapeItem" data-add="polygon" title="Poligon"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/></svg><span>Poligon</span></button>
-        <button class="amShapeItem shapeItem" data-add="arrow" title="Panah"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="2,9 14,9 14,4 22,12 14,20 14,15 2,15"/></svg><span>Panah</span></button>
-        <button class="amShapeItem shapeItem" data-add="diamond" title="Belah Ketupat"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="12,2 22,12 12,22 2,12"/></svg><span>Ketupat</span></button>
-        <button class="amShapeItem shapeItem" data-add="plus" title="Plus"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><polygon points="9,2 15,2 15,9 22,9 22,15 15,15 15,22 9,22 9,15 2,15 2,9 9,9"/></svg><span>Plus</span></button>
-        <button class="amShapeItem shapeItem" data-add="heart" title="Hati"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z"/></svg><span>Hati</span></button>
-        <button class="amShapeItem shapeItem" data-add="pie" title="Pie"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M11,2 A10,10 0 1,0 21.8,14.5 L12,12 Z"/></svg><span>Pie</span></button>
-        <button class="amShapeItem shapeItem" data-add="crescent" title="Bulan Sabit"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12.3,2 C6.8,2 2.3,6.5 2.3,12 C2.3,17.5 6.8,22 12.3,22 C15.5,22 18.3,20.5 20.1,18.1 C19.3,18.3 18.5,18.4 17.7,18.4 C12.7,18.4 8.7,14.4 8.7,9.4 C8.7,6.3 10.3,3.6 12.7,2.1 C12.6,2.0 12.4,2 12.3,2 Z"/></svg><span>Bulan</span></button>
+      const p1 = [
+        ['rect', 'Kotak', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><rect x="8" y="8" width="32" height="32" rx="1.5"/></svg>'],
+        ['roundrect', 'Sudut Bulat', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M12,8L36,8A4,4 0,0 1,40 12L40,36A4,4 0,0 1,36 40L12,40A4,4 0,0 1,8 36L8,12A4,4 0,0 1,12 8z"/></svg>'],
+        ['ellipse', 'Lingkaran', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><circle cx="24" cy="24" r="16"/></svg>'],
+        ['triangle', 'Segitiga', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M8,40l16,-32l16,32z"/></svg>'],
+        ['star', 'Bintang', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,33.5l-9.99,5.25l1.91,-11.13l-8.08,-7.88l11.17,-1.62l5,-10.12l5,10.12l11.17,1.62l-8.08,7.88l1.91,11.13z"/></svg>'],
+        ['polygon', 'Poligon', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,8l13.86,8l0,16l-13.86,8l-13.86,-8l0,-16z"/></svg>'],
+        ['arrow', 'Panah', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M29,30l-21,0l0,-12l21,0l0,-10l11,16l-11,16z"/></svg>'],
+        ['diamond', 'Belah Ketupat', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="24,6 42,24 24,42 6,24"/></svg>'],
+        ['plus', 'Plus', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="18,6 30,6 30,18 42,18 42,30 30,30 30,42 18,42 18,30 6,30 6,18 18,18"/></svg>'],
+        ['heart', 'Hati', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,42.7l-2.9,-2.64C10.8,30.72 4,24.56 4,17c0,-6.16 4.84,-11 11,-11c3.48,0 6.82,1.62 9,4.18C26.18,7.62 29.52,6 33,6c6.16,0 11,4.84 11,11c0,7.56 -6.8,13.72 -17.1,23.08L24,42.7z"/></svg>'],
+        ['pie', 'Pie', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,40C28.22,40 32.07,38.36 34.93,35.69L24,24L24,8C15.16,8 8,15.16 8,24C8,32.84 15.16,40 24,40Z"/></svg>'],
+        ['crescent', 'Bulan Sabit', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24.6,4 C13.6,4 4.6,13 4.6,24 C4.6,35 13.6,44 24.6,44 C31,44 36.6,41 40.2,36.2 C38.6,36.6 37,36.8 35.4,36.8 C25.4,36.8 17.4,28.8 17.4,18.8 C17.4,12.6 20.6,7.2 25.4,4.2 C25.2,4 24.8,4 24.6,4 Z"/></svg>'],
+        ['penta', 'Segi Lima', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="24,6 42.4,19.4 35.4,41 12.6,41 5.6,19.4"/></svg>'],
+        ['drop', 'Tetesan Air', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,6 C24,6 38,22 38,30 C38,37.7 31.7,44 24,44 C16.3,44 10,37.7 10,30 C10,22 24,6 24,6 Z"/></svg>'],
+        ['ring', 'Cincin', '<svg viewBox="0 0 48 48" width="28" height="28" fill-rule="evenodd" fill="currentColor"><path d="M24,8 A16,16 0 1,0 24,40 A16,16 0 1,0 24,8 Z M24,15 A9,9 0 1,1 24,33 A9,9 0 1,1 24,15 Z"/></svg>'],
+        ['pill', 'Kapsul', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><rect x="6" y="16" width="36" height="16" rx="8"/></svg>'],
+        ['star4', 'Bintang 4', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,6 L27.5,19.5 L41,24 L27.5,28.5 L24,42 L20.5,28.5 L7,24 L20.5,19.5 Z"/></svg>'],
+        ['bubble', 'Balon Kata', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M10,8 L38,8 C40.2,8 42,9.8 42,12 L42,30 C42,32.2 40.2,34 38,34 L22,34 L14,41 L14,34 L10,34 C7.8,34 6,32.2 6,30 L6,12 C6,9.8 7.8,8 10,8 Z"/></svg>']
+      ];
+      const p2 = [
+        ['line', 'Garis', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><rect x="6" y="22" width="36" height="4" rx="2"/></svg>'],
+        ['wideline', 'Garis Tebal', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><rect x="6" y="19" width="36" height="10" rx="3"/></svg>'],
+        ['doublearrow', 'Panah Ganda', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M18,13 L8,24 L18,35 L18,28 L30,28 L30,35 L40,24 L30,13 L30,20 L18,20 Z"/></svg>'],
+        ['chevron', 'Chevron', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M14,8 L28,24 L14,40 L20,40 L34,24 L20,8 Z"/></svg>'],
+        ['arc', 'Busur', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M8,36 A16,16 0 0 1 40,36 L34,36 A10,10 0 0 0 14,36 Z"/></svg>'],
+        ['multifoil', 'Multifoil', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,6 C26,12 32,12 34,14 C40,16 40,22 42,24 C40,26 40,32 34,34 C32,36 26,36 24,42 C22,36 16,36 14,34 C8,32 8,26 6,24 C8,22 8,16 14,14 C16,12 22,12 24,6 Z"/></svg>'],
+        ['hexagon', 'Segi Enam', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="14,8 34,8 44,24 34,40 14,40 4,24"/></svg>'],
+        ['octagon', 'Segi Delapan', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="15,6 33,6 42,15 42,33 33,42 15,42 6,33 6,15"/></svg>'],
+        ['trapezoid', 'Trapesium', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="14,10 34,10 42,38 6,38"/></svg>'],
+        ['parallelogram', 'Jajar Genjang', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="14,10 42,10 34,38 6,38"/></svg>'],
+        ['cross', 'Salib', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="20,6 28,6 28,16 38,16 38,24 28,24 28,42 20,42 20,24 10,24 10,16 20,16"/></svg>'],
+        ['star5', 'Bintang Tajam', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="24,4 29,17 43,17 32,26 36,40 24,31 12,40 16,26 5,17 19,17"/></svg>'],
+        ['star6', 'Bintang 6', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="24,4 29,14 41,14 35,24 41,34 29,34 24,44 19,34 7,34 13,24 7,14 19,14"/></svg>'],
+        ['star8', 'Bintang 8', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="24,4 28,15 39,9 33,20 44,24 33,28 39,39 28,33 24,44 20,33 9,39 15,28 4,24 15,20 9,9 20,15"/></svg>'],
+        ['burst', 'Sunburst', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><circle cx="24" cy="24" r="10"/><path d="M24,4 L24,9 M24,39 L24,44 M4,24 L9,24 M39,24 L44,24 M10,10 L14,14 M34,34 L38,38 M10,38 L14,34 M34,14 L38,10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>'],
+        ['badge', 'Lencana', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,4 L29,8 L35,6 L38,12 L44,13 L44,19 L48,24 L44,29 L44,35 L38,36 L35,42 L29,40 L24,44 L19,40 L13,42 L10,36 L4,35 L4,29 L0,24 L4,19 L4,13 L10,12 L13,6 L19,8 Z"/></svg>'],
+        ['shield', 'Perisai', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,6 L38,11 L38,23 C38,32 24,41 24,41 C24,41 10,32 10,23 L10,11 Z"/></svg>'],
+        ['gear', 'Roda Gigi', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M21,6 L27,6 L28,10 C30,11 32,12 33,14 L37,12 L41,16 L39,20 C40,22 40,24 40,26 L44,28 L42,34 L38,34 C36,36 35,37 33,38 L34,42 L28,44 L26,40 C25,40 23,40 22,40 L20,44 L14,42 L15,38 C13,37 12,36 10,34 L6,34 L4,28 L8,26 C8,24 8,22 9,20 L7,16 L11,12 L15,14 C16,12 18,11 20,10 Z M24,18 A6,6 0 1,0 24,30 A6,6 0 1,0 24,18 Z" fill-rule="evenodd"/></svg>']
+      ];
+      const p3 = [
+        ['cloud', 'Awan', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M12,34 C8,34 5,31 5,27 C5,23.5 7.5,20.5 11,20 C12,14 17,10 23,10 C29,10 34,14 35,19 C38.5,19.5 41,22.5 41,26 C41,30.5 37.5,34 33,34 Z"/></svg>'],
+        ['sun', 'Matahari', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><circle cx="24" cy="24" r="9"/><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="3 4"/></svg>'],
+        ['lightning', 'Petir', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="26,4 12,24 22,24 18,44 34,20 24,20"/></svg>'],
+        ['flame', 'Api', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,5 C24,5 29,14 26,20 C28,19 31,16 31,16 C31,16 36,22 36,29 C36,36 30.6,42 24,42 C17.4,42 12,36 12,29 C12,21 18,14 18,14 C18,14 21,17 21,21 C22,17 24,5 24,5 Z"/></svg>'],
+        ['snowflake', 'Keping Salju', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M23,6 L25,6 L25,18 L23,18 Z M23,30 L25,30 L25,42 L23,42 Z M6,23 L18,23 L18,25 L6,25 Z M30,23 L42,23 L42,25 L30,25 Z M12,10 L14,8 L24,18 L22,20 Z M34,38 L36,36 L26,26 L24,28 Z M34,10 L36,12 L26,22 L24,20 Z M12,38 L14,40 L24,30 L22,28 Z"/></svg>'],
+        ['flower', 'Bunga', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><circle cx="24" cy="15" r="6"/><circle cx="24" cy="33" r="6"/><circle cx="15" cy="24" r="6"/><circle cx="33" cy="24" r="6"/><circle cx="24" cy="24" r="5" fill="#202332"/></svg>'],
+        ['leaf', 'Daun', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M10,38 C10,38 12,24 22,14 C32,4 40,4 40,4 C40,4 40,12 30,22 C20,32 10,38 10,38 Z M10,38 L24,24" stroke="currentColor" stroke-width="2"/></svg>'],
+        ['water', 'Gelombang', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M6,20 Q12,12 18,20 T30,20 T42,20 L42,26 Q36,18 30,26 T18,26 T6,26 Z M6,28 Q12,20 18,28 T30,28 T42,28 L42,34 Q36,26 30,34 T18,34 T6,34 Z"/></svg>'],
+        ['checkmark', 'Centang', '<svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M10,24 L19,33 L38,14"/></svg>'],
+        ['xmark', 'Silang', '<svg viewBox="0 0 48 48" width="28" height="28" stroke="currentColor" stroke-width="5" stroke-linecap="round"><path d="M12,12 L36,36 M36,12 L12,36"/></svg>'],
+        ['question', 'Tanda Tanya', '<svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M18,16 C18,12 21,9 24,9 C27,9 30,12 30,15 C30,18 27,20 24,23 L24,27 M24,35 L24.01,35"/></svg>'],
+        ['exclamation', 'Tanda Seru', '<svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M24,9 L24,27 M24,35 L24.01,35"/></svg>'],
+        ['tag', 'Tag', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M8,12 L8,24 L24,40 L38,26 L22,10 L10,10 Z M14,16 A2.5,2.5 0 1,1 14,16.01" fill-rule="evenodd"/></svg>'],
+        ['bookmark', 'Bookmark', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M12,6 L36,6 L36,42 L24,32 L12,42 Z"/></svg>'],
+        ['flag', 'Bendera', '<svg viewBox="0 0 48 48" width="28" height="28" stroke="currentColor" stroke-width="2"><path d="M10,6 L36,6 L28,17 L36,28 L10,28 L10,44 M10,6 L10,44"/></svg>'],
+        ['pin', 'Pin', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,4 C17,4 12,9 12,16 C12,25 24,42 24,42 C24,42 36,25 36,16 C36,9 31,4 24,4 Z M24,13 A4,4 0 1,1 24,21 A4,4 0 1,1 24,13 Z"/></svg>'],
+        ['lock', 'Gembok', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M16,18 L16,13 C16,8.5 19.5,5 24,5 C28.5,5 32,8.5 32,13 L32,18 L34,18 C36,18 38,20 38,22 L38,38 C38,40 36,42 34,42 L14,42 C12,42 10,40 10,38 L10,22 C10,20 12,18 14,18 Z M20,18 L28,18 L28,13 C28,10.8 26.2,9 24,9 C21.8,9 20,10.8 20,13 Z" fill-rule="evenodd"/></svg>'],
+        ['key', 'Kunci', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M28,6 A9,9 0 0,0 19.3,13 L7,25.3 L7,31 L13,31 L13,27 L17,27 L17,23 L21,23 L22.7,21.3 A9,9 0 1,0 28,6 Z M30,12 A2.5,2.5 0 1,1 30,17 A2.5,2.5 0 1,1 30,12 Z"/></svg>']
+      ];
+      const p4 = [
+        ['callout_round', 'Balon Bulat', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,6 C13,6 4,14 4,23 C4,27 6,31 10,34 L8,42 L17,38 C19,39 21.5,40 24,40 C35,40 44,32 44,23 C44,14 35,6 24,6 Z"/></svg>'],
+        ['callout_cloud', 'Balon Pikir', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M12,28 C8,28 6,25 6,22 C6,19 8,16 11,16 C12,11 17,8 22,8 C27,8 31,11 32,15 C35,15 38,17 38,21 C38,24 35,28 31,28 Z M12,34 A2.5,2.5 0 1,1 12,34.01 M8,39 A1.8,1.8 0 1,1 8,39.01"/></svg>'],
+        ['banner1', 'Pita Lengkung', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M4,14 L12,20 L4,26 L10,26 C12,26 13,25 14,24 L14,30 L34,30 L34,24 C35,25 36,26 38,26 L44,26 L36,20 L44,14 L36,14 C35,16 34,18 34,18 L14,18 C14,18 13,16 12,14 Z"/></svg>'],
+        ['banner2', 'Pita Lurus', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="6,12 12,22 6,32 42,32 36,22 42,12"/></svg>'],
+        ['ribbon', 'Pita Medali', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><circle cx="24" cy="18" r="12"/><polygon points="16,28 12,42 20,38 24,42 24,30"/><polygon points="32,28 36,42 28,38 24,42 24,30"/></svg>'],
+        ['crown', 'Mahkota', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="8,36 40,36 42,16 32,26 24,10 16,26 6,16"/></svg>'],
+        ['bell', 'Lonceng', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,6 C17,6 14,12 14,22 L10,32 L38,32 L34,22 C34,12 31,6 24,6 Z M20,34 A4,4 0 0,0 28,34 Z"/></svg>'],
+        ['music', 'Not Musik', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M16,14 L32,10 L32,26 A5,5 0 1,1 27,22 L27,15 L18,17 L18,29 A5,5 0 1,1 13,25 L13,14 Z"/></svg>'],
+        ['camera_shape', 'Kamera', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M10,12 L15,12 L17,8 L31,8 L33,12 L38,12 C40,12 42,14 42,16 L42,36 C42,38 40,40 38,40 L10,40 C8,40 6,38 6,36 L6,16 C6,14 8,12 10,12 Z M24,18 A8,8 0 1,0 24,34 A8,8 0 1,0 24,18 Z"/></svg>'],
+        ['play', 'Play', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="14,10 38,24 14,38"/></svg>'],
+        ['pause', 'Pause', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><rect x="12" y="10" width="8" height="28" rx="2"/><rect x="28" y="10" width="8" height="28" rx="2"/></svg>'],
+        ['search', 'Kaca Pembesar', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M20,8 A12,12 0 1,0 28.5,28.5 L40,40 L36,44 L24.5,32.5 A12,12 0 0,0 20,8 Z M20,13 A7,7 0 1,1 20,27 A7,7 0 1,1 20,13 Z"/></svg>'],
+        ['thumbsup', 'Jempol', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M10,20 L10,40 L16,40 L16,20 Z M18,40 L30,40 C32,40 34,38 34,36 L36,26 C36.5,24 35,22 33,22 L26,22 L27.5,14 C27.8,11 26,8 24,8 L20,18 L18,20 Z"/></svg>'],
+        ['paperplane', 'Pesawat Kertas', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><polygon points="6,22 42,6 26,42 22,28"/></svg>'],
+        ['rocket', 'Roket', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,4 C30,10 34,20 34,26 L38,32 L34,34 L32,32 C30,34 27,35 24,35 C21,35 18,34 16,32 L14,34 L10,32 L14,26 C14,20 18,10 24,4 Z M24,14 A3.5,3.5 0 1,0 24,21 A3.5,3.5 0 1,0 24,14 Z"/></svg>'],
+        ['airplane', 'Pesawat', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M22,4 L26,4 L27,18 L42,26 L42,30 L27,25 L26,38 L31,42 L31,44 L24,42 L17,44 L17,42 L22,38 L21,25 L6,30 L6,26 L21,18 Z"/></svg>'],
+        ['envelope', 'Amplop', '<svg viewBox="0 0 48 48" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><path d="M6,10 L42,10 C44,10 46,12 46,14 L46,34 C46,36 44,38 42,38 L6,38 C4,38 2,36 2,34 L2,14 C2,12 4,10 6,10 Z M6,14 L24,26 L42,14 M6,34 L18,22 M42,34 L30,22"/></svg>'],
+        ['amlogo', 'Logo AM', '<svg viewBox="0 0 48 48" width="28" height="28" fill="currentColor"><path d="M24,6 C14,6 6,14 6,24 C6,34 14,42 24,42 C34,42 42,34 42,24 C42,14 34,6 24,6 Z M19,33 C15,33 13,29 15,24 L17,19 L21,19 L19,24 C18,26 19,28 21,28 C23,28 25,26 26,24 L28,19 L32,19 L30,24 C28,29 24,33 19,33 Z"/></svg>']
+      ];
+
+      const renderPage = (items) => `
+        <div class="amShapePage">
+          <div class="amShapeGrid shapeGrid">
+            ${items.map(([s, name, svg]) => `
+              <button class="amShapeItem shapeItem" data-add="${s}" title="${name}">
+                ${svg}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      body = `<div class="amShapeViewPagerWrap">
+        <div class="amShapeViewPager" id="amShapeViewPager">
+          ${renderPage(p1)}
+          ${renderPage(p2)}
+          ${renderPage(p3)}
+          ${renderPage(p4)}
+        </div>
+        <div class="amShapePagination" id="amShapePagination">
+          <span class="amDot active" data-page-dot="0"></span>
+          <span class="amDot" data-page-dot="1"></span>
+          <span class="amDot" data-page-dot="2"></span>
+          <span class="amDot" data-page-dot="3"></span>
+        </div>
       </div>`;
     }else if(this.addTool==='media'){
       body=`<div class="amDropBox mediaDrop">
@@ -21514,7 +22187,10 @@ class UIController{
 
     d.innerHTML=`<div class="amAddPopup">
       <div class="amTabHolder elementTabHolder addHubTabs" id="elementTabHolder">
-        ${tabs.map(([id,ic,label])=>`<button class="amTab addHubTab ${id===this.addTool?'active':''}" data-addhub="${id}" id="tabAdd${id.charAt(0).toUpperCase()+id.slice(1)}">${ic}<span>${label}</span></button>`).join('')}
+        ${tabs.map(([id,ic,label])=>{
+          const icMarkup=id==='templates'?`<span class="amTabIconWrap">${ic}<span class="amNewBadge">NEW</span></span>`:`<span class="amTabIconWrap">${ic}</span>`;
+          return `<button class="amTab addHubTab ${id===this.addTool?'active':''}" data-addhub="${id}" id="tabAdd${id.charAt(0).toUpperCase()+id.slice(1)}">${icMarkup}<span>${label}</span></button>`;
+        }).join('')}
       </div>
       <div class="amTabDivider"></div>
       <div class="amQuickAddBar quickAddBar" id="quickAddBar">
@@ -21544,16 +22220,146 @@ class UIController{
       plus:'Plus',
       heart:'Hati',
       pie:'Pie',
-      crescent:'Bulan Sabit'
+      crescent:'Bulan Sabit',
+      penta:'Segi Lima',
+      drop:'Tetesan Air',
+      ring:'Cincin',
+      pill:'Kapsul',
+      star4:'Bintang 4',
+      bubble:'Balon Kata',
+      line:'Garis',
+      wideline:'Garis Tebal',
+      doublearrow:'Panah Ganda',
+      chevron:'Chevron',
+      arc:'Busur',
+      multifoil:'Multifoil',
+      hexagon:'Segi Enam',
+      octagon:'Segi Delapan',
+      trapezoid:'Trapesium',
+      parallelogram:'Jajar Genjang',
+      cross:'Salib',
+      star5:'Bintang 5',
+      star6:'Bintang 6',
+      star8:'Bintang 8',
+      burst:'Sunburst',
+      badge:'Lencana',
+      shield:'Perisai',
+      gear:'Roda Gigi',
+      cloud:'Awan',
+      sun:'Matahari',
+      lightning:'Petir',
+      flame:'Api',
+      snowflake:'Keping Salju',
+      flower:'Bunga',
+      leaf:'Daun',
+      water:'Gelombang',
+      checkmark:'Centang',
+      xmark:'Silang',
+      question:'Tanda Tanya',
+      exclamation:'Tanda Seru',
+      tag:'Tag',
+      bookmark:'Bookmark',
+      flag:'Bendera',
+      pin:'Pin',
+      lock:'Gembok',
+      key:'Kunci',
+      callout_round:'Balon Bulat',
+      callout_cloud:'Balon Pikir',
+      banner1:'Pita Lengkung',
+      banner2:'Pita Lurus',
+      ribbon:'Pita Medali',
+      crown:'Mahkota',
+      bell:'Lonceng',
+      music:'Not Musik',
+      camera_shape:'Kamera',
+      play:'Play',
+      pause:'Pause',
+      search:'Kaca Pembesar',
+      thumbsup:'Jempol',
+      paperplane:'Pesawat Kertas',
+      rocket:'Roket',
+      airplane:'Pesawat',
+      envelope:'Amplop',
+      amlogo:'Logo AM'
     };
 
-    $$('[data-add]').forEach(b=>b.onclick=()=>{
+    let hasMovedShapePager = false;
+
+    $$('[data-add]').forEach(b=>b.onclick=(e)=>{
+      if (hasMovedShapePager) return;
       history.push();
       const s=b.dataset.add;
       model.addLayer('shape',{shape:s,name:shapeNames[s]||'Bentuk'});
       this.rebuildAll();
       this.openInspectorRoot();
     });
+
+    if(this.addTool==='shapes'){
+      const pager = $('#amShapeViewPager');
+      const dots = $$('#amShapePagination .amDot');
+      if(pager && dots.length){
+        const updateDots = () => {
+          const w = pager.clientWidth || 1;
+          const idx = Math.min(dots.length - 1, Math.max(0, Math.round(pager.scrollLeft / w)));
+          dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+        };
+        pager.addEventListener('scroll', updateDots, { passive: true });
+
+        dots.forEach((dot, i) => {
+          dot.addEventListener('click', () => {
+            const w = pager.clientWidth || 1;
+            pager.scrollTo({ left: i * w, behavior: 'smooth' });
+          });
+        });
+
+        pager.addEventListener('wheel', (e) => {
+          if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
+            e.preventDefault();
+            const dir = e.deltaY > 0 ? 1 : -1;
+            const w = pager.clientWidth || 1;
+            const cur = Math.round(pager.scrollLeft / w);
+            const target = Math.min(dots.length - 1, Math.max(0, cur + dir));
+            pager.scrollTo({ left: target * w, behavior: 'smooth' });
+          }
+        }, { passive: false });
+
+        let isDown = false;
+        let startX = 0;
+        let scrollStart = 0;
+
+        pager.addEventListener('mousedown', (e) => {
+          isDown = true;
+          hasMovedShapePager = false;
+          startX = e.pageX;
+          scrollStart = pager.scrollLeft;
+          pager.style.scrollBehavior = 'auto';
+          pager.style.scrollSnapType = 'none';
+        });
+
+        const onMouseMove = (e) => {
+          if (!isDown) return;
+          const walk = e.pageX - startX;
+          if (Math.abs(walk) > 5) {
+            hasMovedShapePager = true;
+          }
+          pager.scrollLeft = scrollStart - walk;
+        };
+
+        const onMouseUp = () => {
+          if (!isDown) return;
+          isDown = false;
+          pager.style.scrollBehavior = 'smooth';
+          pager.style.scrollSnapType = 'x mandatory';
+          const w = pager.clientWidth || 1;
+          const nearest = Math.min(dots.length - 1, Math.max(0, Math.round(pager.scrollLeft / w)));
+          pager.scrollTo({ left: nearest * w, behavior: 'smooth' });
+          setTimeout(() => { hasMovedShapePager = false; }, 80);
+        };
+
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+      }
+    }
 
     $$('[data-obj]').forEach(b=>b.onclick=()=>{
       history.push();
@@ -28853,10 +29659,10 @@ const AMNativeSceneImporter={
   }
 };
 
-const AM_LINK_BRIDGE_ORIGIN="https://resolver.openmotionapp.my.id/";
+const AM_LINK_BRIDGE_ORIGIN=window.AM_RESOLVER_OVERRIDE||localStorage.getItem('om_am_resolver')||"https://am-resolver.zhavin2.workers.dev/";
 const AM_LINK_PACKAGE_API=AM_LINK_BRIDGE_ORIGIN?new URL('api/am/project',AM_LINK_BRIDGE_ORIGIN).href:null;
 const AM_LINK_RUNTIME_ORIGIN=AM_LINK_BRIDGE_ORIGIN;
-// Anonymous AM imports only. No account credentials, email links, or Auth requests.
+// Anonymous & Premium AM imports.
 const amDialogStyle=document.createElement('style');
 amDialogStyle.textContent=`
 .amDialog{max-width:92vw;max-height:88dvh;overflow:auto;border:1px solid #65d4c9;border-radius:16px;background:#171c27;color:#f2f6ff;padding:24px;box-sizing:border-box;color-scheme:dark;font-size:14px;line-height:1.5}
@@ -28881,13 +29687,21 @@ const amImportDisplayText=value=>String(value??'').replace(/zervida/gi,'API piha
 const AMIndependentLinkUI={
   open(){
     const dialog=document.createElement('dialog');dialog.className='amDialog amImportDialog';
-    dialog.innerHTML=`<h3>Impor link Alight Motion</h3><p>Kedua resolver memasukkan XML dan media langsung ke timeline Open Motion, bukan preset-player.</p><label>Resolver paket<select data-resolver><option value="official">Open Motion: resmi, tanpa akun, maks. 5 MB</option><option value="zervida">API pihak ketiga</option></select></label><p data-provider-note></p><label>Link share AM<input data-share type="url" autocomplete="off" spellcheck="false" placeholder="https://alightcreative.com/am/share/…"></label><p data-status role="status"></p><div class="amDialogActions"><button data-import type="button">Impor ke timeline</button><button data-close type="button">Batal</button></div>`;
+    dialog.innerHTML=`<h3>Impor link Alight Motion</h3><p>Resolver memasukkan XML dan media langsung ke timeline Open Motion, bukan preset-player.</p><label>Resolver paket<select data-resolver><option value="premium">Akun premium AM (mendukung &gt; 5 MB)</option><option value="official">Open Motion: resmi, tanpa akun, maks. 5 MB</option><option value="zervida">API pihak ketiga</option></select></label><p data-provider-note></p><label>Link share AM<input data-share type="url" autocomplete="off" spellcheck="false" placeholder="https://alightcreative.com/am/share/…"></label><p data-status role="status"></p><div class="amDialogActions"><button data-import type="button">Impor ke timeline</button><button data-close type="button">Batal</button></div>`;
     const q=s=>dialog.querySelector(s),status=q('[data-status]'),provider=q('[data-resolver]');let busy=false;
-    const update=()=>{q('[data-provider-note]').textContent=provider.value==='official'?'Resolver kita berjalan di Cloudflare dan memakai layanan resmi AM tanpa akun. Maksimal 5 MB untuk seluruh paket ZIP; server AM harus mengizinkan unduhan. Link tidak dikirim ke API pihak ketiga.':'Cloudflare meneruskan link share dan pilihan proyek ke API pihak ketiga. Izin dan ketersediaan mengikuti layanan tersebut; maksimal 256 MB per media. Tidak memerlukan login AM di Open Motion.'};update();
+    const update=()=>{
+      if(provider.value==='premium'){
+        q('[data-provider-note]').textContent='Resolver menggunakan akun premium Alight Motion untuk mengunduh proyek besar (> 5 MB) secara resmi dan aman.';
+      }else if(provider.value==='official'){
+        q('[data-provider-note]').textContent='Resolver berjalan memakai layanan resmi AM tanpa akun. Maksimal 5 MB untuk seluruh paket ZIP; server AM harus mengizinkan unduhan. Link tidak dikirim ke API pihak ketiga.';
+      }else{
+        q('[data-provider-note]').textContent='Cloudflare meneruskan link share dan pilihan proyek ke API pihak ketiga. Izin dan ketersediaan mengikuti layanan tersebut; maksimal 256 MB per media. Tidak memerlukan login AM di Open Motion.';
+      }
+    };update();
     const close=()=>{dialog.close();dialog.remove()},setBusy=value=>{busy=value;for(const e of dialog.querySelectorAll('button,input,select'))e.disabled=value};
     provider.onchange=()=>{status.textContent='';update()};
     q('[data-import]').onclick=async()=>{
-      const selected=provider.value;setBusy(true);status.textContent=selected==='official'?'Open Motion: memeriksa izin dan batas paket 5 MB…':'API pihak ketiga: mengambil XML dan daftar media…';
+      const selected=provider.value;setBusy(true);status.textContent=selected==='premium'?'Menghubungi server AM dengan akun premium…':(selected==='official'?'Open Motion: memeriksa izin dan batas paket 5 MB…':'API pihak ketiga: mengambil XML dan daftar media…');
       try{const report=await AMLinkPackageImporter.import(q('[data-share]').value,'',selected,message=>{status.textContent=amImportDisplayText(message)});if(report){close();try{ui.authorizeEditorOpen?.();ui.showEditor?.();setTimeout(()=>{ui?.fit?.();renderer?.render?.()},50)}catch(e){}}else status.textContent='Pemilihan proyek dibatalkan.'}
       catch(error){status.textContent=error.name==='AbortError'?'Permintaan melewati batas waktu. Periksa koneksi lalu coba lagi.':amImportDisplayText(error.message||'Impor AM gagal.');}
       finally{setBusy(false)}
@@ -28900,9 +29714,9 @@ const AMEmbeddedPackage={"link":"https://alightcreative.com/am/share/u/744cm9oEo
 // V5.227: ZIP parsing stays in the user's browser; Worker streams the permitted ZIP.
 const AMCloudPackage={
   cache:null,
-  maxZip:5242880,
-  maxExpanded:268435456,
-  maxEntry:67108864,
+  maxZip:536870912,
+  maxExpanded:1073741824,
+  maxEntry:536870912,
   mime(name){const ext=name.toLowerCase().split('.').pop();return({mp4:'video/mp4',m4v:'video/mp4',mov:'video/quicktime',webm:'video/webm',mp3:'audio/mpeg',m4a:'audio/mp4',aac:'audio/mp4',wav:'audio/wav',ogg:'audio/ogg',flac:'audio/flac',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp',gif:'image/gif',bmp:'image/bmp',avif:'image/avif',heic:'image/heic',ttf:'font/ttf',otf:'font/otf',woff:'font/woff',woff2:'font/woff2'})[ext]||'application/octet-stream'},
   async read(stream,limit,expected=0){
     const reader=stream.getReader(),chunks=[];let length=0;
@@ -28913,7 +29727,7 @@ const AMCloudPackage={
     }finally{try{await reader.cancel()}catch{}}
   },
   index(bytes){
-    if(bytes.length<22||bytes.length>this.maxZip)throw Error('ZIP AM kosong, rusak, atau melebihi 5 MB.');
+    if(bytes.length<22||bytes.length>this.maxZip)throw Error('ZIP AM kosong, rusak, atau melebihi batas '+(this.maxZip/1048576).toFixed(0)+' MB.');
     const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength),fits=(at,n)=>Number.isSafeInteger(at)&&at>=0&&at+n<=bytes.length;
     let end=-1;
     for(let at=bytes.length-22;at>=Math.max(0,bytes.length-65557);at--)if(view.getUint32(at,true)===0x06054b50&&at+22+view.getUint16(at+20,true)===bytes.length){end=at;break}
@@ -28952,18 +29766,18 @@ const AMCloudPackage={
   },
   async resolve(payload,project=''){
     const url=new URL(payload.packageUrl);
-    if(url.origin!==new URL(AM_LINK_RUNTIME_ORIGIN).origin||url.pathname!=='/api/am/official/package'||payload.provider!=='official'||payload.resolver!=='open-motion-official-am'||!(payload.maxPackageBytes>0&&payload.maxPackageBytes<=this.maxZip))throw Error('Alamat paket bukan dari resolver Open Motion.');
+    if(url.origin!==new URL(AM_LINK_RUNTIME_ORIGIN).origin||url.pathname!=='/api/am/official/package'||!['official','premium'].includes(payload.provider)||payload.resolver!=='open-motion-official-am'||!(payload.maxPackageBytes>0&&payload.maxPackageBytes<=this.maxZip))throw Error('Alamat paket bukan dari resolver Open Motion.');
     let cache=this.cache;
     if(!cache||cache.link!==payload.shareLink){
-      const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),270000);
+      const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),900000);
       try{
         const response=await fetch(url.href,{credentials:'omit',signal:controller.signal});
         if(!response.ok){let detail;try{detail=await response.json()}catch{}throw Object.assign(Error(detail?.error||'Unduhan paket AM gagal (HTTP '+response.status+').'),{code:detail?.code,status:response.status})}
-        if(!/application\/(?:zip|octet-stream)/i.test(response.headers.get('content-type')||'')||Number(response.headers.get('content-length'))>payload.maxPackageBytes)throw Error('Respons paket AM tidak valid atau melebihi 5 MB.');
+        if(!/application\/(?:zip|octet-stream)/i.test(response.headers.get('content-type')||'')||Number(response.headers.get('content-length'))>payload.maxPackageBytes)throw Error('Respons paket AM tidak valid atau melebihi batas ukuran.');
         const bytes=await this.read(response.body,payload.maxPackageBytes,payload.size||0);
         cache={link:payload.shareLink,bytes,entries:this.index(bytes),id:crypto.randomUUID().replaceAll('-',''),projects:[]};
         for(const entry of cache.entries.filter(e=>/\.xml$/i.test(e.name))){
-          if(entry.size>8388608)throw Error('XML proyek AM melebihi 8 MB.');
+          if(entry.size>16777216)throw Error('XML proyek AM melebihi 16 MB.');
           const xml=await(await this.extract(cache,entry)).text();
           if(/<!DOCTYPE|<!ENTITY/i.test(xml))throw Error('Deklarasi eksternal XML tidak diizinkan.');
           const doc=new DOMParser().parseFromString(xml,'application/xml');
@@ -28975,7 +29789,7 @@ const AMCloudPackage={
     }
     const selected=project?cache.projects.find(p=>p.name===project):cache.projects[0];if(!selected)throw Error('Proyek tersebut tidak ditemukan dalam paket AM.');
     const media=cache.entries.filter(e=>/\.(mp4|m4v|mov|webm|mp3|m4a|aac|wav|ogg|flac|png|jpe?g|gif|webp|bmp|avif|heic|ttf|otf|woff2?)$/i.test(e.name)).map(e=>({name:e.name,filename:e.name,size:e.size,type:this.mime(e.name),zipEntry:e}));
-    return{xml:selected.xml,xmlName:selected.name,title:selected.title,packageId:cache.id,projects:cache.projects.map(({name,title})=>({name,title})),media,provider:'official',resolver:'open-motion-official-am',shareLink:payload.shareLink};
+    return{xml:selected.xml,xmlName:selected.name,title:selected.title,packageId:cache.id,projects:cache.projects.map(({name,title})=>({name,title})),media,provider:payload.provider,resolver:'open-motion-official-am',shareLink:payload.shareLink};
   }
 };
 
@@ -29006,11 +29820,11 @@ const AMLinkPackageImporter={
   },
   mediaLocator(e){const v=e.dataUrl||e.url||e.src||'';return v?new URL(v,AM_LINK_RUNTIME_ORIGIN).href:''},
   blobDataUrl(blob){return new Promise((resolve,reject)=>{const r=new FileReader();r.onerror=()=>reject(r.error);r.onload=()=>resolve(r.result);r.readAsDataURL(blob)})},
-  async assertResolver(){
+  async assertResolver(provider='official'){
     // Hosted resolver works from GitHub Pages and from a local single HTML.
-    let response;try{response=await this.fetchTimed(new URL('api/am/status',AM_LINK_BRIDGE_ORIGIN).href,{credentials:'omit'},15000)}catch{throw Error('Backend resolver Cloudflare tidak dapat dihubungi. Periksa internet lalu coba lagi; editor lokal tetap bisa digunakan.')}
+    let response;try{response=await this.fetchTimed(new URL('api/am/status',AM_LINK_BRIDGE_ORIGIN).href,{credentials:'omit'},15000)}catch{throw Error('Backend resolver tidak dapat dihubungi di '+AM_LINK_BRIDGE_ORIGIN+'. Jalankan server resolver atau periksa koneksi.')}
     let status;try{status=await response.json()}catch(error){}
-    if(!response.ok||status?.protocol!==2||status?.resolver!=='open-motion-cloudflare-am'||status?.authentication!=='none'||status?.mode!=='dual-anonymous'||status?.maxPackageBytes!==5242880||!['official','zervida'].every(p=>status?.providers?.includes(p)))throw Error('Backend resolver Cloudflare belum kompatibel dengan HTML ini.');
+    if(!response.ok||status?.protocol!==2||status?.resolver!=='open-motion-cloudflare-am'||!status?.providers?.includes(provider))throw Error('Backend resolver belum kompatibel dengan HTML ini.');
   },
   async officialFetch(url,timeout=30000){
     const target=new URL(url);if(target.origin!==new URL(AM_LINK_RUNTIME_ORIGIN).origin||!target.pathname.startsWith('/api/am/'))throw Error('Alamat resolver tidak diizinkan.');
@@ -29028,10 +29842,10 @@ const AMLinkPackageImporter={
     this.currentPackageId=payload.packageId;return payload;
   },
   async resolve(link,project='',provider='official'){
-    if(!['official','zervida'].includes(provider))throw Error('Pilihan resolver AM tidak valid.');
-    await this.assertResolver();link=this.cleanShareLink(link);
+    if(!['official','zervida','premium'].includes(provider))throw Error('Pilihan resolver AM tidak valid.');
+    await this.assertResolver(provider);link=this.cleanShareLink(link);
     const request=new URL(AM_LINK_PACKAGE_API);request.searchParams.set('url',link);request.searchParams.set('provider',provider);if(project)request.searchParams.set('project',project);
-    const payload=await this.requestJSON(request),expected=provider==='official'?'open-motion-official-am':'open-motion-zervida-adapter';
+    const payload=await this.requestJSON(request),expected=(provider==='official'||provider==='premium')?'open-motion-official-am':'open-motion-zervida-adapter';
     if(!payload.xml||payload.provider!==provider||payload.resolver!==expected)throw Error('Respons bukan dari resolver AM yang dipilih.');return payload;
   },
   projectChoices(p){return(p.projects||[]).map(x=>typeof x==='string'?{value:x,label:x}:{value:x.name||x.id,label:x.title||x.name})},
@@ -36741,6 +37555,7 @@ renderer.canvas.addEventListener('pointercancel',finishCanvasDrag);
 const homeFab=$('#newProjectFab');
 let homeFabOpenedAt=0;
 
+let isNewModalClosing=false;
 const openNewProjectModal=e=>{
   e?.preventDefault?.();
   e?.stopPropagation?.();
@@ -36752,6 +37567,8 @@ const openNewProjectModal=e=>{
 
   const modal=$('#newModal');
   if(modal){
+    isNewModalClosing=false;
+    modal.classList.remove('isClosing');
     modal.classList.remove('hidden');
     homeFab.style.display='none';
     homeFab.style.pointerEvents='none';
@@ -36765,9 +37582,16 @@ homeFab.ontouchend=openNewProjectModal;
 
 const closeNewProjectModal=()=>{
   const modal=$('#newModal');
-  if(modal)modal.classList.add('hidden');
-  homeFab.style.display='';
-  homeFab.style.pointerEvents='auto';
+  if(!modal||modal.classList.contains('hidden')||isNewModalClosing)return;
+  isNewModalClosing=true;
+  modal.classList.add('isClosing');
+  setTimeout(()=>{
+    modal.classList.add('hidden');
+    modal.classList.remove('isClosing');
+    isNewModalClosing=false;
+    homeFab.style.display='';
+    homeFab.style.pointerEvents='auto';
+  },190);
 };
 
 /* =========================================================
@@ -36824,6 +37648,7 @@ $('#collapseEditorTop').onclick=()=>editorTopVisibility.hide();
 $('#restoreEditorTop').onclick=()=>editorTopVisibility.show();
 
 $('#closeNew').onclick=closeNewProjectModal;
+$('#newModal')?.addEventListener('pointerdown',e=>{if(e.target===$('#newModal'))closeNewProjectModal()});
 
 $$('#aspectGrid .aspect').forEach(b=>b.onclick=()=>{
   $$('#aspectGrid .aspect').forEach(x=>x.classList.remove('active'));
@@ -36910,7 +37735,7 @@ $('#ruler').onpointerdown=e=>{
   timelineScroll.addEventListener('pointercancel',endPlaybackDrag,{capture:true,passive:true});
   timelineScroll.addEventListener('lostpointercapture',endPlaybackDrag,{capture:true,passive:true});
 }
-$$('#bottomTools button').forEach(b=>b.onclick=()=>{omsDiagnostics.log('ui','OPEN_TOOL',b.dataset.tool||'');ui.openTool(b.dataset.tool)});$('#plusBtn').onclick=()=>{$('#drawer').classList.contains('hidden')?ui.openTool(ui.addTool||'shapes'):ui.closeDrawer()};
+$$('#bottomTools button').forEach(b=>b.onclick=()=>{omsDiagnostics.log('ui','OPEN_TOOL',b.dataset.tool||'');ui.openTool(b.dataset.tool)});$('#plusBtn').onclick=()=>{const d=$('#drawer');(d.classList.contains('hidden')||d.classList.contains('drawerClosing'))?ui.openTool(ui.addTool||'shapes'):ui.closeDrawer()};
 $('#mediaInput').onchange=e=>media.importFiles([...e.target.files]);
 $('#viewport').ondragover=e=>{e.preventDefault();$('#viewport').classList.add('dragover')};$('#viewport').ondragleave=()=>$('#viewport').classList.remove('dragover');$('#viewport').ondrop=e=>{e.preventDefault();$('#viewport').classList.remove('dragover');media.importFiles([...e.dataTransfer.files])};
 initExportEngineOptions();$('#openExport').onclick=()=>openExportSheet();$('#closeExport').onclick=()=>closeExportSheet();$('#exportPng').onclick=()=>exporter.png();$('#exportJson').onclick=()=>exporter.projectJSON();$('#exportXml').onclick=()=>XMLBridge.download();$('#doExport').onclick=()=>exporter.video();
@@ -37764,59 +38589,59 @@ function applyWholeAppLanguage(){
 }
 const EXPERIMENTAL_NOTICE_I18N={
   id:{
-    eyebrow:`EXPERIMENTAL PREVIEW`,title:`Open Motion masih dalam tahap eksperimen`,intro:`Versi yang kamu gunakan sekarang masih merupakan prototipe awal. Fiturnya memang belum banyak dan kemungkinan masih ada beberapa bug.`,accept:`Saya Mengerti`,
+    eyebrow:`EXPERIMENTAL PREVIEW`,title:`Open Motion masih dalam tahap eksperimen`,intro:`Versi yang kamu gunakan sekarang masih merupakan prototipe awal. Fiturnya memang belum banyak dan kemungkinan masih ada beberapa bug.`,accept:`Saya Mengerti`,dontShow:`Jangan tampilkan lagi`,
     body:`<h3>Open Motion saat ini</h3><p>Beberapa bagian seperti <strong>playback, timeline, sistem 3D, performa, dan fitur editor lainnya</strong> masih terus dikembangkan dan disempurnakan.</p><p>Open Motion akan berkembang secara bertahap dengan fokus membangun editor motion graphics yang fleksibel, ringan, dan punya workflow yang nyaman digunakan.</p><h3>Rencana ke depan</h3><p>Untuk sekarang, Open Motion dikembangkan sebagai aplikasi berbasis web karena lebih cepat untuk melakukan eksperimen, mencoba fitur baru, dan mengubah sistem editor.</p><p>Ke depannya, ada rencana untuk membuat <strong>versi aplikasi native, termasuk APK Android</strong>, setelah <strong>Opus Framework</strong> dirilis dan kondisinya sudah cukup matang untuk digunakan.</p><h3>Apa itu Opus Framework?</h3><p><strong>Opus</strong> adalah framework <em>video timeline composition</em> berbasis <strong>Kotlin Multiplatform</strong> yang sedang dikembangkan oleh The Prismatic Company, yang juga melibatkan pengembang yang sebelumnya pernah mengerjakan Alight Motion.</p><p>Secara sederhana, Opus menyediakan fondasi untuk membuat aplikasi yang berhubungan dengan video dan motion graphics. Framework ini dirancang untuk menangani video, audio, gambar, teks, compositing, animasi, efek visual, timeline multimedia, preview, rendering, export, serta berbagai kebutuhan media lainnya.</p><p>Cara kerjanya memakai pendekatan yang mirip dengan <strong>Jetpack Compose / Compose Multiplatform</strong>, sehingga timeline dan elemen media dapat bereaksi terhadap perubahan state secara real-time saat pengguna melakukan editing.</p><p>Opus juga sudah memperlihatkan dukungan untuk <strong>ruang 3D</strong> seperti posisi X, Y, Z, kamera, parallax, dan rotasi tiga dimensi, serta API tingkat rendah untuk <strong>GPU rendering dan custom shader GLSL</strong>.</p><h3>Kenapa Open Motion tertarik memakai Opus?</h3><p>Karena tujuan Open Motion bukan hanya menjadi editor video biasa. Open Motion direncanakan berkembang menjadi editor <strong>motion graphics, animation, compositing, dan 3D</strong>.</p><div class="experimentalNoticeCallout"><strong>Opus bisa menjadi fondasi mesin multimedia Open Motion</strong> untuk menangani timeline, decoding video/audio, playback, compositing, animasi, efek, filter, GPU rendering, export video, serta sistem 3D dan kamera.</div><p>Kalau Opus nantinya memang cocok, Open Motion tidak perlu membangun seluruh engine multimedia dari nol. Pengembangan bisa lebih fokus pada bagian yang benar-benar membentuk identitas Open Motion: <strong>UI editor, keyframe, timeline, workflow animasi, tools, efek, dan fitur kreatif lainnya.</strong></p><p>Opus berbasis Kotlin Multiplatform dan dirancang untuk digunakan di beberapa platform. Pada materi pengembangnya, iPhone, iPad, dan macOS sudah didukung, sementara Android dan Windows masih dalam pengembangan. Dukungan Web dan backend juga direncanakan.</p><p>Opus juga direncanakan menjadi <strong>open source</strong>, tetapi saat ini masih dipersiapkan sebelum dirilis secara publik.</p><h3>Belum keputusan final</h3><p><strong>Opus belum tentu menjadi engine final Open Motion.</strong> Setelah framework-nya benar-benar dirilis, baru bisa dilihat apakah performa, fitur, kompatibilitas, lisensi, dan arah pengembangannya cocok dengan kebutuhan Open Motion.</p><p>Untuk sekarang, Open Motion akan tetap berkembang sebagai proyek eksperimen sambil terus membangun fitur dan mencoba berbagai ide.</p><p><strong>Terima kasih sudah mencoba Open Motion dan ikut melihat perkembangannya dari tahap awal.</strong></p>`
   },
   en:{
-    eyebrow:`EXPERIMENTAL PREVIEW`,title:`Open Motion is still experimental`,intro:`The version you are using is still an early prototype. Features are still limited, and some bugs may remain.`,accept:`I Understand`,
+    eyebrow:`EXPERIMENTAL PREVIEW`,title:`Open Motion is still experimental`,intro:`The version you are using is still an early prototype. Features are still limited, and some bugs may remain.`,accept:`I Understand`,dontShow:`Don't show again`,
     body:`<h3>Open Motion today</h3><p>Several areas, including <strong>playback, the timeline, the 3D system, performance, and other editor features</strong>, are still being developed and refined.</p><p>Open Motion will continue to evolve step by step, with a focus on building a flexible, lightweight motion graphics editor with a comfortable workflow.</p><h3>Future plans</h3><p>For now, Open Motion is developed as a web-based application because it makes experimentation, feature testing, and editor changes faster.</p><p>In the future, there are plans for a <strong>native application, including an Android APK</strong>, once <strong>Opus Framework</strong> is publicly released and Android support becomes available.</p><h3>What is Opus Framework?</h3><p><strong>Opus</strong> is a <em>video timeline composition</em> framework based on <strong>Kotlin Multiplatform</strong>, currently being developed by The Prismatic Company, which also involves developers who previously worked on Alight Motion.</p><p>In simple terms, Opus provides a foundation for building video and motion graphics applications. It is designed to handle video, audio, images, text, compositing, animation, visual effects, multimedia timelines, preview, rendering, export, and other media needs.</p><p>Its approach is similar to <strong>Jetpack Compose / Compose Multiplatform</strong>, allowing timelines and media elements to react to state changes in real time while editing.</p><p>Opus has also demonstrated support for <strong>3D space</strong>, including X, Y, Z positioning, cameras, parallax, three-dimensional rotation, and low-level APIs for <strong>GPU rendering and custom GLSL shaders</strong>.</p><h3>Why is Open Motion interested in Opus?</h3><p>Because Open Motion is not intended to be just a basic video editor. It is planned to grow into a <strong>motion graphics, animation, compositing, and 3D</strong> editor.</p><div class="experimentalNoticeCallout"><strong>Opus could become the multimedia engine foundation for Open Motion</strong>, handling timelines, video/audio decoding, playback, compositing, animation, effects, filters, GPU rendering, video export, and 3D and camera systems.</div><p>If Opus proves to be a good fit, Open Motion would not need to build the entire multimedia engine from scratch. Development could focus more on what defines Open Motion: <strong>the editor UI, keyframes, timeline, animation workflow, tools, effects, and other creative features.</strong></p><p>Opus is based on Kotlin Multiplatform and is designed for multiple platforms. In its developer material, iPhone, iPad, and macOS are already supported, while Android and Windows are still in development. Web and backend support are also planned.</p><p>Opus is also planned to become <strong>open source</strong>, but it is still being prepared before its public release.</p><h3>Not a final decision</h3><p><strong>Opus is not guaranteed to become Open Motion's final engine.</strong> Once the framework is publicly released, its performance, features, compatibility, licensing, and development direction can be evaluated against Open Motion's needs.</p><p>For now, Open Motion will continue to grow as an experimental project while new features and ideas are explored.</p><p><strong>Thank you for trying Open Motion and following its development from this early stage.</strong></p>`
   },
   zh:{
-    eyebrow:`实验预览`,title:`Open Motion 仍处于实验阶段`,intro:`你现在使用的版本仍是早期原型。功能还比较有限，也可能存在一些错误。`,accept:`我明白了`,
+    eyebrow:`实验预览`,title:`Open Motion 仍处于实验阶段`,intro:`你现在使用的版本仍是早期原型。功能还比较有限，也可能存在一些错误。`,accept:`我明白了`,dontShow:`不再显示`,
     body:`<h3>当前的 Open Motion</h3><p>包括<strong>播放、时间线、3D 系统、性能以及其他编辑器功能</strong>在内的多个部分仍在持续开发和完善。</p><p>Open Motion 将逐步发展，目标是打造一个灵活、轻量，并拥有舒适工作流程的动态图形编辑器。</p><h3>未来计划</h3><p>目前 Open Motion 以 Web 应用形式开发，因为这样更便于快速实验、测试新功能以及调整编辑器系统。</p><p>未来计划在 <strong>Opus Framework</strong> 正式发布并足够成熟后，开发<strong>原生应用版本，包括 Android APK</strong>。</p><h3>什么是 Opus Framework？</h3><p><strong>Opus</strong> 是一个基于 <strong>Kotlin Multiplatform</strong> 的<em>视频时间线合成</em>框架，由 The Prismatic Company 开发，其中也有曾参与 Alight Motion 开发的人员。</p><p>简单来说，Opus 为视频和动态图形应用提供底层基础，可用于处理视频、音频、图像、文本、合成、动画、视觉效果、多媒体时间线、预览、渲染、导出等媒体需求。</p><p>它采用类似 <strong>Jetpack Compose / Compose Multiplatform</strong> 的方式，使时间线和媒体元素能够在编辑时实时响应状态变化。</p><p>Opus 还展示了对<strong>3D 空间</strong>的支持，包括 X、Y、Z 坐标、相机、视差、三维旋转，以及用于<strong>GPU 渲染和自定义 GLSL 着色器</strong>的底层 API。</p><h3>为什么 Open Motion 对 Opus 感兴趣？</h3><p>因为 Open Motion 的目标并不只是成为普通的视频编辑器，而是逐步发展为<strong>动态图形、动画、合成和 3D</strong> 编辑器。</p><div class="experimentalNoticeCallout"><strong>Opus 可能成为 Open Motion 多媒体引擎的基础</strong>，负责时间线、视频/音频解码、播放、合成、动画、效果、滤镜、GPU 渲染、视频导出以及 3D 和相机系统。</div><p>如果 Opus 最终适合 Open Motion，就无需从零构建完整的多媒体引擎，开发可以更专注于真正形成 Open Motion 特色的部分：<strong>编辑器 UI、关键帧、时间线、动画工作流、工具、效果和其他创意功能。</strong></p><p>Opus 基于 Kotlin Multiplatform，面向多平台设计。根据开发者资料，iPhone、iPad 和 macOS 已受到支持，Android 与 Windows 仍在开发中，Web 和后端支持也在规划中。</p><p>Opus 也计划成为<strong>开源</strong>项目，但目前仍在为公开发布做准备。</p><h3>尚未最终决定</h3><p><strong>Opus 不一定会成为 Open Motion 最终采用的引擎。</strong>等框架真正公开发布后，还需要根据性能、功能、兼容性、许可证以及开发方向来判断是否符合 Open Motion 的需求。</p><p>目前 Open Motion 会继续作为实验项目发展，同时不断构建功能并尝试新的想法。</p><p><strong>感谢你从早期阶段开始尝试并关注 Open Motion 的发展。</strong></p>`
   },
   ja:{
-    eyebrow:`実験プレビュー`,title:`Open Motion はまだ実験段階です`,intro:`現在使用しているバージョンは、まだ初期プロトタイプです。機能は限られており、いくつかの不具合が残っている可能性があります。`,accept:`理解しました`,
+    eyebrow:`実験プレビュー`,title:`Open Motion はまだ実験段階です`,intro:`現在使用しているバージョンは、まだ初期プロトタイプです。機能は限られており、いくつかの不具合が残っている可能性があります。`,accept:`理解しました`,dontShow:`今後表示しない`,
     body:`<h3>現在の Open Motion</h3><p><strong>再生、タイムライン、3D システム、パフォーマンス、その他のエディター機能</strong>は、現在も開発と改善が続いています。</p><p>Open Motion は、柔軟で軽量、そして使いやすいワークフローを持つモーショングラフィックスエディターを目指して段階的に進化していきます。</p><h3>今後の計画</h3><p>現在は、実験や新機能の検証、エディターの変更を素早く行えるため、Web アプリとして開発しています。</p><p>将来的には、<strong>Opus Framework</strong> が公開され、十分に成熟した段階で、<strong>Android APK を含むネイティブアプリ版</strong>を作る計画があります。</p><h3>Opus Framework とは？</h3><p><strong>Opus</strong> は、The Prismatic Company が開発中の <strong>Kotlin Multiplatform</strong> ベースの<em>ビデオタイムラインコンポジション</em>フレームワークです。同社には、以前 Alight Motion の開発に携わった開発者も参加しています。</p><p>簡単に言えば、Opus は動画やモーショングラフィックスアプリを作るための基盤で、動画、音声、画像、テキスト、コンポジット、アニメーション、視覚効果、マルチメディアタイムライン、プレビュー、レンダリング、書き出しなどを扱うことを目的としています。</p><p><strong>Jetpack Compose / Compose Multiplatform</strong> に近い考え方を採用しており、編集時の state 変更に対してタイムラインやメディア要素をリアルタイムに反応させられます。</p><p>さらに、X・Y・Z 座標、カメラ、パララックス、3 次元回転などの<strong>3D 空間</strong>と、<strong>GPU レンダリングやカスタム GLSL シェーダー</strong>向けの低レベル API も示されています。</p><h3>なぜ Open Motion は Opus に注目しているのか？</h3><p>Open Motion は単なる動画編集アプリではなく、将来的に<strong>モーショングラフィックス、アニメーション、コンポジット、3D</strong>まで扱えるエディターを目指しているからです。</p><div class="experimentalNoticeCallout"><strong>Opus は Open Motion のマルチメディアエンジンの土台になる可能性があります。</strong>タイムライン、動画・音声デコード、再生、コンポジット、アニメーション、エフェクト、フィルター、GPU レンダリング、動画書き出し、3D とカメラシステムなどを担えます。</div><p>Opus が適していれば、Open Motion はマルチメディアエンジン全体をゼロから作る必要がなくなり、<strong>エディター UI、キーフレーム、タイムライン、アニメーションワークフロー、ツール、エフェクトなどの創造的な機能</strong>により集中できます。</p><p>Opus は Kotlin Multiplatform ベースで、複数プラットフォームを想定しています。開発資料では iPhone、iPad、macOS が対応済みで、Android と Windows は開発中、Web とバックエンドも計画されています。</p><p>Opus は<strong>オープンソース</strong>化も予定されていますが、現在は一般公開に向けた準備段階です。</p><h3>まだ最終決定ではありません</h3><p><strong>Opus が Open Motion の最終エンジンになるとは限りません。</strong>実際に公開された後で、性能、機能、互換性、ライセンス、開発方針が Open Motion の要件に合うかを判断します。</p><p>それまでは Open Motion を実験的なプロジェクトとして継続し、機能の追加や新しいアイデアの検証を進めます。</p><p><strong>Open Motion を試し、初期段階からその成長を見てくれてありがとうございます。</strong></p>`
   },
   ms:{
-    eyebrow:`PRATONTON EKSPERIMEN`,title:`Open Motion masih dalam peringkat eksperimen`,intro:`Versi yang anda gunakan sekarang masih merupakan prototaip awal. Ciri masih terhad dan beberapa pepijat mungkin masih wujud.`,accept:`Saya Faham`,
+    eyebrow:`PRATONTON EKSPERIMEN`,title:`Open Motion masih dalam peringkat eksperimen`,intro:`Versi yang anda gunakan sekarang masih merupakan prototaip awal. Ciri masih terhad dan beberapa pepijat mungkin masih wujud.`,accept:`Saya Faham`,dontShow:`Jangan tunjukkan lagi`,
     body:`<h3>Open Motion sekarang</h3><p>Beberapa bahagian seperti <strong>playback, timeline, sistem 3D, prestasi dan ciri editor lain</strong> masih sedang dibangunkan dan diperhalusi.</p><p>Open Motion akan berkembang secara berperingkat dengan fokus membina editor motion graphics yang fleksibel, ringan dan mempunyai aliran kerja yang selesa.</p><h3>Rancangan akan datang</h3><p>Buat masa ini, Open Motion dibangunkan sebagai aplikasi berasaskan web kerana lebih cepat untuk bereksperimen, menguji ciri baharu dan mengubah sistem editor.</p><p>Pada masa hadapan, terdapat rancangan untuk menghasilkan <strong>aplikasi native, termasuk APK Android</strong>, selepas <strong>Opus Framework</strong> dilancarkan dan cukup matang untuk digunakan.</p><h3>Apakah Opus Framework?</h3><p><strong>Opus</strong> ialah framework <em>video timeline composition</em> berasaskan <strong>Kotlin Multiplatform</strong> yang sedang dibangunkan oleh The Prismatic Company, yang turut melibatkan pembangun yang pernah mengerjakan Alight Motion.</p><p>Secara ringkas, Opus menyediakan asas untuk membina aplikasi video dan motion graphics. Ia direka untuk mengendalikan video, audio, imej, teks, compositing, animasi, kesan visual, timeline multimedia, preview, rendering, export dan keperluan media lain.</p><p>Pendekatannya mirip <strong>Jetpack Compose / Compose Multiplatform</strong>, supaya timeline dan elemen media boleh bertindak balas terhadap perubahan state secara masa nyata semasa penyuntingan.</p><p>Opus juga telah menunjukkan sokongan untuk <strong>ruang 3D</strong> termasuk posisi X, Y, Z, kamera, parallax, putaran tiga dimensi serta API aras rendah untuk <strong>GPU rendering dan custom shader GLSL</strong>.</p><h3>Mengapa Open Motion berminat menggunakan Opus?</h3><p>Kerana Open Motion bukan dirancang sekadar sebagai editor video biasa. Ia dirancang berkembang menjadi editor <strong>motion graphics, animation, compositing dan 3D</strong>.</p><div class="experimentalNoticeCallout"><strong>Opus berpotensi menjadi asas enjin multimedia Open Motion</strong> untuk timeline, decoding video/audio, playback, compositing, animasi, kesan, penapis, GPU rendering, export video serta sistem 3D dan kamera.</div><p>Jika Opus benar-benar sesuai, Open Motion tidak perlu membina keseluruhan enjin multimedia dari kosong. Pembangunan boleh lebih tertumpu pada identiti Open Motion: <strong>UI editor, keyframe, timeline, workflow animasi, tools, efek dan ciri kreatif lain.</strong></p><p>Opus berasaskan Kotlin Multiplatform dan direka untuk beberapa platform. Dalam bahan pembangunnya, iPhone, iPad dan macOS sudah disokong, manakala Android dan Windows masih dibangunkan. Sokongan Web dan backend juga dirancang.</p><p>Opus juga dirancang menjadi <strong>open source</strong>, tetapi masih dipersiapkan sebelum pelancaran awam.</p><h3>Belum keputusan muktamad</h3><p><strong>Opus belum tentu menjadi enjin akhir Open Motion.</strong> Selepas framework itu benar-benar dilancarkan, prestasi, ciri, keserasian, lesen dan hala tuju pembangunannya akan dinilai mengikut keperluan Open Motion.</p><p>Buat masa ini, Open Motion akan terus berkembang sebagai projek eksperimen sambil membina ciri dan mencuba pelbagai idea.</p><p><strong>Terima kasih kerana mencuba Open Motion dan mengikuti perkembangannya sejak peringkat awal.</strong></p>`
   },
   th:{
-    eyebrow:`ตัวอย่างทดลอง`,title:`Open Motion ยังอยู่ในขั้นทดลอง`,intro:`เวอร์ชันที่คุณใช้อยู่ยังเป็นต้นแบบระยะแรก ฟีเจอร์ยังมีไม่มากและอาจยังพบข้อผิดพลาดบางอย่าง`,accept:`เข้าใจแล้ว`,
+    eyebrow:`ตัวอย่างทดลอง`,title:`Open Motion ยังอยู่ในขั้นทดลอง`,intro:`เวอร์ชันที่คุณใช้อยู่ยังเป็นต้นแบบระยะแรก ฟีเจอร์ยังมีไม่มากและอาจยังพบข้อผิดพลาดบางอย่าง`,accept:`เข้าใจแล้ว`,dontShow:`ไม่ต้องแสดงอีก`,
     body:`<h3>Open Motion ในตอนนี้</h3><p>หลายส่วน เช่น <strong>การเล่นวิดีโอ ไทม์ไลน์ ระบบ 3D ประสิทธิภาพ และฟีเจอร์อื่นของตัวแก้ไข</strong> ยังอยู่ระหว่างการพัฒนาและปรับปรุง</p><p>Open Motion จะค่อย ๆ พัฒนาต่อไป โดยมุ่งสร้างโปรแกรม motion graphics ที่ยืดหยุ่น เบา และมี workflow ที่ใช้งานสะดวก</p><h3>แผนในอนาคต</h3><p>ตอนนี้ Open Motion พัฒนาเป็นแอปบนเว็บ เพราะช่วยให้ทดลอง ทดสอบฟีเจอร์ใหม่ และปรับระบบตัวแก้ไขได้รวดเร็วกว่า</p><p>ในอนาคตมีแผนสร้าง<strong>แอป native รวมถึง APK สำหรับ Android</strong> หลังจาก <strong>Opus Framework</strong> เปิดตัวและมีความพร้อมเพียงพอ</p><h3>Opus Framework คืออะไร?</h3><p><strong>Opus</strong> คือ framework สำหรับ <em>video timeline composition</em> ที่สร้างบน <strong>Kotlin Multiplatform</strong> และกำลังพัฒนาโดย The Prismatic Company ซึ่งมีนักพัฒนาที่เคยทำงานกับ Alight Motion ร่วมอยู่ด้วย</p><p>พูดง่าย ๆ คือ Opus เป็นรากฐานสำหรับสร้างแอปวิดีโอและ motion graphics โดยออกแบบมาเพื่อจัดการวิดีโอ เสียง รูปภาพ ข้อความ compositing แอนิเมชัน visual effects ไทม์ไลน์มัลติมีเดีย preview rendering export และงานสื่ออื่น ๆ</p><p>แนวทางการทำงานคล้าย <strong>Jetpack Compose / Compose Multiplatform</strong> ทำให้ไทม์ไลน์และองค์ประกอบสื่อสามารถตอบสนองต่อการเปลี่ยน state แบบเรียลไทม์ระหว่างการแก้ไข</p><p>Opus ยังแสดงการรองรับ<strong>พื้นที่ 3D</strong> เช่น ตำแหน่ง X, Y, Z กล้อง parallax การหมุนสามมิติ รวมถึง API ระดับต่ำสำหรับ<strong>GPU rendering และ custom shader GLSL</strong></p><h3>ทำไม Open Motion ถึงสนใจ Opus?</h3><p>เพราะเป้าหมายของ Open Motion ไม่ใช่แค่โปรแกรมตัดต่อวิดีโอทั่วไป แต่จะพัฒนาไปเป็น editor สำหรับ <strong>motion graphics, animation, compositing และ 3D</strong></p><div class="experimentalNoticeCallout"><strong>Opus อาจเป็นรากฐานของ multimedia engine สำหรับ Open Motion</strong> เพื่อจัดการไทม์ไลน์ การถอดรหัสวิดีโอ/เสียง playback compositing แอนิเมชัน เอฟเฟกต์ ฟิลเตอร์ GPU rendering export วิดีโอ รวมถึงระบบ 3D และกล้อง</div><p>หาก Opus เหมาะสม Open Motion ก็ไม่จำเป็นต้องสร้าง multimedia engine ทั้งหมดจากศูนย์ และสามารถมุ่งพัฒนาส่วนที่เป็นเอกลักษณ์ของ Open Motion ได้มากขึ้น เช่น <strong>UI editor, keyframe, timeline, workflow แอนิเมชัน, tools, effects และฟีเจอร์สร้างสรรค์อื่น ๆ</strong></p><p>Opus ใช้ Kotlin Multiplatform และออกแบบให้รองรับหลายแพลตฟอร์ม ตามข้อมูลจากผู้พัฒนา iPhone, iPad และ macOS รองรับแล้ว ส่วน Android และ Windows ยังอยู่ระหว่างพัฒนา และมีแผนรองรับ Web กับ backend ด้วย</p><p>Opus มีแผนจะเป็น <strong>open source</strong> แต่ตอนนี้ยังอยู่ระหว่างเตรียมความพร้อมก่อนเผยแพร่สู่สาธารณะ</p><h3>ยังไม่ใช่การตัดสินใจสุดท้าย</h3><p><strong>ยังไม่มีการรับประกันว่า Opus จะเป็น engine สุดท้ายของ Open Motion</strong> หลัง framework เปิดตัวจริงแล้ว จึงจะสามารถประเมินประสิทธิภาพ ฟีเจอร์ ความเข้ากันได้ ไลเซนส์ และทิศทางการพัฒนาได้</p><p>ในตอนนี้ Open Motion จะยังคงพัฒนาในฐานะโครงการทดลอง พร้อมสร้างฟีเจอร์และลองแนวคิดใหม่ ๆ ต่อไป</p><p><strong>ขอบคุณที่ทดลองใช้ Open Motion และติดตามการพัฒนาตั้งแต่ช่วงเริ่มต้น</strong></p>`
   },
   vi:{
-    eyebrow:`BẢN XEM THỬ NGHIỆM`,title:`Open Motion vẫn đang ở giai đoạn thử nghiệm`,intro:`Phiên bản bạn đang sử dụng vẫn là nguyên mẫu ban đầu. Tính năng còn hạn chế và một số lỗi có thể vẫn tồn tại.`,accept:`Tôi hiểu`,
+    eyebrow:`BẢN XEM THỬ NGHIỆM`,title:`Open Motion vẫn đang ở giai đoạn thử nghiệm`,intro:`Phiên bản bạn đang sử dụng vẫn là nguyên mẫu ban đầu. Tính năng còn hạn chế và một số lỗi có thể vẫn tồn tại.`,accept:`Tôi hiểu`,dontShow:`Không hiển thị lại`,
     body:`<h3>Open Motion hiện tại</h3><p>Một số phần như <strong>playback, timeline, hệ thống 3D, hiệu năng và các tính năng khác của trình chỉnh sửa</strong> vẫn đang được phát triển và hoàn thiện.</p><p>Open Motion sẽ tiếp tục phát triển từng bước, tập trung xây dựng một trình chỉnh sửa motion graphics linh hoạt, nhẹ và có workflow thuận tiện.</p><h3>Kế hoạch tương lai</h3><p>Hiện tại Open Motion được phát triển dưới dạng ứng dụng web vì cách này giúp thử nghiệm, kiểm tra tính năng mới và thay đổi hệ thống chỉnh sửa nhanh hơn.</p><p>Trong tương lai có kế hoạch tạo <strong>ứng dụng native, bao gồm APK Android</strong>, sau khi <strong>Opus Framework</strong> được phát hành và đủ trưởng thành để sử dụng.</p><h3>Opus Framework là gì?</h3><p><strong>Opus</strong> là framework <em>video timeline composition</em> dựa trên <strong>Kotlin Multiplatform</strong>, đang được The Prismatic Company phát triển, với sự tham gia của những nhà phát triển từng làm việc trên Alight Motion.</p><p>Nói đơn giản, Opus cung cấp nền tảng để xây dựng ứng dụng video và motion graphics. Framework này được thiết kế để xử lý video, audio, hình ảnh, văn bản, compositing, animation, visual effects, timeline đa phương tiện, preview, rendering, export và nhiều nhu cầu media khác.</p><p>Cách tiếp cận của Opus tương tự <strong>Jetpack Compose / Compose Multiplatform</strong>, giúp timeline và các phần tử media phản ứng theo thay đổi state theo thời gian thực trong lúc chỉnh sửa.</p><p>Opus cũng đã cho thấy khả năng hỗ trợ <strong>không gian 3D</strong> như vị trí X, Y, Z, camera, parallax, xoay ba chiều, cùng API cấp thấp cho <strong>GPU rendering và custom shader GLSL</strong>.</p><h3>Tại sao Open Motion quan tâm đến Opus?</h3><p>Vì Open Motion không chỉ hướng đến một trình chỉnh sửa video thông thường. Dự án được định hướng phát triển thành editor cho <strong>motion graphics, animation, compositing và 3D</strong>.</p><div class="experimentalNoticeCallout"><strong>Opus có thể trở thành nền tảng multimedia engine của Open Motion</strong>, xử lý timeline, giải mã video/audio, playback, compositing, animation, hiệu ứng, bộ lọc, GPU rendering, export video, cùng hệ thống 3D và camera.</div><p>Nếu Opus thực sự phù hợp, Open Motion sẽ không phải xây toàn bộ multimedia engine từ đầu. Việc phát triển có thể tập trung hơn vào những phần tạo nên bản sắc của Open Motion: <strong>UI editor, keyframe, timeline, workflow animation, tools, effects và các tính năng sáng tạo khác.</strong></p><p>Opus dựa trên Kotlin Multiplatform và được thiết kế cho nhiều nền tảng. Theo tài liệu của nhà phát triển, iPhone, iPad và macOS đã được hỗ trợ, trong khi Android và Windows vẫn đang được phát triển. Web và backend cũng nằm trong kế hoạch.</p><p>Opus cũng được lên kế hoạch trở thành <strong>open source</strong>, nhưng hiện vẫn đang được chuẩn bị trước khi phát hành công khai.</p><h3>Chưa phải quyết định cuối cùng</h3><p><strong>Opus chưa chắc sẽ trở thành engine cuối cùng của Open Motion.</strong> Sau khi framework thực sự được phát hành, hiệu năng, tính năng, khả năng tương thích, giấy phép và hướng phát triển mới có thể được đánh giá theo nhu cầu của Open Motion.</p><p>Hiện tại, Open Motion sẽ tiếp tục phát triển như một dự án thử nghiệm, vừa xây dựng tính năng vừa thử các ý tưởng mới.</p><p><strong>Cảm ơn bạn đã thử Open Motion và theo dõi sự phát triển của dự án từ giai đoạn đầu.</strong></p>`
   },
   fil:{
-    eyebrow:`EKSPERIMENTAL NA PREVIEW`,title:`Eksperimental pa rin ang Open Motion`,intro:`Ang bersyong ginagamit mo ngayon ay maagang prototype pa lamang. Limitado pa ang mga feature at maaaring may ilang bug pa.`,accept:`Nauunawaan Ko`,
+    eyebrow:`EKSPERIMENTAL NA PREVIEW`,title:`Eksperimental pa rin ang Open Motion`,intro:`Ang bersyong ginagamit mo ngayon ay maagang prototype pa lamang. Limitado pa ang mga feature at maaaring may ilang bug pa.`,accept:`Nauunawaan Ko`,dontShow:`Huwag nang ipakita muli`,
     body:`<h3>Open Motion sa ngayon</h3><p>Patuloy pang ginagawa at pinapahusay ang ilang bahagi gaya ng <strong>playback, timeline, 3D system, performance, at iba pang feature ng editor</strong>.</p><p>Unti-unting palalawakin ang Open Motion na may pokus sa isang flexible, magaan, at komportableng motion graphics workflow.</p><h3>Mga plano sa hinaharap</h3><p>Sa ngayon, web-based application muna ang Open Motion dahil mas mabilis dito ang pag-eeksperimento, pagsubok ng bagong feature, at pagbabago sa editor system.</p><p>Sa hinaharap, may planong gumawa ng <strong>native application, kabilang ang Android APK</strong>, kapag nailabas na ang <strong>Opus Framework</strong> at sapat na itong mature para gamitin.</p><h3>Ano ang Opus Framework?</h3><p>Ang <strong>Opus</strong> ay isang <em>video timeline composition</em> framework na nakabatay sa <strong>Kotlin Multiplatform</strong> at kasalukuyang ginagawa ng The Prismatic Company, na kinabibilangan din ng mga developer na dating nagtrabaho sa Alight Motion.</p><p>Sa madaling salita, nagbibigay ang Opus ng pundasyon para sa paggawa ng video at motion graphics applications. Dinisenyo itong humawak ng video, audio, image, text, compositing, animation, visual effects, multimedia timeline, preview, rendering, export, at iba pang pangangailangan sa media.</p><p>May approach itong kahawig ng <strong>Jetpack Compose / Compose Multiplatform</strong>, kaya maaaring tumugon nang real-time ang timeline at media elements sa pagbabago ng state habang nag-e-edit.</p><p>Nagpakita rin ang Opus ng suporta para sa <strong>3D space</strong>, kabilang ang X, Y, Z position, camera, parallax, three-dimensional rotation, at low-level API para sa <strong>GPU rendering at custom GLSL shaders</strong>.</p><h3>Bakit interesado ang Open Motion sa Opus?</h3><p>Dahil hindi lamang simpleng video editor ang layunin ng Open Motion. Plano itong maging editor para sa <strong>motion graphics, animation, compositing, at 3D</strong>.</p><div class="experimentalNoticeCallout"><strong>Maaaring maging pundasyon ng multimedia engine ng Open Motion ang Opus</strong> para sa timeline, video/audio decoding, playback, compositing, animation, effects, filters, GPU rendering, video export, at 3D at camera systems.</div><p>Kung magiging angkop ang Opus, hindi na kailangang buuin ng Open Motion ang buong multimedia engine mula sa simula. Mas makakapokus ang development sa identidad ng Open Motion: <strong>editor UI, keyframes, timeline, animation workflow, tools, effects, at iba pang creative feature.</strong></p><p>Nakabatay ang Opus sa Kotlin Multiplatform at dinisenyo para sa iba't ibang platform. Sa developer materials nito, supported na ang iPhone, iPad, at macOS, habang ginagawa pa ang Android at Windows. Nakaplano rin ang Web at backend support.</p><p>Nakaplano ring gawing <strong>open source</strong> ang Opus, ngunit kasalukuyan pa itong inihahanda bago ang public release.</p><h3>Hindi pa pinal na desisyon</h3><p><strong>Hindi garantisadong Opus ang magiging final engine ng Open Motion.</strong> Kapag nailabas na talaga ang framework, saka masusuri kung ang performance, features, compatibility, license, at direksyon ng development nito ay akma sa Open Motion.</p><p>Sa ngayon, patuloy na lalago ang Open Motion bilang experimental project habang gumagawa ng mga feature at sumusubok ng mga bagong ideya.</p><p><strong>Salamat sa pagsubok ng Open Motion at sa pagsubaybay sa pag-unlad nito mula sa maagang yugto.</strong></p>`
   },
   my:{
-    eyebrow:`စမ်းသပ် အကြိုကြည့်ရှုမှု`,title:`Open Motion သည် စမ်းသပ်အဆင့်တွင် ရှိနေဆဲဖြစ်သည်`,intro:`ယခုအသုံးပြုနေသော ဗားရှင်းသည် အစောပိုင်း prototype တစ်ခုသာ ဖြစ်သေးသည်။ လုပ်ဆောင်ချက်များ များစွာမရှိသေးသလို bug အချို့လည်း ရှိနိုင်သည်။`,accept:`နားလည်ပါပြီ`,
+    eyebrow:`စမ်းသပ် အကြိုကြည့်ရှုမှု`,title:`Open Motion သည် စမ်းသပ်အဆင့်တွင် ရှိနေဆဲဖြစ်သည်`,intro:`ယခုအသုံးပြုနေသော ဗားရှင်းသည် အစောပိုင်း prototype တစ်ခုသာ ဖြစ်သေးသည်။ လုပ်ဆောင်ချက်များ များစွာမရှိသေးသလို bug အချို့လည်း ရှိနိုင်သည်။`,accept:`နားလည်ပါပြီ`,dontShow:`နောက်တစ်ကြိမ် မပြပါနှင့်`,
     body:`<h3>လက်ရှိ Open Motion</h3><p><strong>playback, timeline, 3D system, performance နှင့် editor feature အခြားများ</strong>ကို ဆက်လက်ဖွံ့ဖြိုးပြီး ပြင်ဆင်နေဆဲဖြစ်သည်။</p><p>Open Motion ကို ပေါ့ပါးပြီး ပြောင်းလွယ်ပြင်လွယ်ရှိကာ အသုံးပြုရ အဆင်ပြေသော motion graphics editor တစ်ခုဖြစ်လာစေရန် တဖြည်းဖြည်း ဖွံ့ဖြိုးသွားမည်ဖြစ်သည်။</p><h3>အနာဂတ်အစီအစဉ်</h3><p>လက်ရှိတွင် စမ်းသပ်မှုများ၊ feature အသစ်များ စမ်းသပ်ခြင်းနှင့် editor system ပြောင်းလဲမှုများကို ပိုမြန်စေရန် Open Motion ကို web-based application အဖြစ် ဖွံ့ဖြိုးထားသည်။</p><p>အနာဂတ်တွင် <strong>Opus Framework</strong> ထုတ်ဝေပြီး လုံလောက်စွာ အဆင်သင့်ဖြစ်လာသည့်အခါ <strong>Android APK အပါအဝင် native application</strong> ပြုလုပ်ရန် အစီအစဉ်ရှိသည်။</p><h3>Opus Framework ဆိုတာဘာလဲ?</h3><p><strong>Opus</strong> သည် <strong>Kotlin Multiplatform</strong> အခြေခံ <em>video timeline composition</em> framework တစ်ခုဖြစ်ပြီး The Prismatic Company က ဖွံ့ဖြိုးနေသည်။ ထိုအဖွဲ့တွင် ယခင်က Alight Motion တွင် အလုပ်လုပ်ခဲ့သော developer များလည်း ပါဝင်သည်။</p><p>အကျဉ်းချုပ်ဆိုရလျှင် Opus သည် video နှင့် motion graphics application များဖန်တီးရန် အခြေခံတည်ဆောက်ပေးသည်။ Video, audio, image, text, compositing, animation, visual effects, multimedia timeline, preview, rendering, export နှင့် media လိုအပ်ချက်များကို ကိုင်တွယ်ရန် ရည်ရွယ်ထားသည်။</p><p>၎င်း၏နည်းလမ်းသည် <strong>Jetpack Compose / Compose Multiplatform</strong> နှင့် ဆင်တူပြီး editing လုပ်နေစဉ် state ပြောင်းလဲမှုများကို timeline နှင့် media elements များက real-time တုံ့ပြန်နိုင်စေသည်။</p><p>Opus သည် X, Y, Z position, camera, parallax, 3D rotation ပါဝင်သော <strong>3D space</strong> နှင့် <strong>GPU rendering၊ custom GLSL shader</strong> များအတွက် low-level API များကိုလည်း ပြသထားသည်။</p><h3>Open Motion က Opus ကို ဘာကြောင့် စိတ်ဝင်စားတာလဲ?</h3><p>Open Motion ၏ ရည်ရွယ်ချက်သည် ပုံမှန် video editor တစ်ခုသာ မဟုတ်ဘဲ <strong>motion graphics, animation, compositing နှင့် 3D</strong> editor တစ်ခုအဖြစ် ဖွံ့ဖြိုးရန် ဖြစ်သည်။</p><div class="experimentalNoticeCallout"><strong>Opus သည် Open Motion multimedia engine ၏ အခြေခံဖြစ်လာနိုင်သည်</strong>၊ timeline, video/audio decoding, playback, compositing, animation, effects, filters, GPU rendering, video export၊ 3D နှင့် camera system များကို ကိုင်တွယ်နိုင်မည်ဖြစ်သည်။</div><p>Opus သင့်တော်ပါက Open Motion သည် multimedia engine တစ်ခုလုံးကို အစမှ တည်ဆောက်ရန် မလိုတော့ဘဲ <strong>editor UI, keyframe, timeline, animation workflow, tools, effects နှင့် creative feature များ</strong>ကို ပိုမိုအာရုံစိုက်နိုင်မည်ဖြစ်သည်။</p><p>Opus သည် Kotlin Multiplatform အခြေခံဖြစ်ပြီး platform မျိုးစုံအတွက် ဒီဇိုင်းပြုလုပ်ထားသည်။ Developer material များအရ iPhone, iPad နှင့် macOS ကို ထောက်ပံ့ထားပြီး Android နှင့် Windows ကို ဖွံ့ဖြိုးနေဆဲဖြစ်သည်။ Web နှင့် backend support လည်း အစီအစဉ်ရှိသည်။</p><p>Opus ကို <strong>open source</strong> အဖြစ် ထုတ်ဝေရန်လည်း စီစဉ်ထားသော်လည်း အများပြည်သူထုတ်ဝေမည့်အချိန်မတိုင်မီ ပြင်ဆင်နေဆဲဖြစ်သည်။</p><h3>နောက်ဆုံးဆုံးဖြတ်ချက် မဟုတ်သေးပါ</h3><p><strong>Opus သည် Open Motion ၏ final engine ဖြစ်မည်ဟု မသေချာသေးပါ။</strong> Framework ကို အမှန်တကယ် ထုတ်ဝေပြီးနောက် performance, features, compatibility, license နှင့် development direction တို့ကို Open Motion လိုအပ်ချက်များနှင့် ကိုက်ညီမှုရှိမရှိ အကဲဖြတ်မည်ဖြစ်သည်။</p><p>ယခုအချိန်တွင် Open Motion ကို စမ်းသပ် project တစ်ခုအဖြစ် ဆက်လက်ဖွံ့ဖြိုးပြီး feature များတည်ဆောက်ကာ အကြံအသစ်များကို စမ်းသပ်သွားမည်ဖြစ်သည်။</p><p><strong>Open Motion ကို စမ်းသပ်အသုံးပြုပြီး အစောပိုင်းကတည်းက ဖွံ့ဖြိုးမှုကို လိုက်ကြည့်ပေးသည့်အတွက် ကျေးဇူးတင်ပါသည်။</strong></p>`
   },
   km:{
-    eyebrow:`ការមើលជាមុនសម្រាប់ការសាកល្បង`,title:`Open Motion នៅតែស្ថិតក្នុងដំណាក់កាលសាកល្បង`,intro:`កំណែដែលអ្នកកំពុងប្រើនៅតែជាគំរូដំបូង។ មុខងារនៅមានកម្រិត ហើយអាចនៅមានបញ្ហាមួយចំនួន។`,accept:`ខ្ញុំយល់ហើយ`,
+    eyebrow:`ការមើលជាមុនសម្រាប់ការសាកល្បង`,title:`Open Motion នៅតែស្ថិតក្នុងដំណាក់កាលសាកល្បង`,intro:`កំណែដែលអ្នកកំពុងប្រើនៅតែជាគំរូដំបូង។ មុខងារនៅមានកម្រិត ហើយអាចនៅមានបញ្ហាមួយចំនួន។`,accept:`ខ្ញុំយល់ហើយ`,dontShow:`កុំបង្ហាញម្តងទៀត`,
     body:`<h3>Open Motion នៅពេលនេះ</h3><p>ផ្នែកជាច្រើនដូចជា <strong>playback, timeline, ប្រព័ន្ធ 3D, performance និងមុខងារ editor ផ្សេងៗ</strong> នៅតែត្រូវបានអភិវឌ្ឍ និងកែលម្អបន្ត។</p><p>Open Motion នឹងអភិវឌ្ឍជាបន្តបន្ទាប់ ដោយផ្តោតលើការបង្កើត motion graphics editor ដែលបត់បែន ស្រាល និងមាន workflow ងាយស្រួលប្រើ។</p><h3>ផែនការអនាគត</h3><p>សម្រាប់ពេលនេះ Open Motion ត្រូវបានអភិវឌ្ឍជាកម្មវិធី Web ដើម្បីឲ្យការសាកល្បង មុខងារថ្មី និងការកែប្រែប្រព័ន្ធ editor ធ្វើបានរហ័សជាងមុន។</p><p>អនាគតមានផែនការបង្កើត <strong>កម្មវិធី native រួមទាំង Android APK</strong> បន្ទាប់ពី <strong>Opus Framework</strong> ត្រូវបានចេញផ្សាយ និងមានភាព成熟គ្រប់គ្រាន់សម្រាប់ប្រើប្រាស់។</p><h3>Opus Framework ជាអ្វី?</h3><p><strong>Opus</strong> គឺជា framework <em>video timeline composition</em> ដែលផ្អែកលើ <strong>Kotlin Multiplatform</strong> និងកំពុងអភិវឌ្ឍដោយ The Prismatic Company ដែលមានអ្នកអភិវឌ្ឍមួយចំនួនធ្លាប់ធ្វើការលើ Alight Motion ផងដែរ។</p><p>និយាយឲ្យសាមញ្ញ Opus ផ្តល់មូលដ្ឋានសម្រាប់បង្កើតកម្មវិធី video និង motion graphics។ វាត្រូវបានរចនាឡើងដើម្បីគ្រប់គ្រង video, audio, image, text, compositing, animation, visual effects, multimedia timeline, preview, rendering, export និងតម្រូវការ media ផ្សេងៗ។</p><p>វិធីសាស្ត្ររបស់វាស្រដៀង <strong>Jetpack Compose / Compose Multiplatform</strong> ដូច្នេះ timeline និង media elements អាចឆ្លើយតបទៅនឹងការផ្លាស់ប្តូរ state ជា real-time ខណៈពេល editing។</p><p>Opus ក៏បានបង្ហាញការគាំទ្រ <strong>3D space</strong> ដូចជា X, Y, Z position, camera, parallax, ការបង្វិល 3D និង low-level API សម្រាប់ <strong>GPU rendering និង custom GLSL shader</strong>។</p><h3>ហេតុអ្វី Open Motion ចាប់អារម្មណ៍ Opus?</h3><p>ព្រោះ Open Motion មិនមានគោលដៅត្រឹមជា video editor ធម្មតាទេ។ វាត្រូវបានគ្រោងឲ្យអភិវឌ្ឍទៅជា editor សម្រាប់ <strong>motion graphics, animation, compositing និង 3D</strong>។</p><div class="experimentalNoticeCallout"><strong>Opus អាចក្លាយជាមូលដ្ឋាន multimedia engine របស់ Open Motion</strong> សម្រាប់ timeline, video/audio decoding, playback, compositing, animation, effects, filters, GPU rendering, video export និងប្រព័ន្ធ 3D និង camera។</div><p>បើ Opus សមស្រប Open Motion មិនចាំបាច់បង្កើត multimedia engine ទាំងមូលពីសូន្យឡើយ ហើយអាចផ្តោតលើអត្តសញ្ញាណរបស់ Open Motion៖ <strong>editor UI, keyframe, timeline, animation workflow, tools, effects និងមុខងារច្នៃប្រឌិតផ្សេងៗ។</strong></p><p>Opus ផ្អែកលើ Kotlin Multiplatform និងរចនាសម្រាប់ platform ច្រើន។ តាមឯកសារអ្នកអភិវឌ្ឍ iPhone, iPad និង macOS ត្រូវបានគាំទ្ររួច ខណៈ Android និង Windows កំពុងអភិវឌ្ឍ។ Web និង backend ក៏មានក្នុងផែនការ។</p><p>Opus ក៏មានផែនការក្លាយជា <strong>open source</strong> ប៉ុន្តែនៅកំពុងរៀបចំមុនចេញផ្សាយជាសាធារណៈ។</p><h3>មិនទាន់ជាការសម្រេចចិត្តចុងក្រោយ</h3><p><strong>មិនមានការធានាថា Opus នឹងក្លាយជា engine ចុងក្រោយរបស់ Open Motion ទេ។</strong> បន្ទាប់ពី framework ត្រូវបានចេញផ្សាយពិតប្រាកដ ទើបអាចវាយតម្លៃ performance, features, compatibility, license និងទិសដៅអភិវឌ្ឍថាសមស្របនឹងតម្រូវការ Open Motion ឬអត់។</p><p>សម្រាប់ពេលនេះ Open Motion នឹងបន្តអភិវឌ្ឍជាគម្រោងសាកល្បង ខណៈពេលបង្កើតមុខងារ និងសាកល្បងគំនិតថ្មីៗ។</p><p><strong>សូមអរគុណដែលបានសាកល្បង Open Motion និងតាមដានការអភិវឌ្ឍរបស់វាតាំងពីដំណាក់កាលដំបូង។</strong></p>`
   },
   lo:{
-    eyebrow:`ຕົວຢ່າງທົດລອງ`,title:`Open Motion ຍັງຢູ່ໃນຂັ້ນທົດລອງ`,intro:`ເວີຊັນທີ່ທ່ານກຳລັງໃຊ້ຍັງເປັນ prototype ໄລຍະຕົ້ນ. ຟີເຈີຍັງມີຈຳກັດ ແລະອາດຍັງມີ bug ບາງຢ່າງ.`,accept:`ເຂົ້າໃຈແລ້ວ`,
+    eyebrow:`ຕົວຢ່າງທົດລອງ`,title:`Open Motion ຍັງຢູ່ໃນຂັ້ນທົດລອງ`,intro:`ເວີຊັນທີ່ທ່ານກຳລັງໃຊ້ຍັງເປັນ prototype ໄລຍະຕົ້ນ. ຟີເຈີຍັງມີຈຳກັດ ແລະອາດຍັງມີ bug ບາງຢ່າງ.`,accept:`ເຂົ້າໃຈແລ້ວ`,dontShow:`ຢ່າສະແດງອີກ`,
     body:`<h3>Open Motion ໃນຕອນນີ້</h3><p>ຫຼາຍສ່ວນເຊັ່ນ <strong>playback, timeline, ລະບົບ 3D, performance ແລະຟີເຈີ editor ອື່ນໆ</strong> ຍັງກຳລັງພັດທະນາ ແລະປັບປຸງ.</p><p>Open Motion ຈະພັດທະນາຕໍ່ໄປເປັນຂັ້ນໆ ໂດຍມຸ່ງສ້າງ motion graphics editor ທີ່ຍືດຫຍຸ່ນ ເບົາ ແລະມີ workflow ທີ່ໃຊ້ງານສະດວກ.</p><h3>ແຜນໃນອະນາຄົດ</h3><p>ໃນຕອນນີ້ Open Motion ພັດທະນາເປັນ Web application ເພາະຊ່ວຍໃຫ້ການທົດລອງ, ທົດສອບຟີເຈີໃໝ່ ແລະປ່ຽນລະບົບ editor ໄດ້ໄວຂຶ້ນ.</p><p>ໃນອະນາຄົດມີແຜນສ້າງ <strong>native application ລວມທັງ Android APK</strong> ຫຼັງຈາກ <strong>Opus Framework</strong> ເປີດຕົວ ແລະມີຄວາມພ້ອມພຽງພໍ.</p><h3>Opus Framework ແມ່ນຫຍັງ?</h3><p><strong>Opus</strong> ແມ່ນ framework <em>video timeline composition</em> ທີ່ອີງໃສ່ <strong>Kotlin Multiplatform</strong> ແລະກຳລັງພັດທະນາໂດຍ The Prismatic Company ຊຶ່ງມີນັກພັດທະນາທີ່ເຄີຍເຮັດວຽກກັບ Alight Motion ຮ່ວມຢູ່ດ້ວຍ.</p><p>ໂດຍງ່າຍ Opus ເປັນພື້ນຖານສຳລັບການສ້າງ video ແລະ motion graphics application ໂດຍອອກແບບໃຫ້ຈັດການ video, audio, image, text, compositing, animation, visual effects, multimedia timeline, preview, rendering, export ແລະວຽກ media ອື່ນໆ.</p><p>ວິທີການຂອງມັນຄ້າຍ <strong>Jetpack Compose / Compose Multiplatform</strong> ເຮັດໃຫ້ timeline ແລະ media elements ຕອບສະໜອງຕໍ່ການປ່ຽນ state ແບບ real-time ຂະນະ editing.</p><p>Opus ຍັງສະແດງການຮອງຮັບ <strong>3D space</strong> ເຊັ່ນ X, Y, Z position, camera, parallax, ການໝຸນ 3D ແລະ low-level API ສຳລັບ <strong>GPU rendering ແລະ custom GLSL shader</strong>.</p><h3>ເປັນຫຍັງ Open Motion ຈຶ່ງສົນໃຈ Opus?</h3><p>ເພາະເປົ້າໝາຍຂອງ Open Motion ບໍ່ແມ່ນພຽງ video editor ທົ່ວໄປ ແຕ່ຈະພັດທະນາໄປເປັນ editor ສຳລັບ <strong>motion graphics, animation, compositing ແລະ 3D</strong>.</p><div class="experimentalNoticeCallout"><strong>Opus ອາດເປັນພື້ນຖານ multimedia engine ຂອງ Open Motion</strong> ສຳລັບ timeline, video/audio decoding, playback, compositing, animation, effects, filters, GPU rendering, video export ແລະລະບົບ 3D ກັບ camera.</div><p>ຖ້າ Opus ເໝາະສົມ Open Motion ຈະບໍ່ຈຳເປັນສ້າງ multimedia engine ທັງໝົດຈາກສູນ ແລະສາມາດໂຟກັດທີ່ <strong>editor UI, keyframe, timeline, animation workflow, tools, effects ແລະ creative features ອື່ນໆ</strong> ໄດ້ຫຼາຍຂຶ້ນ.</p><p>Opus ອີງໃສ່ Kotlin Multiplatform ແລະອອກແບບສຳລັບຫຼາຍ platform. ຕາມ developer material, iPhone, iPad ແລະ macOS ຮອງຮັບແລ້ວ ສ່ວນ Android ແລະ Windows ຍັງກຳລັງພັດທະນາ. Web ແລະ backend ກໍຢູ່ໃນແຜນ.</p><p>Opus ຍັງມີແຜນຈະເປັນ <strong>open source</strong> ແຕ່ຕອນນີ້ຍັງກຳລັງກຽມພ້ອມກ່ອນອອກສູ່ສາທາລະນະ.</p><h3>ຍັງບໍ່ແມ່ນການຕັດສິນສຸດທ້າຍ</h3><p><strong>ຍັງບໍ່ແນ່ນອນວ່າ Opus ຈະເປັນ engine ສຸດທ້າຍຂອງ Open Motion.</strong> ຫຼັງຈາກ framework ຖືກປ່ອຍຈິງ ຈຶ່ງຈະປະເມີນ performance, features, compatibility, license ແລະ development direction ວ່າເໝາະກັບ Open Motion ຫຼືບໍ່.</p><p>ໃນຕອນນີ້ Open Motion ຈະສືບຕໍ່ພັດທະນາເປັນໂຄງການທົດລອງ ພ້ອມທັງສ້າງຟີເຈີ ແລະລອງແນວຄິດໃໝ່ໆ.</p><p><strong>ຂອບໃຈທີ່ລອງໃຊ້ Open Motion ແລະຕິດຕາມການພັດທະນາຕັ້ງແຕ່ໄລຍະເລີ່ມຕົ້ນ.</strong></p>`
   },
   tet:{
-    eyebrow:`PREVIEW ESPERIMENTÁL`,title:`Open Motion sei iha faze esperimentál`,intro:`Versaun ne'ebé ita uza agora sei prototype inisiál. Funsaun sira seidauk barak no bug balu bele sei iha.`,accept:`Ha'u Komprende`,
+    eyebrow:`PREVIEW ESPERIMENTÁL`,title:`Open Motion sei iha faze esperimentál`,intro:`Versaun ne'ebé ita uza agora sei prototype inisiál. Funsaun sira seidauk barak no bug balu bele sei iha.`,accept:`Ha'u Komprende`,dontShow:`Keta hatudu tan`,
     body:`<h3>Open Motion agora</h3><p>Parte balu hanesan <strong>playback, timeline, sistema 3D, performance no funsaun editor seluk</strong> sei kontinua dezenvolve no hadi'a.</p><p>Open Motion sei dezenvolve etapa ba etapa ho fokus atu harii editor motion graphics ne'ebé fleksível, kmaan no iha workflow ne'ebé komfortável.</p><h3>Planu ba oin</h3><p>Agora daudaun Open Motion dezenvolve hanesan aplikasaun web tanba fasil liu atu halo esperimentu, testa funsaun foun no muda sistema editor.</p><p>Iha futuru iha planu atu halo <strong>aplikasaun native, inklui Android APK</strong>, depois de <strong>Opus Framework</strong> sai publiku no maduru natoon atu uza.</p><h3>Saida mak Opus Framework?</h3><p><strong>Opus</strong> mak framework <em>video timeline composition</em> bazeia ba <strong>Kotlin Multiplatform</strong> ne'ebé The Prismatic Company dezenvolve hela, ho desenvolvedór sira ne'ebé uluk mos servisu iha Alight Motion.</p><p>Ho maneira simples, Opus fó fundasaun atu harii aplikasaun video no motion graphics. Nia dezenhu atu trata video, audio, imajen, testu, compositing, animation, visual effects, multimedia timeline, preview, rendering, export no nesesidade media seluk.</p><p>Nia abordagem hanesan <strong>Jetpack Compose / Compose Multiplatform</strong>, nune'e timeline no elementu media bele responde ba mudansa state iha real-time durante editing.</p><p>Opus mos hatudu suporte ba <strong>espasu 3D</strong> hanesan pozisaun X, Y, Z, kamera, parallax, rotasaun 3D no API nivel ki'ik ba <strong>GPU rendering no custom GLSL shader</strong>.</p><h3>Tanba sa Open Motion interesa ba Opus?</h3><p>Tanba objetivu Open Motion la'os deit editor video normal. Planu atu dezenvolve sai editor ba <strong>motion graphics, animation, compositing no 3D</strong>.</p><div class="experimentalNoticeCallout"><strong>Opus bele sai fundasaun multimedia engine Open Motion</strong> ba timeline, video/audio decoding, playback, compositing, animation, effects, filters, GPU rendering, video export, sistema 3D no kamera.</div><p>Se Opus duni apropriadu, Open Motion la presiza harii multimedia engine tomak husi zero. Dezenvolvimentu bele fokus liu ba identidade Open Motion: <strong>editor UI, keyframe, timeline, animation workflow, tools, effects no creative features seluk.</strong></p><p>Opus bazeia ba Kotlin Multiplatform no dezenha ba platform barak. Iha materiál desenvolvedór, iPhone, iPad no macOS suporta ona, Android no Windows sei dezenvolve hela. Web no backend mos planeadu.</p><p>Opus mos planeadu atu sai <strong>open source</strong>, maibé agora sei prepara molok sai publiku.</p><h3>Seidauk desizaun final</h3><p><strong>Seidauk garantidu katak Opus sei sai engine final Open Motion.</strong> Depois framework sai duni, foin bele avalia performance, funsaun, compatibility, lisensa no direksaun dezenvolvimentu tuir nesesidade Open Motion.</p><p>Agora Open Motion sei kontinua dezenvolve hanesan projetu esperimentál hodi harii funsaun no testa ideia foun sira.</p><p><strong>Obrigadu tanba koko Open Motion no acompanha dezenvolvimentu husi etapa inisiál.</strong></p>`
   },
   pt:{
-    eyebrow:`PRÉVIA EXPERIMENTAL`,title:`O Open Motion ainda está em fase experimental`,intro:`A versão que está a utilizar ainda é um protótipo inicial. As funcionalidades ainda são limitadas e podem existir alguns erros.`,accept:`Compreendi`,
+    eyebrow:`PRÉVIA EXPERIMENTAL`,title:`O Open Motion ainda está em fase experimental`,intro:`A versão que está a utilizar ainda é um protótipo inicial. As funcionalidades ainda são limitadas e podem existir alguns erros.`,accept:`Compreendi`,dontShow:`Não mostrar novamente`,
     body:`<h3>Open Motion atualmente</h3><p>Várias áreas, incluindo <strong>reprodução, timeline, sistema 3D, desempenho e outras funcionalidades do editor</strong>, continuam em desenvolvimento e aperfeiçoamento.</p><p>O Open Motion continuará a evoluir gradualmente, com foco num editor de motion graphics flexível, leve e com um fluxo de trabalho confortável.</p><h3>Planos futuros</h3><p>Por enquanto, o Open Motion é desenvolvido como uma aplicação Web porque isso torna mais rápidos os testes, a experimentação de novas funcionalidades e as alterações ao sistema do editor.</p><p>No futuro, existe o plano de criar uma <strong>aplicação nativa, incluindo APK para Android</strong>, depois de o <strong>Opus Framework</strong> ser lançado e estar suficientemente maduro para utilização.</p><h3>O que é o Opus Framework?</h3><p>O <strong>Opus</strong> é um framework de <em>video timeline composition</em> baseado em <strong>Kotlin Multiplatform</strong>, atualmente desenvolvido pela The Prismatic Company, que também envolve programadores que anteriormente trabalharam no Alight Motion.</p><p>De forma simples, o Opus fornece uma base para construir aplicações de vídeo e motion graphics. Foi concebido para lidar com vídeo, áudio, imagens, texto, compositing, animação, efeitos visuais, timelines multimédia, preview, rendering, exportação e outras necessidades de media.</p><p>A sua abordagem é semelhante ao <strong>Jetpack Compose / Compose Multiplatform</strong>, permitindo que a timeline e os elementos de media reajam em tempo real a alterações de state durante a edição.</p><p>O Opus também demonstrou suporte para <strong>espaço 3D</strong>, incluindo posições X, Y, Z, câmaras, parallax, rotação tridimensional e APIs de baixo nível para <strong>GPU rendering e shaders GLSL personalizados</strong>.</p><h3>Porque é que o Open Motion está interessado no Opus?</h3><p>Porque o objetivo do Open Motion não é ser apenas um editor de vídeo comum. Está planeado evoluir para um editor de <strong>motion graphics, animation, compositing e 3D</strong>.</p><div class="experimentalNoticeCallout"><strong>O Opus poderá tornar-se a base do motor multimédia do Open Motion</strong>, tratando timelines, descodificação de vídeo/áudio, reprodução, compositing, animação, efeitos, filtros, GPU rendering, exportação de vídeo e sistemas 3D e de câmara.</div><p>Se o Opus se revelar adequado, o Open Motion não terá de construir todo o motor multimédia do zero. O desenvolvimento poderá concentrar-se mais na identidade do Open Motion: <strong>UI do editor, keyframes, timeline, workflow de animação, ferramentas, efeitos e outras funcionalidades criativas.</strong></p><p>O Opus baseia-se em Kotlin Multiplatform e foi concebido para várias plataformas. Nos materiais dos programadores, iPhone, iPad e macOS já são suportados, enquanto Android e Windows continuam em desenvolvimento. O suporte Web e backend também está planeado.</p><p>Também está previsto que o Opus se torne <strong>open source</strong>, mas ainda está a ser preparado antes do lançamento público.</p><h3>Ainda não é uma decisão final</h3><p><strong>Não há garantia de que o Opus venha a ser o motor final do Open Motion.</strong> Depois do lançamento público do framework, será possível avaliar desempenho, funcionalidades, compatibilidade, licença e direção de desenvolvimento em relação às necessidades do Open Motion.</p><p>Por agora, o Open Motion continuará a evoluir como projeto experimental enquanto desenvolve funcionalidades e testa novas ideias.</p><p><strong>Obrigado por experimentar o Open Motion e acompanhar o seu desenvolvimento desde esta fase inicial.</strong></p>`
   },
   ta:{
-    eyebrow:`சோதனை முன்னோட்டம்`,title:`Open Motion இன்னும் சோதனை நிலையில் உள்ளது`,intro:`நீங்கள் தற்போது பயன்படுத்தும் பதிப்பு இன்னும் ஆரம்பகட்ட prototype ஆகும். அம்சங்கள் குறைவாக உள்ளன; சில பிழைகளும் இருக்கலாம்.`,accept:`புரிந்தது`,
+    eyebrow:`சோதனை முன்னோட்டம்`,title:`Open Motion இன்னும் சோதனை நிலையில் உள்ளது`,intro:`நீங்கள் தற்போது பயன்படுத்தும் பதிப்பு இன்னும் ஆரம்பகட்ட prototype ஆகும். அம்சங்கள் குறைவாக உள்ளன; சில பிழைகளும் இருக்கலாம்.`,accept:`புரிந்தது`,dontShow:`மீண்டும் காட்டாதே`,
     body:`<h3>தற்போதைய Open Motion</h3><p><strong>playback, timeline, 3D அமைப்பு, performance மற்றும் editor இன் பிற அம்சங்கள்</strong> இன்னும் தொடர்ந்து உருவாக்கப்பட்டு மேம்படுத்தப்படுகின்றன.</p><p>நெகிழ்வான, இலகுவான மற்றும் வசதியான workflow கொண்ட motion graphics editor ஒன்றை உருவாக்கும் நோக்கில் Open Motion படிப்படியாக வளர்க்கப்படும்.</p><h3>எதிர்காலத் திட்டம்</h3><p>இப்போது Open Motion ஒரு Web application ஆக உருவாக்கப்படுகிறது; ஏனெனில் பரிசோதனை, புதிய அம்சங்களைச் சோதித்தல் மற்றும் editor அமைப்பை மாற்றுதல் வேகமாக செய்ய முடிகிறது.</p><p>எதிர்காலத்தில் <strong>Opus Framework</strong> வெளியிடப்பட்டு போதுமான அளவு முதிர்ந்த பிறகு <strong>Android APK உட்பட native application</strong> உருவாக்க திட்டமிடப்பட்டுள்ளது.</p><h3>Opus Framework என்றால் என்ன?</h3><p><strong>Opus</strong> என்பது <strong>Kotlin Multiplatform</strong> அடிப்படையிலான <em>video timeline composition</em> framework ஆகும். இதை The Prismatic Company உருவாக்கி வருகிறது; முன்பு Alight Motion இல் பணியாற்றிய developers சிலரும் இதில் உள்ளனர்.</p><p>எளிமையாகச் சொன்னால், video மற்றும் motion graphics applications உருவாக்குவதற்கான அடித்தளத்தை Opus வழங்குகிறது. Video, audio, images, text, compositing, animation, visual effects, multimedia timeline, preview, rendering, export மற்றும் பிற media தேவைகளை கையாளும் வகையில் இது வடிவமைக்கப்பட்டுள்ளது.</p><p>இதன் அணுகுமுறை <strong>Jetpack Compose / Compose Multiplatform</strong> போன்றது; editing நேரத்தில் state மாற்றங்களுக்கு timeline மற்றும் media elements real-time ஆக பதிலளிக்க முடியும்.</p><p>Opus <strong>3D space</strong> ஆதரவையும் காட்டியுள்ளது: X, Y, Z position, camera, parallax, 3D rotation மற்றும் <strong>GPU rendering, custom GLSL shader</strong> களுக்கான low-level API ஆகியவை இதில் அடங்கும்.</p><h3>Open Motion ஏன் Opus மீது ஆர்வமாக உள்ளது?</h3><p>Open Motion வெறும் video editor ஆக மட்டும் இருக்க வேண்டுமென்பது இலக்கு அல்ல. இது <strong>motion graphics, animation, compositing மற்றும் 3D</strong> editor ஆக வளர திட்டமிடப்பட்டுள்ளது.</p><div class="experimentalNoticeCallout"><strong>Opus, Open Motion இன் multimedia engine அடித்தளமாக அமையக்கூடும்</strong> — timeline, video/audio decoding, playback, compositing, animation, effects, filters, GPU rendering, video export, 3D மற்றும் camera systems ஆகியவற்றை கையாளுவதற்காக.</div><p>Opus பொருத்தமானதாக இருந்தால், Open Motion முழு multimedia engine ஐ ஆரம்பத்திலிருந்து உருவாக்க வேண்டியதில்லை. அதன் அடையாளத்தை உருவாக்கும் பகுதிகளில் அதிக கவனம் செலுத்தலாம்: <strong>editor UI, keyframe, timeline, animation workflow, tools, effects மற்றும் பிற creative features.</strong></p><p>Opus Kotlin Multiplatform அடிப்படையிலும் பல platform களுக்காகவும் வடிவமைக்கப்பட்டுள்ளது. Developer materials படி iPhone, iPad மற்றும் macOS ஆதரிக்கப்படுகின்றன; Android மற்றும் Windows இன்னும் உருவாக்கத்தில் உள்ளன. Web மற்றும் backend ஆதரவும் திட்டமிடப்பட்டுள்ளது.</p><p>Opus ஐ <strong>open source</strong> ஆக்கவும் திட்டமிடப்பட்டுள்ளது; ஆனால் பொதுவெளியில் வெளியிடுவதற்கு முன் இன்னும் தயாரிக்கப்பட்டு வருகிறது.</p><h3>இது இன்னும் இறுதி முடிவு அல்ல</h3><p><strong>Opus தான் Open Motion இன் இறுதி engine ஆகும் என்று இன்னும் உறுதி இல்லை.</strong> Framework உண்மையில் வெளியான பிறகு performance, features, compatibility, license மற்றும் development direction ஆகியவை Open Motion தேவைகளுக்கு பொருந்துமா என்பதை மதிப்பிட முடியும்.</p><p>இப்போதைக்கு Open Motion ஒரு experimental project ஆக தொடர்ந்து வளர்ந்து, புதிய அம்சங்களையும் யோசனைகளையும் சோதித்துக் கொண்டிருக்கும்.</p><p><strong>Open Motion ஐ முயற்சி செய்து அதன் ஆரம்ப வளர்ச்சியிலிருந்து தொடர்ந்து கவனித்து வருவதற்கு நன்றி.</strong></p>`
   }
 };
@@ -37828,9 +38653,11 @@ function applyExperimentalNoticeLanguage(){
   const head=notice.querySelector('.experimentalNoticeHead');
   const body=notice.querySelector('.experimentalNoticeBody');
   const accept=notice.querySelector('#experimentalNoticeAccept');
+  const dontShow=notice.querySelector('#experimentalNoticeDontShow');
   if(head)head.innerHTML=`<span class="experimentalNoticeEyebrow">${pack.eyebrow}</span><h2 id="experimentalNoticeTitle">${pack.title}</h2><p id="experimentalNoticeIntro">${pack.intro}</p>`;
   if(body)body.innerHTML=pack.body;
   if(accept)accept.textContent=pack.accept;
+  if(dontShow)dontShow.textContent=pack.dontShow||'Jangan tampilkan lagi';
   notice.dataset.noticeLanguage=lang;
 }
 
@@ -38206,7 +39033,7 @@ const OMSSavedMediaRecovery=(()=>{
     recoveryBusy=true;AMLinkPackageImporter.busy=true;
     try{
       // Reuse the explicitly selected provider, never silently switch services.
-      const provider=project.amLinkResolver==='zervida'?'zervida':'official';
+      const provider=['zervida','premium'].includes(project.amLinkResolver)?project.amLinkResolver:'official';
       progress('Mengambil salinan media dari resolver yang dipakai proyek ini…');
       let payload=await AMLinkPackageImporter.resolve(project.amShareLink,project.amXMLName||'',provider);
       const choices=AMLinkPackageImporter.projectChoices(payload);
@@ -53560,24 +54387,52 @@ if(window.__OMS_TEST__)Object.assign(window,{omsEffectSpec,omsEffectInstance,oms
 (() => {
   const notice = document.getElementById('experimentalNotice');
   const accept = document.getElementById('experimentalNoticeAccept');
-  if (!notice || !accept) return;
+  const dontShow = document.getElementById('experimentalNoticeDontShow');
+  if (!notice) return;
 
-  const closeNotice = () => notice.setAttribute('aria-hidden', 'true');
-  accept.addEventListener('click', () => {
-    closeNotice();
+  const STORAGE_KEY = 'oms_hide_experimental_notice';
+  const shouldHide = () => {
+    try {
+      return localStorage.getItem(STORAGE_KEY) === '1';
+    } catch(e) {
+      return false;
+    }
+  };
+
+  const closeNotice = (persist = false) => {
+    notice.setAttribute('aria-hidden', 'true');
+    if (persist) {
+      try {
+        localStorage.setItem(STORAGE_KEY, '1');
+      } catch(e) {}
+    }
     // V5.32 — PWA promotion is allowed only after the user explicitly accepts
     // the experimental notice. This prevents the install card from competing
     // with the first-run notice or covering the Home UI during startup.
     window.__omsExperimentalNoticeAccepted = true;
     window.dispatchEvent(new CustomEvent('oms:experimental-notice-accepted'));
+  };
+
+  if (shouldHide()) {
+    notice.setAttribute('aria-hidden', 'true');
+    window.__omsExperimentalNoticeAccepted = true;
+  }
+
+  accept?.addEventListener('click', () => {
+    closeNotice(false);
+  });
+  dontShow?.addEventListener('click', () => {
+    closeNotice(true);
   });
   notice.addEventListener('click', (event) => {
-    if (event.target === notice) closeNotice();
+    if (event.target === notice) closeNotice(false);
   });
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && notice.getAttribute('aria-hidden') !== 'true') closeNotice();
+    if (event.key === 'Escape' && notice.getAttribute('aria-hidden') !== 'true') closeNotice(false);
   });
-  requestAnimationFrame(() => accept.focus({ preventScroll: true }));
+  if (!shouldHide() && accept) {
+    requestAnimationFrame(() => accept.focus({ preventScroll: true }));
+  }
 })();
 </script>
 
@@ -53790,6 +54645,14 @@ html.omsMobileLandscapeDesktop #drawer:not(.addDrawer){
   width:min(100%,430px)!important;
   height:auto!important;
   max-height:none!important;
+}
+html.omsMobileLandscapeDesktop #drawer.drawerClosing{
+  animation: omsSideDrawerSlideOut 0.2s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+  pointer-events: none !important;
+}
+@keyframes omsSideDrawerSlideOut{
+  from{transform:translateX(0);opacity:1}
+  to{transform:translateX(100%);opacity:0}
 }
 </style>
 <script id="oms-v430-mobile-landscape-desktop-script">
@@ -54834,7 +55697,7 @@ html.omsMobileLandscapeDesktop .transportBalanced .transportLeft{
    existing right-side layout. Mobile landscape desktop mode is unchanged. */
 @media (min-width:900px){
   html:not(.omsMobileLandscapeDesktop) .timelineArea:has(> #drawer.addDrawer:not(.hidden)){
-    grid-template-rows:38px minmax(0,1fr) clamp(220px,30vh,300px)!important;grid-template-rows:38px minmax(0,1fr) clamp(220px,30dvh,300px)!important;
+    grid-template-rows:38px minmax(0,1fr) 251px!important;
   }
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer{
     position:relative!important;
@@ -54908,6 +55771,20 @@ html.omsMobileLandscapeDesktop .transportBalanced .transportLeft{
     border-top:1px solid #353c52!important;
     border-radius:0!important;
     box-shadow:0 -10px 24px rgba(0,0,0,.24)!important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.drawerClosing {
+    animation: omsDesktopDrawerSlideDown 0.2s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+    pointer-events: none !important;
+  }
+  @keyframes omsDesktopDrawerSlideDown {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100%);
+      opacity: 0;
+    }
   }
 
   /* Inspector and property editors: header stays fixed, long content scrolls
@@ -55049,45 +55926,146 @@ html.omsMobileLandscapeDesktop .transportBalanced .transportLeft{
     grid-column: 1 / 3 !important;
     grid-row: 2 !important;
     background: #202332 !important;
-    overflow-y: auto !important;
-    padding: 6px 8px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    height: 193px !important;
+    max-height: 193px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    position: relative !important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapeViewPagerWrap {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    justify-content: space-between !important;
     box-sizing: border-box !important;
   }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapeViewPager {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    user-select: none !important;
+    cursor: grab !important;
+    touch-action: pan-x pan-y !important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapeViewPager:active {
+    cursor: grabbing !important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapeViewPager::-webkit-scrollbar {
+    display: none !important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapePage {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    padding: 2px 4px !important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapePage .amShapeGrid,
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapeGrid,
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .shapeGrid {
     display: grid !important;
     grid-template-columns: repeat(6, 1fr) !important;
-    gap: 6px !important;
+    grid-template-rows: repeat(3, 48px) !important;
+    gap: 2px 4px !important;
     padding: 0 !important;
     box-sizing: border-box !important;
+    width: 100% !important;
+    height: 100% !important;
+    align-content: center !important;
+    justify-items: center !important;
   }
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapeItem,
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .shapeItem {
-    min-height: 54px !important;
-    height: 54px !important;
-    background: #2b2e3c !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    min-height: 48px !important;
+    height: 48px !important;
+    max-width: 48px !important;
+    width: 48px !important;
+    margin: 0 auto !important;
+    background: transparent !important;
+    border: 0 !important;
     border-radius: 8px !important;
     display: flex !important;
-    flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     cursor: pointer !important;
     color: #ffffff !important;
-    padding: 2px !important;
+    padding: 0 !important;
     box-sizing: border-box !important;
+    transition: background 0.12s ease, transform 0.12s ease !important;
   }
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapeItem:hover,
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .shapeItem:hover {
-    background: #363a4c !important;
-    border-color: rgba(0, 255, 168, 0.4) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 0 !important;
+    transform: scale(1.08) !important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapeItem:active,
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .shapeItem:active {
+    background: rgba(0, 255, 168, 0.22) !important;
+    color: #00ffa8 !important;
+    transform: scale(0.92) !important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapeItem svg,
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .shapeItem svg {
+    display: block !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+    color: currentColor !important;
+    width: 28px !important;
+    height: 28px !important;
   }
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapeItem span,
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .shapeItem span {
-    font-size: 7.5px !important;
-    font-weight: 600 !important;
-    opacity: 0.9 !important;
-    color: inherit !important;
+    display: none !important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amShapePagination {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px !important;
+    height: 14px !important;
+    min-height: 14px !important;
+    padding: 2px 0 4px 0 !important;
+    margin-top: auto !important;
+    z-index: 5 !important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amDot {
+    width: 5px !important;
+    height: 5px !important;
+    border-radius: 3px !important;
+    background: #474b5c !important;
+    transition: all 0.22s ease !important;
+    cursor: pointer !important;
+  }
+  html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .amDot.active {
+    width: 15px !important;
+    height: 5px !important;
+    background: #00ffa8 !important;
+    border-radius: 3px !important;
   }
   html:not(.omsMobileLandscapeDesktop) .timelineArea > #drawer.addDrawer .mediaDrop{
     flex:1 1 auto!important;
@@ -56122,6 +57100,20 @@ html.omsMobileLandscapeDesktop #preRenderRecordBtn{left:35px!important}
     installBtn.hidden=standalone;
     installBtn.classList.toggle('ready',!!deferredInstallPrompt&&!standalone);
     installBtn.title=deferredInstallPrompt?'Instal Open Motion':'Instal Open Motion';
+    const root=document.documentElement;
+    root.classList.toggle('omsStandalone',standalone);
+    const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent) || 
+      (navigator.platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1);
+    if(standalone && isIOS){
+      root.classList.add('omsIOSStandalone');
+      if(window.screen && window.screen.height){
+        const isLandscape=window.innerWidth > window.innerHeight;
+        const screenH=isLandscape 
+          ? Math.min(window.screen.width, window.screen.height) 
+          : Math.max(window.screen.width, window.screen.height);
+        root.style.setProperty('--oms-screen-height', screenH + 'px');
+      }
+    }
   };
 
   window.addEventListener('beforeinstallprompt',event=>{
@@ -56583,6 +57575,7 @@ THE SOFTWARE.
       if (desktopFab && typeof desktopFab.click === 'function') {
         desktopFab.click();
       } else if (newModal) {
+        newModal.classList.remove('isClosing');
         newModal.classList.remove('hidden');
       }
     }
