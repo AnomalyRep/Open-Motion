@@ -1,5 +1,17 @@
 # Changelog
 
+## V5.284 — 2026-10-19
+
+### Alight Motion UX Alignment & Add Object Drawer Overhaul
+
+- Redesign Add Object (`+`) popup drawer matching Alight Motion v5.0.273 (`activity_edit_addpopup.xml`):
+  - 5 categorical top tabs (Shapes, Elements, Media, Audio, Templates) with AM icon assets and active pill indicators.
+  - Dedicated right-side quick-add action rail (Freehand Drawing, Vector Drawing, Text, and Close).
+  - Clean responsive layouts: mobile bottom sheet with 18px top radius and desktop docked tray below the timeline.
+- Implement parametric vector shape tracing for primitive shapes: plus, heart, pie, and crescent/moon.
+- Expand export frame rates up to 240 FPS (15, 18, 20, 24, 25, 30, 48, 50, 60, 90, 120, 144, and 240 FPS), with auto-sync of current project FPS upon opening the export sheet.
+- Refine timeline splitter bar, playback transport controls, and responsive preview surface sizing.
+
 ## V5.283 — 2026-10-17
 
 This update brings the tested single-file experimental build to main, including
