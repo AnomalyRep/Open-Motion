@@ -7881,6 +7881,7 @@ body #desktopCanvasSplitToolbarBtn,
     <div class="exportOption nonVideoExportOption" data-export-format="png"><div class="radioRow"><span class="radioDot"></span><div><b>Frame Saat Ini sebagai PNG</b><small style="display:block;color:#888">Simpan frame aktif</small></div><button id="exportPng" type="button" style="border:0;background:#eef1f5;border-radius:7px;padding:7px;cursor:pointer">PNG</button></div></div>
     <div class="exportOption nonVideoExportOption" data-export-format="json"><div class="radioRow"><span class="radioDot"></span><div><b>Paket Proyek</b><small style="display:block;color:#888">JSON lengkap untuk dibuka lagi</small></div><button id="exportJson" type="button" style="border:0;background:#eef1f5;border-radius:7px;padding:7px;cursor:pointer">JSON</button></div></div>
     <div class="exportOption nonVideoExportOption" data-export-format="xml"><div class="radioRow"><span class="radioDot"></span><div><b>XML Interchange</b><small style="display:block;color:#888">Kompatibilitas struktur Alight Motion; fitur 3D ditulis sebagai ekstensi Open Motion</small></div><button id="exportXml" type="button" style="border:0;background:#eef1f5;border-radius:7px;padding:7px;cursor:pointer">XML</button></div></div>
+    <div class="exportOption nonVideoExportOption" data-export-format="amlink"><div class="radioRow"><span class="radioDot"></span><div><b>Link Share Alight Motion</b><small style="display:block;color:#888">Terbitkan tautan resmi alightcreative.com langsung dari akun AM</small></div><button id="exportAmLink" type="button" style="border:0;background:#00ffa8;color:#042b20;border-radius:7px;padding:7px 11px;font-weight:700;cursor:pointer">Link AM</button></div></div>
   </div>
   <div class="exportFoot"><button id="doExport">Ekspor Video</button></div>
 </section>
@@ -29717,11 +29718,13 @@ function updateExportFormatUI(format='video'){
     else if(format==='png')btn.textContent=isId?'Ekspor PNG':'Export PNG';
     else if(format==='json')btn.textContent=isId?'Ekspor Paket Proyek':'Export Project Package';
     else if(format==='xml')btn.textContent=isId?'Ekspor XML':'Export XML';
+    else if(format==='amlink')btn.textContent=isId?'Terbitkan Link AM':'Publish AM Link';
   }
   const est=$('#estSize');
   if(est){
     if(format==='png')est.textContent='~1 - 3 MB (1 frame)';
     else if(format==='json'||format==='xml')est.textContent='< 1 MB';
+    else if(format==='amlink')est.textContent=isId?'Unggah resmi ke server AM':'Official upload to AM server';
     else updateResolutionEstimate();
   }
 }
@@ -29736,7 +29739,7 @@ function initExportFormatOptions(){
     const format=opt.dataset.exportFormat;
     if(!format)return;
     opt.addEventListener('click',e=>{
-      if(e.target.closest('#exportPng, #exportJson, #exportXml'))return;
+      if(e.target.closest('#exportPng, #exportJson, #exportXml, #exportAmLink'))return;
       if(e.target.closest('#videoExportSettings'))return;
       updateExportFormatUI(format);
     });
@@ -29759,6 +29762,8 @@ function initExportFormatOptions(){
       }else if(currentExportFormat==='xml'){
         XMLBridge.download();
         toast(isId?'XML proyek berhasil diekspor':'Project XML exported');
+      }else if(currentExportFormat==='amlink'){
+        exporter.exportAMLink();
       }
     };
   }
@@ -29767,8 +29772,10 @@ function initExportFormatOptions(){
     $('#exportSheet').classList.add('hidden');
     window.omsWakeLock?.release('exportSheet');
     action();
-    const isId=(typeof homeLanguage!=='undefined'&&homeLanguage==='id')||(document.documentElement.lang==='id');
-    toast(isId?msgId:msgEn);
+    if(msgId&&msgEn){
+      const isId=(typeof homeLanguage!=='undefined'&&homeLanguage==='id')||(document.documentElement.lang==='id');
+      toast(isId?msgId:msgEn);
+    }
   };
   const btnPng=$('#exportPng');
   if(btnPng)btnPng.onclick=e=>{e.stopPropagation();triggerDirect(()=>exporter.png(),'Frame PNG berhasil diekspor','Frame exported as PNG')};
@@ -29776,6 +29783,35 @@ function initExportFormatOptions(){
   if(btnJson)btnJson.onclick=e=>{e.stopPropagation();triggerDirect(()=>exporter.projectJSON(),'Paket proyek berhasil diekspor','Project package exported')};
   const btnXml=$('#exportXml');
   if(btnXml)btnXml.onclick=e=>{e.stopPropagation();triggerDirect(()=>XMLBridge.download(),'XML proyek berhasil diekspor','Project XML exported')};
+  const btnAmLink=$('#exportAmLink');
+  if(btnAmLink)btnAmLink.onclick=e=>{e.stopPropagation();triggerDirect(()=>exporter.exportAMLink())};
+}
+
+function omsCreateSimpleZip(files){
+  const enc=new TextEncoder(),localHeaders=[],centralHeaders=[];let offset=0;
+  const crcTable=new Uint32Array(256);
+  for(let i=0;i<256;i++){let c=i;for(let k=0;k<8;k++)c=(c&1)?0xedb88320^(c>>>1):c>>>1;crcTable[i]=c>>>0}
+  function calcCrc(buf){let crc=0xffffffff;for(let i=0;i<buf.length;i++)crc=crcTable[(crc^buf[i])&255]^(crc>>>8);return (crc^0xffffffff)>>>0}
+  for(const file of files){
+    const nameBuf=enc.encode(file.name);
+    const dataBuf=file.data instanceof Uint8Array?file.data:enc.encode(String(file.data||''));
+    const crc=calcCrc(dataBuf),size=dataBuf.length;
+    const local=new Uint8Array(30+nameBuf.length),lv=new DataView(local.buffer);
+    lv.setUint32(0,0x04034b50,true);lv.setUint16(4,20,true);lv.setUint16(6,0,true);lv.setUint16(8,0,true);lv.setUint16(10,0,true);lv.setUint16(12,0,true);lv.setUint32(14,crc,true);lv.setUint32(18,size,true);lv.setUint32(22,size,true);lv.setUint16(26,nameBuf.length,true);lv.setUint16(28,0,true);
+    local.set(nameBuf,30);localHeaders.push(local,dataBuf);
+    const central=new Uint8Array(46+nameBuf.length),cv=new DataView(central.buffer);
+    cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint16(8,0,true);cv.setUint16(10,0,true);cv.setUint16(12,0,true);cv.setUint16(14,0,true);cv.setUint32(16,crc,true);cv.setUint32(20,size,true);cv.setUint32(24,size,true);cv.setUint16(28,nameBuf.length,true);cv.setUint16(30,0,true);cv.setUint16(32,0,true);cv.setUint16(34,0,true);cv.setUint16(36,0,true);cv.setUint32(38,0,true);cv.setUint32(42,offset,true);
+    central.set(nameBuf,46);centralHeaders.push(central);
+    offset+=local.length+dataBuf.length;
+  }
+  const centralDirOffset=offset;let centralDirSize=0;
+  for(const c of centralHeaders)centralDirSize+=c.length;
+  const eocd=new Uint8Array(22),ev=new DataView(eocd.buffer);
+  ev.setUint32(0,0x06054b50,true);ev.setUint16(4,0,true);ev.setUint16(6,0,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);ev.setUint32(12,centralDirSize,true);ev.setUint32(16,centralDirOffset,true);ev.setUint16(20,0,true);
+  const totalLength=offset+centralDirSize+22,result=new Uint8Array(totalLength);let pos=0;
+  for(const h of localHeaders){result.set(h,pos);pos+=h.length}
+  for(const c of centralHeaders){result.set(c,pos);pos+=c.length}
+  result.set(eocd,pos);return result;
 }
 
 const XMLBridge={
@@ -29825,6 +29861,36 @@ const XMLBridge={
       omsSyncLegacyEffects(l);const e=l.effects||{},m=l.mask||{},tm=trackMatteSettings(l),camera=l.type==='camera',rx=camera?(+l.pitch||0):(+l.rotX||0),ry=camera?(+l.yaw||0):(+l.rotY||0),rz=camera?(+l.roll||0):(+l.rotZ||0),rotation=camera?rz:(+l.rotation||0),cameraEuler=camera?` pitch="${rx}" yaw="${ry}" roll="${rz}" orbitAzimuth="${+l.orbitAzimuth||0}" orbitElevation="${+l.orbitElevation||0}" orbitDistance="${Math.max(.001,+l.orbitDistance||1)}"`:'';lines.push(`    <layer ${attrs.join(' ')}>`);lines.push(`      <transform x="${+l.x||0}" y="${+l.y||0}" z="${+l.z||0}" scaleX="${l.scaleX??1}" scaleY="${l.scaleY??1}" scaleZ="${l.scaleZ??1}" rotation="${rotation}" rotationX="${rx}" rotationY="${ry}" rotationZ="${rz}"${cameraEuler} opacity="${l.opacity??1}"/>`);lines.push(`      <appearance width="${+l.w||0}" height="${+l.h||0}" color="${this.xmlEscape(l.color||'#ffffff')}" blend="${this.xmlEscape(normalizeBlendMode(l.blend))}" stroke="${this.xmlEscape(l.stroke||'#ffffff')}" strokeWidth="${+l.strokeWidth||0}" radius="${+l.radius||0}" fontSize="${+l.fontSize||0}" fontWeight="${+l.fontWeight||0}" fontFamily="${this.xmlEscape(l.fontFamily||'system-ui')}" fontStyle="${this.xmlEscape(l.fontStyle||'normal')}" fontSource="${this.xmlEscape(l.fontSource||'')}" localFontId="${this.xmlEscape(l.localFontId||'')}" tracking="${+l.tracking||0}" lineHeight="${Number(l.lineHeight)||1.15}" textFillOpacity="${Number.isFinite(+l.textFillOpacity)?clamp(+l.textFillOpacity,0,1):1}" align="${this.xmlEscape(l.align||'center')}"/>`);lines.push(`      <effects blur="${+e.blur||0}" brightness="${e.brightness??100}" contrast="${e.contrast??100}" saturate="${e.saturate??100}" hue="${+e.hue||0}"/>`);lines.push(`      <mask enabled="${!!m.enabled}" type="${this.xmlEscape(m.type||'rect')}" feather="${+m.feather||0}" invert="${!!m.invert}"/>`);if(tm.mode!=='none')lines.push(`      <track-matte mode="${this.xmlEscape(tm.mode)}" scope="${this.xmlEscape(tm.scope)}" targets="${this.xmlEscape(tm.targetIds.join(','))}"/>`);if(['video','audio'].includes(l.type))lines.push(`      <source volume="${l.volume??1}" playbackRate="${l.playbackRate??1}" sourceIn="${+l.sourceIn||0}s" sourceOut="${Number.isFinite(l.sourceOut)?l.sourceOut:''}" extendIn="${Math.max(0,+l.mediaExtendIn||0)}s" extendOut="${Math.max(0,+l.mediaExtendOut||0)}s"/>`);const keys=this.keysXML(l);if(keys)lines.push(keys.trimStart());lines.push(`    </layer>`)
     }
     lines.push('  </scene>','</open-motion>');return lines.join('\n')
+  },
+  toAMXML(scene=null){
+    const p=scene?.project||model.project,durMs=Math.max(100,Math.round((+p.duration||10)*1000)),fps=Math.min(120,Math.max(1,Math.round(+p.fps||30))),bg=p.bg||'#ff000000';
+    const lines=[`<?xml version='1.0' encoding='UTF-8' ?>`,`<!-- Created by Open Motion -->`,`<scene title="${this.xmlEscape(p.name||'Proyek Baru')}" width="${p.width||1080}" height="${p.height||1920}" exportWidth="${p.width||1080}" exportHeight="${p.height||1920}" precompose="dynamicResolution" bgcolor="${this.xmlEscape(bg)}" totalTime="${durMs}" fps="${fps}" amver="1028425" ffver="106" am="com.alightcreative.motion/5.0.273.1028425" amplatform="android" retime="freeze" retimeAdaptFPS="false">`];
+    const layers=[...(scene?.layers||model.layers)].reverse(),mediaAdded=new Set();
+    for(const l of layers){
+      if(['image','video','audio'].includes(l.type)&&l.sourceRef){
+        const cleanName=AMLinkPackageImporter.fileName(l.sourceRef);
+        if(!mediaAdded.has(cleanName)){
+          mediaAdded.add(cleanName);
+          const mime=l.type==='video'?'video/mp4':l.type==='audio'?'audio/mpeg':'image/png';
+          lines.push(`  <media uri="amproj:${this.xmlEscape(cleanName)}" filename="${this.xmlEscape(cleanName)}" title="${this.xmlEscape(cleanName)}" type="${mime}" />`);
+        }
+      }
+    }
+    for(const l of layers){
+      const type=l.type==='shape'?'shape':l.type==='text'?'text':l.type,startMs=Math.round((+l.start||0)*1000),durLayerMs=Math.round((+l.duration||1)*1000);
+      const attrs=[`id="${this.xmlEscape(l.id)}"`,`type="${this.xmlEscape(type)}"`,`name="${this.xmlEscape(l.name)}"`,`start="${startMs}"`,`duration="${durLayerMs}"`];
+      if(l.parentId)attrs.push(`parentId="${this.xmlEscape(l.parentId)}"`);
+      if(['image','video','audio'].includes(l.type)&&l.sourceRef){
+        const cleanName=AMLinkPackageImporter.fileName(l.sourceRef);
+        attrs.push(`src="amproj:${this.xmlEscape(cleanName)}"`);
+      }
+      lines.push(`    <layer ${attrs.join(' ')}>`);
+      lines.push(`      <transform x="${+l.x||0}" y="${+l.y||0}" z="${+l.z||0}" scaleX="${l.scaleX??1}" scaleY="${l.scaleY??1}" scaleZ="${l.scaleZ??1}" rotation="${+l.rotation||0}" opacity="${l.opacity??1}"/>`);
+      lines.push(`      <appearance width="${+l.w||100}" height="${+l.h||100}" color="${this.xmlEscape(l.color||'#ffffff')}" stroke="${this.xmlEscape(l.stroke||'#ffffff')}" strokeWidth="${+l.strokeWidth||0}" fontSize="${+l.fontSize||24}" align="${this.xmlEscape(l.align||'center')}"/>`);
+      if(l.type==='text'&&l.text)lines.push(`      <content><![CDATA[${l.text}]]></content>`);
+      lines.push(`    </layer>`);
+    }
+    lines.push(`</scene>`);return lines.join('\n');
   },
   async download(){try{const scene=await omsPortableProjectSnapshotV200(),xml=this.toXML(scene);download(new Blob([xml],{type:'application/xml'}),safe(scene.project.name)+'.openmotion.xml')}catch(e){console.error(e);toast('Ekspor XML gagal: '+e.message);return false}}
 };
@@ -35259,6 +35325,133 @@ class Exporter{
     return safe(model.project.name)+(this.layerSelectionPlan?'_layer-terpilih':'')+'.'+extension
   }
   async projectJSON(){try{const scene=await omsPortableProjectSnapshotV200(),data={format:'open-motion-v4',version:4,renderer:'webgl',sceneModel:'true-3d',...scene};download(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),safe(scene.project.name)+'.openmotion.json')}catch(e){console.error(e);toast('Ekspor proyek gagal: '+e.message);return false}}
+  async exportAMLink(){
+    if(this.running)return;
+    const isId=(typeof homeLanguage!=='undefined'&&homeLanguage==='id')||(document.documentElement.lang==='id');
+
+    let resolverOrigin=AM_LINK_BRIDGE_ORIGIN;
+    if(location.hostname==='localhost'||location.hostname==='127.0.0.1'){
+      try{
+        const probe=await fetch('http://127.0.0.1:8787/api/am/status',{method:'GET'});
+        if(probe.ok)resolverOrigin='http://127.0.0.1:8787/';
+      }catch(e){}
+    }
+
+    toast(isId?'Menyiapkan paket proyek Alight Motion…':'Preparing Alight Motion package…');
+
+    try{
+      const scene=await omsPortableProjectSnapshotV200();
+      const p=scene.project;
+      const title=p.name||'Proyek Open Motion';
+
+      const xml=XMLBridge.toAMXML(scene);
+      const files=[
+        {name:'project.xml',data:xml}
+      ];
+
+      for(const l of scene.layers||[]){
+        if(l.dataUrl&&['image','video','audio'].includes(l.type)){
+          const fname=AMLinkPackageImporter.fileName(l.sourceRef||`${l.name||'media'}_${l.id}.${l.type==='video'?'mp4':l.type==='audio'?'mp3':'png'}`);
+          try{
+            const dataBytes=await (await fetch(l.dataUrl)).arrayBuffer();
+            files.push({name:fname,data:new Uint8Array(dataBytes)});
+          }catch(e){}
+        }
+      }
+
+      const zipBytes=omsCreateSimpleZip(files);
+      if(zipBytes.length>524288000){
+        throw Error(isId?'Ukuran paket melebihi batas 500 MB.':'Package size exceeds 500 MB limit.');
+      }
+
+      toast(isId?'Mengunggah ke server Alight Motion…':'Uploading to Alight Motion cloud…');
+
+      let binary='';
+      const chunkSize=32768;
+      for(let i=0;i<zipBytes.length;i+=chunkSize){
+        binary+=String.fromCharCode.apply(null,zipBytes.subarray(i,i+chunkSize));
+      }
+      const zipBase64=btoa(binary);
+
+      const publishUrl=new URL('api/am/publish',resolverOrigin).href;
+      const res=await fetch(publishUrl,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          title,
+          zipBase64,
+          projects:[{title,size:zipBytes.length,type:'project'}]
+        })
+      });
+
+      const data=await res.json();
+      if(!res.ok||data.result!=='success'||!data.link){
+        throw Error(data.error||(isId?'Gagal menerbitkan link AM.':'Failed to publish AM link.'));
+      }
+
+      this.showAMLinkResultModal(data.link,title);
+      toast(isId?'Link Alight Motion berhasil dibuat!':'Alight Motion link created successfully!');
+    }catch(err){
+      console.error('[AM Link Export]',err);
+      toast((isId?'Gagal membuat link AM: ':'Failed to create AM link: ')+err.message);
+    }
+  }
+  showAMLinkResultModal(link,title){
+    const isId=(typeof homeLanguage!=='undefined'&&homeLanguage==='id')||(document.documentElement.lang==='id');
+    const old=document.getElementById('omsAMLinkResultModal');
+    if(old)old.remove();
+
+    const wrap=document.createElement('div');
+    wrap.id='omsAMLinkResultModal';
+    wrap.style.cssText='position:fixed;inset:0;z-index:150000;background:rgba(0,0,0,0.82);display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif';
+
+    const card=document.createElement('div');
+    card.style.cssText='background:#181d28;border:1px solid #2f384c;border-radius:18px;padding:24px 20px;max-width:440px;width:100%;box-sizing:border-box;color:#fff;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.7)';
+
+    card.innerHTML=`
+      <div style="width:54px;height:54px;border-radius:50%;background:rgba(0,255,168,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 14px auto">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00ffa8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      </div>
+      <h3 style="margin:0 0 6px 0;font-size:18px;font-weight:700">${isId?'Link Alight Motion Siap!':'Alight Motion Link Ready!'}</h3>
+      <p style="margin:0 0 16px 0;font-size:12px;color:#94a3b8;line-height:1.45">${isId?'Tautan resmi alightcreative.com berhasil diterbitkan. Siapa saja dapat membuka proyek ini di Alight Motion (Android & iOS).':'Official alightcreative.com link published. Anyone can open this project directly in Alight Motion (Android & iOS).'}</p>
+      <div style="background:#0f131a;border:1px solid #2a3346;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;margin-bottom:16px">
+        <input type="text" readonly value="${link}" style="background:transparent;border:none;outline:none;color:#00ffa8;font-size:12px;width:100%;text-overflow:ellipsis;font-family:monospace" id="omsAMLinkInput">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="button" id="omsAMLinkCopyBtn" style="background:#00ffa8;color:#0a1a15;border:none;border-radius:9px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          ${isId?'Salin Tautan':'Copy Link'}
+        </button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <a href="${link}" target="_blank" rel="noopener" style="text-decoration:none;background:#242c3d;color:#f1f5f9;border:1px solid #3d4a65;border-radius:9px;padding:10px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:pointer">
+            ${isId?'Buka Link ↗':'Open Link ↗'}
+          </a>
+          <button type="button" id="omsAMLinkCloseBtn" style="background:transparent;color:#94a3b8;border:1px solid #2f384c;border-radius:9px;padding:10px;font-size:13px;font-weight:600;cursor:pointer">
+            ${isId?'Tutup':'Close'}
+          </button>
+        </div>
+      </div>
+    `;
+
+    wrap.appendChild(card);
+    document.body.appendChild(wrap);
+
+    const copyBtn=card.querySelector('#omsAMLinkCopyBtn');
+    copyBtn.onclick=()=>{
+      omsCopyTextToClipboard(link).then(()=>{
+        copyBtn.innerHTML=`✓ ${isId?'Tersalin ke Clipboard!':'Copied to Clipboard!'}`;
+        setTimeout(()=>{
+          copyBtn.innerHTML=`
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            ${isId?'Salin Tautan':'Copy Link'}
+          `;
+        },2000);
+      });
+    };
+
+    card.querySelector('#omsAMLinkCloseBtn').onclick=()=>wrap.remove();
+    wrap.onclick=e=>{if(e.target===wrap)wrap.remove();};
+  }
   async png(){
     if(model.project?.amGPU)await window.omsAMGPU.prepare(renderer,model.layers);
     await OMSAMVideoSource.prepare(model.layers);
