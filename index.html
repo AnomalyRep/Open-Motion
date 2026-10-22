@@ -4768,6 +4768,10 @@ html.omsIOSStandalone #editor.editor:not(.hidden) {
   .mobileBottomNav {
     display: none !important;
   }
+  #mPwaInstallNotification,
+  .mPwaNotification {
+    display: none !important;
+  }
   #omsTabBeranda,
   #omsTabTutorial,
   #omsTabTemplate {
@@ -4877,6 +4881,124 @@ html.omsIOSStandalone #editor.editor:not(.hidden) {
   }
   #home .homeTopActions #homeInstallBtn {
     display: none !important;
+  }
+
+  /* Small Mobile PWA Install Notification */
+  .mPwaNotification {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    margin: 8px 14px 2px 14px !important;
+    padding: 8px 12px !important;
+    min-height: 44px !important;
+    background: linear-gradient(135deg, rgba(22, 29, 44, 0.96) 0%, rgba(13, 17, 26, 0.98) 100%) !important;
+    border: 1px solid rgba(115, 226, 189, 0.22) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+    flex: 0 0 auto !important;
+    z-index: 45 !important;
+    box-sizing: border-box !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    animation: omsNotifSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .mPwaNotification.hidden {
+    display: none !important;
+  }
+  @keyframes omsNotifSlideDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .mPwaNotifLeft {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    cursor: pointer !important;
+  }
+  .mPwaNotifIcon {
+    width: 28px !important;
+    height: 28px !important;
+    flex: 0 0 28px !important;
+    border-radius: 7px !important;
+    background: rgba(0, 255, 168, 0.12) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .mPwaNotifIcon svg {
+    width: 16px !important;
+    height: 16px !important;
+    stroke: #00ffa8 !important;
+  }
+  .mPwaNotifText {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
+  }
+  .mPwaNotifTitle {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #f1f5f9 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .mPwaNotifDesc {
+    font-size: 10px !important;
+    color: #94a3b8 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .mPwaNotifActions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex: 0 0 auto !important;
+  }
+  .mPwaNotifInstallBtn {
+    background: #00ffa8 !important;
+    color: #071b16 !important;
+    border: none !important;
+    border-radius: 7px !important;
+    padding: 5px 11px !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    line-height: 1.2 !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: transform 0.1s ease, background-color 0.15s ease !important;
+  }
+  .mPwaNotifInstallBtn:active {
+    transform: scale(0.95) !important;
+    background: #52eec0 !important;
+  }
+  .mPwaNotifCloseBtn {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    color: #64748b !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    width: 26px !important;
+    height: 26px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    border-radius: 50% !important;
+    -webkit-tap-highlight-color: transparent !important;
+    padding: 0 !important;
+    transition: color 0.15s ease !important;
+  }
+  .mPwaNotifCloseBtn:active {
+    color: #cbd5e1 !important;
+    background: rgba(255, 255, 255, 0.08) !important;
   }
 
   /* Main Scroll Area */
@@ -7216,7 +7338,24 @@ body #desktopCanvasSplitToolbarBtn,
       </div>
     </header>
 
-
+    <!-- Small Mobile PWA Install Notification -->
+    <div id="mPwaInstallNotification" class="mPwaNotification hidden" role="alert">
+      <div class="mPwaNotifLeft" id="mPwaNotifTrigger">
+        <div class="mPwaNotifIcon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+          </svg>
+        </div>
+        <div class="mPwaNotifText">
+          <div id="mPwaNotifTitle" class="mPwaNotifTitle">Pasang Open Motion</div>
+          <div id="mPwaNotifDesc" class="mPwaNotifDesc">Aplikasi lebih cepat &amp; layar penuh</div>
+        </div>
+      </div>
+      <div class="mPwaNotifActions">
+        <button id="mPwaNotifInstallBtn" type="button" class="mPwaNotifInstallBtn">Instal</button>
+        <button id="mPwaNotifCloseBtn" type="button" class="mPwaNotifCloseBtn" aria-label="Tutup" title="Tutup">×</button>
+      </div>
+    </div>
 
     <main class="homeMain">
       <!-- ==========================================
@@ -38146,6 +38285,7 @@ function applyHomeLanguage(){
   const code=$('#homeLanguageCode');if(code)code.textContent=lang.code;
   renderLanguageList();
   if(typeof ui!=='undefined'&&ui?.loadProjectList)ui.loadProjectList();
+  window.omsUpdatePwaNotifLang?.();
   if(window.omsShortcutsInitialized&&typeof renderShortcutsList==='function')renderShortcutsList();
   const helpBtn=$('#shortcutsHelpBtn');if(helpBtn&&window.omsShortcutsInitialized&&typeof getShortcutTr==='function')helpBtn.title=getShortcutTr('modalTitle')+' (F1 / ?)';
 }
@@ -57781,16 +57921,42 @@ html.omsMobileLandscapeDesktop #preRenderRecordBtn{left:35px!important}
 (() => {
   'use strict';
   const installBtn=document.getElementById('homeInstallBtn');
-  if(!installBtn)return;
+  const notifBanner=document.getElementById('mPwaInstallNotification');
+  const notifInstallBtn=document.getElementById('mPwaNotifInstallBtn');
+  const notifCloseBtn=document.getElementById('mPwaNotifCloseBtn');
+  const notifTrigger=document.getElementById('mPwaNotifTrigger');
 
   let deferredInstallPrompt=null;
   const isStandalone=()=>window.matchMedia?.('(display-mode: standalone)').matches===true ||
     window.navigator.standalone===true;
+
+  const updateNotifLang=()=>{
+    const isId=(typeof homeLanguage!=='undefined'&&homeLanguage==='id')||(document.documentElement.lang==='id');
+    const title=document.getElementById('mPwaNotifTitle');
+    const desc=document.getElementById('mPwaNotifDesc');
+    const btn=document.getElementById('mPwaNotifInstallBtn');
+    if(title)title.textContent=isId?'Pasang Open Motion':'Install Open Motion';
+    if(desc)desc.textContent=isId?'Aplikasi lebih cepat & layar penuh':'Faster access & fullscreen';
+    if(btn)btn.textContent=isId?'Instal':'Install';
+  };
+  window.omsUpdatePwaNotifLang=updateNotifLang;
+
   const refreshState=()=>{
     const standalone=isStandalone();
-    installBtn.hidden=standalone;
-    installBtn.classList.toggle('ready',!!deferredInstallPrompt&&!standalone);
-    installBtn.title=deferredInstallPrompt?'Instal Open Motion':'Instal Open Motion';
+    if(installBtn){
+      installBtn.hidden=standalone;
+      installBtn.classList.toggle('ready',!!deferredInstallPrompt&&!standalone);
+      installBtn.title=deferredInstallPrompt?'Instal Open Motion':'Instal Open Motion';
+    }
+    const isDismissed=localStorage.getItem('oms_pwa_notif_dismissed')==='1';
+    if(notifBanner){
+      if(standalone||isDismissed){
+        notifBanner.classList.add('hidden');
+      }else{
+        notifBanner.classList.remove('hidden');
+        updateNotifLang();
+      }
+    }
     const root=document.documentElement;
     root.classList.toggle('omsStandalone',standalone);
     const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent) || 
@@ -57810,47 +57976,89 @@ html.omsMobileLandscapeDesktop #preRenderRecordBtn{left:35px!important}
     }
   };
 
-  window.addEventListener('beforeinstallprompt',event=>{
-    // Keep Chrome's install event so the persistent Home button can invoke it.
-    event.preventDefault();
-    deferredInstallPrompt=event;
-    refreshState();
-  });
-
-  installBtn.addEventListener('click',async()=>{
+  const triggerInstall=async(source='btn')=>{
     if(isStandalone()){refreshState();return}
+    const isId=(typeof homeLanguage!=='undefined'&&homeLanguage==='id')||(document.documentElement.lang==='id');
+    const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent) || 
+      (navigator.platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1);
+
     if(!deferredInstallPrompt){
+      if(isIOS){
+        window.toast?.(isId
+          ? 'Di Safari: Ketuk tombol Bagikan ⎋ lalu pilih "Tambah ke Layar Utama"'
+          : 'In Safari: Tap Share ⎋ then "Add to Home Screen"');
+        return;
+      }
       const local=location.protocol==='file:'||location.protocol==='content:';
-      try{
-        window.toast?.(local
-          ? 'Instal PWA hanya tersedia dari situs HTTPS. Buka Open Motion melalui GitHub Pages.'
-          : 'Chrome belum menyiapkan prompt instal. Coba menu ⋮ → Instal aplikasi / Tambahkan ke layar utama.');
-      }catch(_){}
+      window.toast?.(local
+        ? (isId ? 'Instal PWA hanya tersedia dari situs HTTPS. Buka Open Motion melalui GitHub Pages.' : 'PWA install requires HTTPS.')
+        : (isId ? 'Ketuk menu browser ⋮ lalu pilih "Instal aplikasi" / "Tambahkan ke layar utama".' : 'Tap browser menu ⋮ then select "Install app".'));
       return;
     }
 
-    installBtn.setAttribute('aria-busy','true');
+    if(installBtn)installBtn.setAttribute('aria-busy','true');
     try{
       const promptEvent=deferredInstallPrompt;
       const result=await promptEvent.prompt();
-      // A captured beforeinstallprompt can only be used once.
       deferredInstallPrompt=null;
       refreshState();
-      if(result?.outcome==='dismissed'){
-        try{window.toast?.('Instalasi dibatalkan. Tombol INSTAL akan aktif lagi saat Chrome menawarkan prompt baru.')}catch(_){}
+      if(result?.outcome==='accepted'){
+        if(notifBanner)notifBanner.classList.add('hidden');
+        try{localStorage.setItem('oms_pwa_notif_dismissed','1')}catch(_){}
+        window.toast?.(isId?'Memasang Open Motion…':'Installing Open Motion…');
+      }else if(result?.outcome==='dismissed'){
+        try{window.toast?.(isId?'Instalasi dibatalkan.':'Installation dismissed.')}catch(_){}
       }
     }catch(error){
       console.warn('[Open Motion PWA] install prompt gagal:',error);
       deferredInstallPrompt=null;
       refreshState();
-      try{window.toast?.('Prompt instal belum tersedia. Coba menu ⋮ Chrome → Instal aplikasi.')}catch(_){}
+      try{window.toast?.(isId?'Prompt instal belum tersedia. Coba menu ⋮ browser.':'Install prompt unavailable. Try browser menu ⋮.')}catch(_){}
     }finally{
-      installBtn.removeAttribute('aria-busy');
+      if(installBtn)installBtn.removeAttribute('aria-busy');
     }
+  };
+
+  window.addEventListener('beforeinstallprompt',event=>{
+    // Keep Chrome's install event so both the notification and home button can invoke it.
+    event.preventDefault();
+    deferredInstallPrompt=event;
+    refreshState();
   });
+
+  if(installBtn){
+    installBtn.addEventListener('click',()=>triggerInstall('header'));
+  }
+
+  if(notifInstallBtn){
+    notifInstallBtn.addEventListener('click',e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      triggerInstall('notif-btn');
+    });
+  }
+
+  if(notifTrigger){
+    notifTrigger.addEventListener('click',e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      triggerInstall('notif-card');
+    });
+  }
+
+  if(notifCloseBtn){
+    notifCloseBtn.addEventListener('click',e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      if(notifBanner)notifBanner.classList.add('hidden');
+      try{localStorage.setItem('oms_pwa_notif_dismissed','1')}catch(_){}
+    });
+  }
 
   window.addEventListener('appinstalled',()=>{
     deferredInstallPrompt=null;
+    if(notifBanner)notifBanner.classList.add('hidden');
+    try{localStorage.setItem('oms_pwa_notif_dismissed','1')}catch(_){}
     refreshState();
     try{window.toast?.('Open Motion berhasil diinstal.')}catch(_){}
   });
